@@ -45,7 +45,7 @@ function wsnow() {
 	        var Where       = wsnow_parms.where;        // where to snow
         }
 
-      var $Container;
+      var Container;
       var Itemscount = 0;
       var Nsantas;
       var Position = 'fixed';           // static relative fixed absolute sticky
@@ -92,7 +92,7 @@ function wsnow() {
 	        i++;
 	        var $item = $('<div class="wsnow"></div>');
 	        $item.addClass(item+i).hide();
-	        $Container.append($item);
+	        Container.append($item);
 	        var b = $item.css("background-image");
 	        $item.remove();
 	        if (b == "none")
@@ -215,7 +215,7 @@ function wsnow() {
 	        x += xspeed * Santa_dt;
 	        if (x < -300) x = -300;
 	        var timer;
-	        if (x > $Container.width()) {
+	        if (x > Container.width()) {
 	            y = (randint(100)+50);
 	            x = -300;
 	            timer = 0;
@@ -233,7 +233,7 @@ function wsnow() {
 	    var xspeed = Santa_speed;
 
 	    $santa.css({ top: y, left: x, opacity: 1, position: Position} ).addClass("wsnow_santa");
-	        $Container.append($santa);
+	        Container.append($santa);
 	    stepSanta(1);
     }
 
@@ -295,7 +295,7 @@ function wsnow() {
     // ----- start of main program ------
 
 
-    $Container = $(Where);
+    Container = $(Where);
 
     $(window).resize( function() { Resized=true; } );
 
