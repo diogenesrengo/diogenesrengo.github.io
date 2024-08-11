@@ -55,160 +55,121 @@
 
 var wsnow_version = "0.92";
 
-function wsnow()
-{
-  
-   document.querySelector(document).ready(function() {
+function wsnow() {
+    document.querySelector(document).ready(function() {
+    if (wsnow_parms !== undefined) {
+	    var Botcolor       = wsnow_parms.botcolor      ;     // color of bottom of screen
+	    var Do_meteorite   = wsnow_parms.do_meteorite  ;     // whether to show meteorites
+	    var Flake_speed    = wsnow_parms.flake_speed   ;     // mean vertical speed of flakes
+	    var Flakedt        = wsnow_parms.flakedt       ;     // update interval of flakes, seconds
+	    var Forbiddentrees = wsnow_parms.forbiddentrees;     // Trees that will not be shown
+	    var Fppps          = wsnow_parms.fppps         ;     // Number of flakes/pixel/second generated
+	    var Maxtrees       = wsnow_parms.maxtrees      ;     // Maximum number of "trees"
+	    var Meteorite_dt   = wsnow_parms.meteorite_dt  ;     // max time between two meteorites
+	    var Nstars         = wsnow_parms.nstars        ;     // Number of stars
+	    var Santa_dt       = wsnow_parms.Santa_dt      ;     // update interval for santa, seconds
+	    var Santa_speed    = wsnow_parms.Santa_speed   ;     // speed of Santa, pixels/second
+	    var Santa_type     = wsnow_parms.Santa_type    ;     // which Santa to show
+	    var Show_menu      = wsnow_parms.show_menu     ;     // to show or not show a menu
+	    var Topcolor       = wsnow_parms.topcolor      ;     // color of the top of the screen
+	    var Vintage        = wsnow_parms.vintage       ;     // true: get the original xsnow feeling
+	    var Where          = wsnow_parms.where         ;     // where to snow
+	    var Windspeed      = wsnow_parms.windspeed     ;     // speed of wind  ( pixels/second)
+	    var Windtimer      = wsnow_parms.windtimer     ;     // update interval for wind, seconds
+    }
+
+    var $Container;
+    var $Hello;
+    var $Vintagebutton;
+    var Buttonbackground;
+    var Do_meteorite_default = true;          // To show or not to show meteorites
+    var Do_meteorite_vintage = false;
+    var Dobackground         = true;
+    var Flake_speed_default  = 50;
+    var Flakecounter         = 0;
+    var Fppps_default        = 0.0030;
+    var Fppps_vintage        = 0.0015;
+    var Itemscount           = 0;
+    var Maxtrees_default     = 12;
+    var Maxtrees_vintage     = 6;
+    var Nsantas;
+    var Nsnowtypes;
+    var Nstars_default       = 20;
+    var Nstars_vintage       = 0;
+    var Ntrees               = 0;
+    var Position             = 'fixed';       // static relative fixed absolute sticky
+    var Resized              = false;
+    var Santa_default        = 1;             // Santa: 8 reindeers
+    var Santa_speed_default  = 100;
+    var Santa_vintage        = 6;             // Santa: Vintage 3 reindeers, first is Rudolf
+    var Santasinfo           = [];
+    var ShowRudolf;
+    var ShowSanta;
+    var Snow_timeout;
+    var Snowinfo             = {};
+    var Starcounter          = 0;
+    var Starsinfo            = {};
+    var Treeregion           = []; // {x1, y1, x2, y2}
+    var Treesinfo            = [];
+    var Wind                 = 0;
+    var Windspeed_default    = 50;
+
+    // Treeregion picture
+    //
+    //    x1,y1---------------------------
+    //      |                            |
+    //      |                            |
+    //      |                            |
+    //      |                            |
+    //      |                            |
+    //      |                            |
+    //      |                            |
+    //      ---------------------------x2,y2
+    //
+
+    if(Where === undefined) Where = 'body';
+
+    function defaults() {
+	    if(Botcolor       === undefined) Botcolor       = 'black';
+	    if(Flake_speed    === undefined) Flake_speed    = Flake_speed_default;
+	    if(Flakedt        === undefined) Flakedt        = 0.2;
+	    if(Forbiddentrees === undefined) Forbiddentrees = {};
+	    if(Meteorite_dt   === undefined) Meteorite_dt   = 8;
+	    if(Santa_dt       === undefined) Santa_dt       = 0.1;
+	    if(Santa_speed    === undefined) Santa_speed    = Santa_speed_default;
+	    if(Show_menu      === undefined) Show_menu      = false;
+	    if(Topcolor       === undefined) Topcolor       = 'darkred';
+	    if(Vintage        === undefined) Vintage        = false;
+	    if(Windspeed      === undefined) Windspeed      = Windspeed_default;
+	    if(Windtimer      === undefined) Windtimer      = 1;
     
-      if (wsnow_parms !== undefined)
-      {
-      
-	 var Botcolor       = wsnow_parms.botcolor      ;     // color of bottom of screen
-	 var Do_meteorite   = wsnow_parms.do_meteorite  ;     // whether to show meteorites
-	 var Flake_speed    = wsnow_parms.flake_speed   ;     // mean vertical speed of flakes
-	 var Flakedt        = wsnow_parms.flakedt       ;     // update interval of flakes, seconds
-	 var Forbiddentrees = wsnow_parms.forbiddentrees;     // Trees that will not be shown
-	 var Fppps          = wsnow_parms.fppps         ;     // Number of flakes/pixel/second generated
-	 var Maxtrees       = wsnow_parms.maxtrees      ;     // Maximum number of "trees"
-	 var Meteorite_dt   = wsnow_parms.meteorite_dt  ;     // max time between two meteorites
-	 var Nstars         = wsnow_parms.nstars        ;     // Number of stars
-	 var Santa_dt       = wsnow_parms.Santa_dt      ;     // update interval for santa, seconds
-	 var Santa_speed    = wsnow_parms.Santa_speed   ;     // speed of Santa, pixels/second
-	 var Santa_type     = wsnow_parms.Santa_type    ;     // which Santa to show
-	 var Show_menu      = wsnow_parms.show_menu     ;     // to show or not show a menu
-	 var Topcolor       = wsnow_parms.topcolor      ;     // color of the top of the screen
-	 var Vintage        = wsnow_parms.vintage       ;     // true: get the original xsnow feeling
-	 var Where          = wsnow_parms.where         ;     // where to snow
-	 var Windspeed      = wsnow_parms.windspeed     ;     // speed of wind  ( pixels/second)
-	 var Windtimer      = wsnow_parms.windtimer     ;     // update interval for wind, seconds
+    if (Santa_type   === undefined) {
+        if (Vintage) Santa_type   = Santa_vintage;  
+	    else         Santa_type   = Santa_default;
     }
-    
-
-
-      var $Container;
-      var $Hello;
-      var $Vintagebutton;
-      var Buttonbackground;
-      var Do_meteorite_default = true;            // To show or not to show meteorites
-      var Do_meteorite_vintage = false;
-      var Dobackground         = true;
-      var Flake_speed_default  = 50;
-      var Flakecounter         = 0;
-      var Fppps_default        = 0.0030;
-      var Fppps_vintage        = 0.0015;
-      var Itemscount           = 0;
-      var Maxtrees_default     = 12;
-      var Maxtrees_vintage     = 6;
-      var Nsantas;
-      var Nsnowtypes;
-      var Nstars_default       = 20;
-      var Nstars_vintage       = 0;
-      var Ntrees               = 0;
-      var Position             = 'fixed';       // static relative fixed absolute sticky
-      var Resized              = false;
-      var Santa_default        = 1;               // Santa: 8 reindeers
-      var Santa_speed_default  = 100;
-      var Santa_vintage        = 6;               // Santa: Vintage 3 reindeers, first is Rudolf
-      var Santasinfo           = [];
-      var ShowRudolf;
-      var ShowSanta;
-      var Snow_timeout;
-      var Snowinfo             = {
+      
+	if (Maxtrees     === undefined) {
+        if (Vintage) Maxtrees     = Maxtrees_vintage;
+	    else         Maxtrees     = Maxtrees_default;
     }
-    ;
-      var Starcounter          = 0;
-      var Starsinfo            = {
+      
+	if (Do_meteorite === undefined) {
+        if (Vintage) Do_meteorite = Do_meteorite_vintage;
+	    else         Do_meteorite = Do_meteorite_default;
     }
-    ;
-      var Treeregion           = [];   // {
-       x1, y1, x2, y2
+      
+	if (Nstars       === undefined) {
+        if (Vintage) Nstars       = Nstars_vintage;
+	    else         Nstars       = Nstars_default;
     }
-    
-      var Treesinfo            = [];
-      var Wind                 = 0;
-      var Windspeed_default    = 50;
-
-      // Treeregion picture
-      //
-      //    x1,y1---------------------------
-      //      |                            |
-      //      |                            |
-      //      |                            |
-      //      |                            |
-      //      |                            |
-      //      |                            |
-      //      |                            |
-      //      ---------------------------x2,y2
-      //
-
-      if(Where          === undefined) Where          ='body';
-
-
-      function defaults()
-      {
       
-	 if(Botcolor       === undefined) Botcolor       = 'black';
-	 if(Flake_speed    === undefined) Flake_speed    = Flake_speed_default;
-	 if(Flakedt        === undefined) Flakedt        = 0.2;
-	 if(Forbiddentrees === undefined) Forbiddentrees = {
-      }
-      ;
-	 if(Meteorite_dt   === undefined) Meteorite_dt   = 8;
-	 if(Santa_dt       === undefined) Santa_dt       = 0.1;
-	 if(Santa_speed    === undefined) Santa_speed    = Santa_speed_default;
-	 if(Show_menu      === undefined) Show_menu      = false;
-	 if(Topcolor       === undefined) Topcolor       = 'darkred';
-	 if(Vintage        === undefined) Vintage        = false;
-	 if(Windspeed      === undefined) Windspeed      = Windspeed_default;
-	 if(Windtimer      === undefined) Windtimer      = 1;
-
-	 if(Santa_type   === undefined) 
-	 {
-        
-	    if (Vintage)
-	       Santa_type   = Santa_vintage;  
-	    else
-	       Santa_type   = Santa_default;
-      }
+	if( Fppps        === undefined) {
+        if (Vintage) Fppps       = Fppps_vintage;
+	    else         Fppps       = Fppps_default;
+    }
       
-	 if(Maxtrees     === undefined)
-	 {
-        
-	    if(Vintage)
-	       Maxtrees     = Maxtrees_vintage;
-	    else
-	       Maxtrees     = Maxtrees_default;
-      }
-      
-	 if(Do_meteorite === undefined)
-	 {
-        
-	    if(Vintage)
-	       Do_meteorite = Do_meteorite_vintage;
-	    else
-	       Do_meteorite = Do_meteorite_default;
-      }
-      
-	 if(Nstars       === undefined)
-	 {
-        
-	    if(Vintage)
-	       Nstars       = Nstars_vintage;
-	    else
-	       Nstars       = Nstars_default;
-      }
-      
-	 if(Fppps        === undefined)
-	 {
-        
-	    if(Vintage)
-	       Fppps       = Fppps_vintage;
-	    else
-	       Fppps       = Fppps_default;
-      }
-      
-	 // if user provided background image, we will not try to
-	 // overrule that
+	// if user provided background image, we will not try to
+	// overrule that
 
 	 Dobackground = (document.querySelector('body').style."background-image") == "none");
 
