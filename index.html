@@ -50,7 +50,7 @@ function wsnow() {
       var Nsantas;
       var Position = 'fixed';           // static relative fixed absolute sticky
       var Resized = false;
-      var Santa_default = 7;            // Santa: 8 reindeers
+      var Santa_default = 3;            // Santa: 8 reindeers
       var Santa_speed_default = 100;
       var Santasinfo = [];
       var ShowRudolf;
@@ -59,7 +59,7 @@ function wsnow() {
       if (Where === undefined) Where = 'body';
 
     function defaults() {
-	    if (Santa_dt    === undefined) Santa_dt    = 0.1;
+	    if (Santa_dt    === undefined) Santa_dt    = 0.5;
 	    if (Santa_speed === undefined) Santa_speed = Santa_speed_default;
 	    if (Santa_type  === undefined) Santa_type  = Santa_default;
     }    
