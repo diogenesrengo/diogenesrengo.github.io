@@ -1,63 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>WSNOW - Let is snow in your browser</title>
-    <meta name="description" content="">
-    <link rel="stylesheet" href="css/wsnow.css">
-    <style>
-	 body, html {
-	     height: 100%;
-	     width: 100%;
-	     overflow: hidden;
-	 }
-    </style>
-    <!-- here styling of your background image -->
-</head>
-<body>
-    <script>
-
-   // here you can set your favorite settings:
-	var wsnow_parms = {
-	   // Santa_dt      : 0.1,           // update interval for santa, seconds
-	   // Santa_speed   : 100,           // speed of Santa, pixels/second
-
-	   // Santa_type    : 1,             // Santa: 8 reindeers
-	   // Santa_type    : 2,             // Santa: 8 reindeers plus Rudolf
-	   // Santa_type    : 3,             // Santa: train
-	   // Santa_type    : 4,             // Santa: train with Rudolf
-	   // Santa_type    : 5,             // Santa: vintage: 3 reindeers
-	   // Santa_type    : 6,             // Santa: vintage: 3 reindeers, first is Rudolf
-	   // Santa_type    : 7,             // Santa: medium: 3 reindeers
-	   // Santa_type    : 8,             // Santa: medium: 3 reindeers, first is Rudolf
-	   // Santa_type    : 9,             // Santa: tiny: 3 reindeers
-	   // Santa_type    : 10,            // Santa: tiny: 3 reindeers, first is Rudolf
-
-	   // do_meteorite  : true,          // whether to show meteorites
-	   // flake_speed   : 50,            // mean vertical speed of flakes
-	   // flakedt       : 0.2,           // update interval of flakes, seconds
-	   // fppps         : 0.003,         // create so many flakes/pixel/second
-	   // maxtrees      : 12,            // max number of trees
-	   // meteorite_dt  : 8,             // max time between two meteorites
-	   // nstars        : 20,            // number of stars
-	   // show_menu     : false,         // to show or not to show a menu
-	   // topcolor      : 'darkred',     // color of top of your screen
-	   // botcolor      : 'black',       // color of the bottom of your screen
-	   // vintage       : false,         // true: get the original xsnow feeling
-	   // where         : 'body',        // where to snow
-	   // windtimer     : 1,             // update interval for wind, seconds
-	   // windspeed     : 50,            // speed of wind
-	};
-
-	wsnow();
-
 "use strict";
 
 var wsnow_version = "0.92";
 
 function wsnow()
 {
-   document.addEventListener("DOMContentLoaded", function() { {
+   $(document).ready(function() {
       if (wsnow_parms !== undefined)
       {
 	 var Botcolor       = wsnow_parms.botcolor      ;     // color of bottom of screen
@@ -135,7 +82,7 @@ function wsnow()
 
       function defaults()
       {
-	 if(Botcolor       === undefined) Botcolor       = '';
+	 if(Botcolor       === undefined) Botcolor       = 'black';
 	 if(Flake_speed    === undefined) Flake_speed    = Flake_speed_default;
 	 if(Flakedt        === undefined) Flakedt        = 0.2;
 	 if(Forbiddentrees === undefined) Forbiddentrees = {};
@@ -143,7 +90,7 @@ function wsnow()
 	 if(Santa_dt       === undefined) Santa_dt       = 0.1;
 	 if(Santa_speed    === undefined) Santa_speed    = Santa_speed_default;
 	 if(Show_menu      === undefined) Show_menu      = false;
-	 if(Topcolor       === undefined) Topcolor       = '';
+	 if(Topcolor       === undefined) Topcolor       = 'darkred';
 	 if(Vintage        === undefined) Vintage        = false;
 	 if(Windspeed      === undefined) Windspeed      = Windspeed_default;
 	 if(Windtimer      === undefined) Windtimer      = 1;
@@ -186,11 +133,11 @@ function wsnow()
 	 // if user provided background image, we will not try to
 	 // overrule that
 
-	 Dobackground = (document.querySelector("body").style.background-image == "none");
+	 Dobackground = ($('body').css("background-image") == "none");
 
 	 // get the default button background color:
 	 //
-	 var $x = document.querySelector("<button>Button</button>");
+	 var $x = $("<button>Button</button>");
 	 $Container.append($x);
 	 Buttonbackground = $x.css("background-color");
 	 $x.remove();
@@ -228,7 +175,7 @@ function wsnow()
 	 {
 	    i++;
 	    var $item = $('<div class="wsnow"></div>');
-	    $item.addClass(item+i).style.display = "none";
+	    $item.addClass(item+i).hide();
 	    $Container.append($item);
 	    var b = $item.css("background-image");
 	    $item.remove();
@@ -245,14 +192,14 @@ function wsnow()
 	 {
 	    var $tree = $('<div class="wsnow"></div>');
 	    $tree.addClass("tree"+i);
-	    $tree.css({left: -100, top: -100, overflow: 'hidden' }).style.display = "none";
-	    document.querySelector("body").append($tree);
+	    $tree.css({left: -100, top: -100, overflow: 'hidden' }).hide();
+	    $('body').append($tree);
 	    var x = $tree.css("background-image");
 	    Treesinfo[i] = {src: urltoimg(x),width:-314,height:-314};
 	    $tree.remove();
 
-	    $tree = $('<img id="wsnow_apekool'+i+'" src="'+Treesinfo[i].src+'">').style.display = "none";
-	    document.querySelector("body").append($tree);
+	    $tree = $('<img id="wsnow_apekool'+i+'" src="'+Treesinfo[i].src+'">').hide();
+	    $("body").append($tree);
 	    $("#wsnow_apekool"+i).each(function() {
 	       $(this).on('load', function(){
 		  var k = this.id.replace("wsnow_apekool","");
@@ -395,14 +342,14 @@ function wsnow()
 	 Itemscount ++;
 	 var iteminfo = {};
 	 var $item = $('<div class="'+c+'"></div>');
-	 $item.css({left: 100, top: 100, overflow: 'hidden' }).style.display = "block";
-	 document.querySelector("body").append($item);
+	 $item.css({left: 100, top: 100, overflow: 'hidden' }).show();
+	 $('body').append($item);
 	 var x = $item.css("background-image");
 	 iteminfo = {src: urltoimg(x),width:-314,height:-314};
 	 $item.remove();
 
-	 $item = $('<img id="wsnow_apekool'+Itemscount+'" src="'+iteminfo.src+'">').style.display = "none";
-	 document.querySelector("body").append($item);
+	 $item = $('<img id="wsnow_apekool'+Itemscount+'" src="'+iteminfo.src+'">').hide();
+	 $("body").append($item);
 	 $("#wsnow_apekool"+Itemscount).each(function() {
 	    $(this).on('load', function(){
 	       iteminfo.width  = this.width;
@@ -548,7 +495,7 @@ function wsnow()
 
       function start_snow()
       {
-	 document.querySelector(".wsnow_flake").remove();
+	 $(".wsnow_flake").remove();
 	 createsnow();
       }
       function stop_snow()
@@ -612,7 +559,7 @@ function wsnow()
 	 var x = -300;
 	 var xspeed = Santa_speed;
 
-	 $santa.css({ top: y, left: x, opacity: 1, position: Position} ).classList.add("wsnow_santa");
+	 $santa.css({ top: y, left: x, opacity: 1, position: Position} ).addClass("wsnow_santa");
 	 $Container.append($santa);
 	 stepSanta(1);
       }
@@ -620,12 +567,12 @@ function wsnow()
 
       function startSanta()
       {
-	 document.querySelector(".wsnow_santa").remove();
+	 $(".wsnow_santa").remove();
 	 createSanta();
       }
       function stopSanta()
       {
-	 document.querySelector(".wsnow_santa").stop().remove();
+	 $(".wsnow_santa").stop().remove();
       }
 
 
@@ -700,8 +647,8 @@ function wsnow()
 
       function createStars()
       {
-	 //document.querySelector(".wsnow.star").css({top: "-314px"});
-	 document.querySelector(".wsnow.star").remove();
+	 //$(".wsnow.star").css({top: "-314px"});
+	 $(".wsnow.star").remove();
 	 for (var i=0; i< Nstars; i++)
 	    createStar();
       }
@@ -714,7 +661,7 @@ function wsnow()
 	 var transform = 'rotate('+angle+'deg)';
 
 	 // static relative fixed absolute sticky
-	 var line = document.querySelector("<div>")
+	 var line = $('<div>')
 	 //.addClass('wsnow line')
 	    .css({
 	       'transform-origin': '0 100%',
@@ -732,7 +679,7 @@ function wsnow()
       function createMeteorite()
       {
 	 // static relative fixed absolute sticky
-	 var $meteorite = document.querySelector("<div>")
+	 var $meteorite = $('<div>')
 	    .css({
 	       'transform-origin': '0 100%',
 	       'height':           2,
@@ -810,7 +757,7 @@ function wsnow()
 	    if (good)
 	    {
 	       Treeregion.push({x1:x,y1:y,x2:x+w,y2:y+h});
-	       $tree.css({left: x, top: y, overflow: 'hidden' ,width: w, height: h}).style.display = "block";
+	       $tree.css({left: x, top: y, overflow: 'hidden' ,width: w, height: h}).show();
 	       if (flop)
 		  $tree.css({'-webkit-transform': 'scaleX(-1)', 'transform': 'scaleX(-1)'});
 	       return;
@@ -830,14 +777,17 @@ function wsnow()
 	 for (var i=0; i<Maxtrees; i++)
 	 {
 	    var m;
-	    if (Vintage) m = 1;
-        else {
+	    if (Vintage)
+	       m = 1;
+	    else
+	    {
 	       if (Ntrees <= Object.keys(Forbiddentrees).length)
-		       return;
-	       while (true) {
-		       m = 1+randint(Ntrees);
-		       if (Forbiddentrees[m] === undefined)
-		       break;
+		  return;
+	       while (true)
+	       {
+		  m = 1+randint(Ntrees);
+		  if (Forbiddentrees[m] === undefined)
+		     break;
 	       }
 	    }
 	    var flop = (Math.random()>0.5);
@@ -952,26 +902,27 @@ function wsnow()
 	    + '</div>'
 	 ;
 
-	 $Hello = document.querySelector("#wsnow_hello");
+	 $Hello = $("#wsnow_hello");
 	 // static relative fixed absolute sticky
-	 $Hello.html(x).style.display = "none";
-     //.css({'color': 'white', 'background-color': 'black', 'width': 500, 'font-family': "Verdana, Geneva, sans-serif",'text-align':'center', left:20,top:30,position:Position,'padding':"20px"});
-	 document.querySelector(".wsnow_button").css("background-color",Buttonbackground);
+	 $Hello.html(x).hide().css({'color': 'white', 'background-color': 'black',
+	    'width': 500, 'font-family': "Verdana, Geneva, sans-serif",'text-align':'center',
+	    left:20,top:30,position:Position,'padding':"20px"});
+	 $(".wsnow_button").css("background-color",Buttonbackground);
 	 return $Hello;
       }
 
 
       function closeMenus()
       {
-	 document.querySelector(".wsnow_menu").style.display = "none";
-	 document.querySelector(".wsnow_choices").css("background-color",Buttonbackground);
-	 document.querySelector(".wsnow_choices").setAttribute("clicked", "no");
+	 $(".wsnow_menu").hide();
+	 $(".wsnow_choices").css("background-color",Buttonbackground);
+	 $(".wsnow_choices").attr("clicked","no");
       }
 
       function openSantamenu()
       {
 	 closeMenus();
-	 document.querySelector("#wsnow_santa_menubuttons").style.display = "block";
+	 $("#wsnow_santa_menubuttons").show();
       }
 
       function openmenu(target)
@@ -988,15 +939,15 @@ function wsnow()
 	 closeMenus();
 	 x.setAttribute("clicked","yes");
 	 var what = x.getAttribute("what");
-	 $(x).style.background-color = "yellow";
+	 $(x).css("background-color","yellow");
 
 	 switch (x.getAttribute("what"))
 	 {
 	    case "santa":
-	       document.querySelector("#wsnow_santa_menubuttons").style.display = "block";
+	       $("#wsnow_santa_menubuttons").show();
 	       break;
 	    case "trees":
-	       document.querySelector("#wsnow_trees_menubuttons").style.display = "block";
+	       $("#wsnow_trees_menubuttons").show();
 	       for (var i = 1; i<= Ntrees; i++)
 	       {
 		  var $tree = $('.wsnow_tree_button[tree="'+i+'"]');
@@ -1007,7 +958,7 @@ function wsnow()
 	       }
 	       break;
 	    case "celestials":
-	       document.querySelector("#wsnow_celestials_menubuttons").style.display = "block";
+	       $("#wsnow_celestials_menubuttons").show();
 	       set_meteobuttons_color();
 	       break;
 	    case "vintage":
@@ -1015,11 +966,11 @@ function wsnow()
 	       closeMenus();
 	       break;
 	    case "background":
-	       document.querySelector("#wsnow_background_menu").style.display = "block";
+	       $("#wsnow_background_menu").show();
 	       do_background();
 	       break;
 	    case "about":
-	       document.querySelector("#wsnow_about_menu").style.display = "block";
+	       $("#wsnow_about_menu").show();
 	       break;
 	 }
       }
@@ -1027,7 +978,7 @@ function wsnow()
 
       function showHello()
       {
-	 $Hello.css({"margin":"auto"}).style.display = "block";
+	 $Hello.css({"margin":"auto"}).show();
 	 $Container.off("click");
       }
 
@@ -1054,7 +1005,7 @@ function wsnow()
 	 start_snow();
 	 createTrees();
 	 createStars();
-	 $Vintagebutton.off().innerHTML = "default";.click(do_default);
+	 $Vintagebutton.off().html("default").click(do_default);
 
 	 Vintage = false;
       }
@@ -1069,7 +1020,7 @@ function wsnow()
 	 start_snow();
 	 createTrees();
 	 createStars();
-	 $Vintagebutton.off().innerHTML = "vintage";.click(do_vintage);
+	 $Vintagebutton.off().html("vintage").click(do_vintage);
       }
 
       function do_Santa(target)
@@ -1138,12 +1089,12 @@ function wsnow()
 	 if (Forbiddentrees[m])
 	 {
 	    delete(Forbiddentrees[m]);
-	    $(x).style.opacity = "1";
+	    $(x).css("opacity","1");
 	 }
 	 else
 	 {
 	    Forbiddentrees[m] = true;
-	    $(x).style.opacity = "0.6";
+	    $(x).css("opacity","0.6");
 	 }
 	 createTrees();
       }
@@ -1296,10 +1247,14 @@ function wsnow()
 
       function do_background()
       {
-	 //var $top = document.querySelector("#colorpickertop");
-	 //$top.spectrum({ color:Topcolor });
-	 //var $bot = document.querySelector("#colorpickerbot");
-	 //$bot.spectrum({ color:Botcolor });
+	 var $top = $("#colorpickertop");
+	 $top.spectrum({
+	    color:Topcolor 
+	 });
+	 var $bot = $("#colorpickerbot");
+	 $bot.spectrum({
+	    color:Botcolor 
+	 });
 	 $top.change( function () {
 	    Topcolor = $top.val();
 	    setbackground();
@@ -1373,30 +1328,27 @@ function wsnow()
 	    $Hello = createHello();
 	    showHello();
 	    closeMenus();
-	    document.querySelector("#wsnow_hello .wsnow_remove_hello").click(removeHello);
+	    $("#wsnow_hello .wsnow_remove_hello").click(removeHello);
 	    ShowRudolf = true;
 	    do_Rudolfswitch();
-	    document.querySelector("#wsnow_rudolfbutton").click(do_Rudolfswitch);
-	    document.querySelector(".wsnow_choices").click(openmenu);
-	    document.querySelector("#wsnow_santaswitchbutton").click(do_Santaswitch);
-	    document.querySelector(".wsnow_santa_button").click(do_Santa);
+	    $('#wsnow_rudolfbutton').click(do_Rudolfswitch);
+	    $('.wsnow_choices').click(openmenu);
+	    $('#wsnow_santaswitchbutton').click(do_Santaswitch);
+	    $(".wsnow_santa_button").click(do_Santa);
 	    ShowRudolf = false;
 	    ShowSanta  = true;
 
 	    $Vintagebutton = $('.wsnow_choices[what="vintage"]');
-	    document.querySelector(".wsnow_santaspeedbutton").click(do_Santaspeed);
-	    document.querySelector(".wsnow_tree_button").click(do_trees);
-	    document.querySelector(".wsnow_maxtreesbutton").click(do_maxtrees);
-	    document.querySelector(".wsnow_snowquanitybutton").click(do_snowquantity);
-	    document.querySelector(".wsnow_snowspeedbutton").click(do_snowspeed);
-	    document.querySelector(".wsnow_starbutton").click(do_stars);
-	    document.querySelector(".wsnow_meteobutton").click(do_meteorites);
-	    document.querySelector(".wsnow_windbutton").click(do_windspeed);
+	    $('.wsnow_santaspeedbutton').click(do_Santaspeed);
+	    $('.wsnow_tree_button').click(do_trees);
+	    $('.wsnow_maxtreesbutton').click(do_maxtrees);
+	    $('.wsnow_snowquanitybutton').click(do_snowquantity);
+	    $('.wsnow_snowspeedbutton').click(do_snowspeed);
+	    $('.wsnow_starbutton').click(do_stars);
+	    $('.wsnow_meteobutton').click(do_meteorites);
+	    $('.wsnow_windbutton').click(do_windspeed);
 	 },10);  // waitfor
    });  // $(document).ready
 }  // wsnow
 
-    </script>
-</body>
-</html>
 
