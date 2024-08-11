@@ -204,7 +204,7 @@ function wsnow() {
 	    var $item = document.querySelector('<div class="wsnow"></div>');
 	    $item.classList.add(item+i).style.display = "none";;
 	    $Container.insertAdjacentHTML("beforeend",$item);
-	    var b = $item.style."background-image");
+	    var b = $item.style = "background-image";
 	    $item.remove();
 	    if (b == "none")
 	       return i-1;
@@ -226,7 +226,7 @@ function wsnow() {
         }
         ).style.display = "none";;
 	    document.querySelector('body').insertAdjacentHTML("beforeend",$tree);
-	    var x = $tree.style."background-image");
+	    var x = $tree.style = "background-image";
 	    Treesinfo[i] = {
           src: urltoimg(x),width:-314,height:-314
         }
@@ -421,7 +421,7 @@ function wsnow() {
       }
       ).style.display = "block";;
 	 document.querySelector('body').insertAdjacentHTML("beforeend",$item);
-	 var x = $item.style."background-image");
+	 var x = $item.style = "background-image";
 	 iteminfo = {
         src: urltoimg(x),width:-314,height:-314
       }
