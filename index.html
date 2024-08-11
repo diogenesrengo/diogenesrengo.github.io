@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>WSNOW - Let is snow in your browser</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="css/wsnow.css">
+    <link rel="stylesheet" href="css/spectrum.css">
+    <style>
+        body, html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+    </style>
+    <style>
+          /* if background-image is defined here, wsnow will not touch the background*/
+          /*
+        body {
+          background-image: url('/usr/share/backgrounds/Origin_of_nature_by_Julian_Tomasini.jpg');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: 100% 100%;
+        }
+             */
+    </style>
+</head>
+<body>
+    <script src=
+    "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <script src="js/wsnow.js"></script> 
+    <script src="js/spectrum.js"></script> 
+    <script>
+
+    // here you can set your favorite settings:
+        var wsnow_parms = {
+    // Santa_dt      : 0.1,           // update interval for santa, seconds
+    // Santa_speed   : 100,           // speed of Santa, pixels/second
+
+    // Santa_type    : 1,             // Santa: 8 reindeers
+    // Santa_type    : 2,             // Santa: 8 reindeers plus Rudolf
+    // Santa_type    : 3,             // Santa: train
+    // Santa_type    : 4,             // Santa: train with Rudolf
+    // Santa_type    : 5,             // Santa: vintage: 3 reindeers
+    // Santa_type    : 6,             // Santa: vintage: 3 reindeers, first is Rudolf
+    // Santa_type    : 7,             // Santa: medium: 3 reindeers
+    // Santa_type    : 8,             // Santa: medium: 3 reindeers, first is Rudolf
+    // Santa_type    : 9,             // Santa: tiny: 3 reindeers
+    // Santa_type    : 10,            // Santa: tiny: 3 reindeers, first is Rudolf
+
+    // do_meteorite  : true,          // whether to show meteorites
+    // flake_speed   : 50,            // mean vertical speed of flakes
+    // flakedt       : 0.2,           // update interval of flakes, seconds
+    // fppps         : 0.003,         // create so many flakes/pixel/second
+    // maxtrees      : 12,            // max number of trees
+    // meteorite_dt  : 8,             // max time between two meteorites
+    // nstars        : 20,            // number of stars
+    // show_menu     : false,         // to show or not to show a menu
+     show_menu     : true,         // to show or not to show a menu
+    // topcolor      : 'darkred',     // color of top of your screen
+    // botcolor      : 'black',       // color of the bottom of your screen
+    // vintage       : false,         // true: get the original xsnow feeling
+    // where         : 'body',        // where to snow
+    // windtimer     : 1,             // update interval for wind, seconds
+    // windspeed     : 50,            // speed of wind
+        };
+
+    // call the program:
+        wsnow();
+
+    </script>
+
+</body>
+</html>
+
