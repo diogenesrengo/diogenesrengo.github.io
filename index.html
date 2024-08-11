@@ -299,7 +299,7 @@ function wsnow() {
     $(window).resize( function() { Resized=true; } );
 
     getsantainfo();
-    function() {
+    waitfor( checkAll, function() {
 	    defaults();
 	    console.log("Santa_dt:",Santa_dt);
 	    console.log("Santa_speed:",Santa_speed);
