@@ -50,6 +50,7 @@
 	};
 
 	wsnow();
+
 "use strict";
 
 var wsnow_version = "0.92";
@@ -80,9 +81,9 @@ function wsnow()
       }
 
 
-      var document.querySelectorContainer;
-      var document.querySelectorHello;
-      var document.querySelectorVintagebutton;
+      var Container;
+      var Hello;
+      var Vintagebutton;
       var Buttonbackground;
       var Do_meteorite_default = true;            // To show or not to show meteorites
       var Do_meteorite_vintage = false;
@@ -190,7 +191,7 @@ function wsnow()
 	 // get the default button background color:
 	 //
 	 var document.querySelectorx = document.querySelector("<button>Button</button>");
-	 document.querySelectorContainer.append(document.querySelectorx);
+	 Container.append(document.querySelectorx);
 	 Buttonbackground = document.querySelectorx.css("background-color");
 	 document.querySelectorx.remove();
       }
@@ -220,14 +221,15 @@ function wsnow()
       // .wsnow.tree1 { background-image: url("../images/tannenbaum.png");}
       // .wsnow.tree2 { background-image: url("../images/baum.png");}
 
-       function countItems(item) {
+      function countItems(item)
+      {
 	 var i = 0;
 	 while(1)
 	 {
 	    i++;
 	    var document.querySelectoritem = document.querySelector('<div class="wsnow"></div>');
 	    document.querySelectoritem.addClass(item+i).hide();
-	    document.querySelectorContainer.append(document.querySelectoritem);
+	    Container.append(document.querySelectoritem);
 	    var b = document.querySelectoritem.css("background-image");
 	    document.querySelectoritem.remove();
 	    if (b == "none")
@@ -450,7 +452,7 @@ function wsnow()
 	    {
 	       document.querySelectorflake.animate({ opacity: 0 }, 500, 'swing',
 		  function(){
-		     x = randint(document.querySelectorContainer.width());
+		     x = randint(Container.width());
 		     document.querySelectorflake.css({ top: top, left: x + 'px', opacity: 1 });
 		     document.querySelectorflake.remove();
 		     Flakecounter--;
@@ -460,7 +462,7 @@ function wsnow()
 	    {
 	       y = y+speed*Flakedt;
 
-	       if (y > document.querySelectorContainer.height())
+	       if (y > Container.height())
 	       {
 		  endsnowflake();
 	       }
@@ -475,15 +477,15 @@ function wsnow()
 
 		  x = x+xspeed*Flakedt;
 		  var timer = Flakedt*1000;
-		  while (x > document.querySelectorContainer.width())
+		  while (x > Container.width())
 		  {
 		     timer = 0;
-		     x -= document.querySelectorContainer.width();
+		     x -= Container.width();
 		  }
 		  while (x < -8)
 		  {
 		     timer = 0;
-		     x += document.querySelectorContainer.width();
+		     x += Container.width();
 		  }
 
 		  document.querySelectorflake.animate(
@@ -500,7 +502,7 @@ function wsnow()
 
 	 /* initial coordinates of flake */
 	 var y    = -randint(100);  
-	 var x = randint(document.querySelectorContainer.width());
+	 var x = randint(Container.width());
 
 	 var speed  = 0.8*Flake_speed+0.4*randint(Flake_speed);
 	 var wind_sensitivity = Math.random()*0.5;
@@ -516,7 +518,7 @@ function wsnow()
 	 document.querySelectorflake.css({ top: y, left: x, opacity: 1, overflow: 'hidden',
 	    width: w, height: h});
 
-	 document.querySelectorContainer.append(document.querySelectorflake);
+	 Container.append(document.querySelectorflake);
 
 	 stepFlake();
       }
@@ -530,7 +532,7 @@ function wsnow()
 	 {
 	    Snow_timeout = setTimeout(function()
 	       {
-		  var w = document.querySelectorContainer.width();
+		  var w = Container.width();
 		  t += w*Fppps*dt;
 		  if (t > 1)
 		  {
@@ -589,7 +591,7 @@ function wsnow()
 	    if (x < -300)
 	       x = -300;
 	    var timer;
-	    if (x > document.querySelectorContainer.width())
+	    if (x > Container.width())
 	    {
 	       y = (randint(100)+50);
 	       x  = -300;
@@ -611,7 +613,7 @@ function wsnow()
 	 var xspeed = Santa_speed;
 
 	 document.querySelectorsanta.css({ top: y, left: x, opacity: 1, position: Position} ).addClass("wsnow_santa");
-	 document.querySelectorContainer.append(document.querySelectorsanta);
+	 Container.append(document.querySelectorsanta);
 	 stepSanta(1);
       }
 
@@ -684,15 +686,15 @@ function wsnow()
 
 	 var document.querySelectorstar = document.querySelector('<div class="wsnow star"></div>');
 
-	 var x = randint(document.querySelectorContainer.width());
-	 var y = randint(document.querySelectorContainer.height()*0.3);
+	 var x = randint(Container.width());
+	 var y = randint(Container.height()*0.3);
 	 var w = Starsinfo["width"];
 	 var h = Starsinfo["height"];
 
 	 // static relative fixed absolute sticky
 	 document.querySelectorstar.css({top: y, left: x, opacity: 1, position: Position,
 	    width: w, height: h});
-	 document.querySelectorContainer.append(document.querySelectorstar);
+	 Container.append(document.querySelectorstar);
 	 stepStar();
       }
 
@@ -738,16 +740,16 @@ function wsnow()
 	       'opacity':          0,
 	       'position':         Position,
 	    });
-	 document.querySelectorContainer.append(document.querySelectormeteorite);
+	 Container.append(document.querySelectormeteorite);
 
 	 function stepMeteorite()
 	 {
 	    setTimeout(
 	       function()
 	       {
-		  //var x1        = document.querySelectorContainer.width()-30; // testing
-		  var x1        = randint(document.querySelectorContainer.width()-50);
-		  var y1        = randint(0.2*document.querySelectorContainer.height());
+		  //var x1        = Container.width()-30; // testing
+		  var x1        = randint(Container.width()-50);
+		  var y1        = randint(0.2*Container.height());
 		  var x2        = x1+50+randint(100);
 		  var y2        = y1+20+randint(50);
 		  var length    = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
@@ -782,7 +784,7 @@ function wsnow()
       {
 	 var document.querySelectortree = document.querySelector('<div class="wsnow"></div>');
 	 document.querySelectortree.addClass("tree"+m);
-	 document.querySelectorContainer.append(document.querySelectortree).hide;
+	 Container.append(document.querySelectortree).hide;
 	 var w1 = document.querySelectortree.width();
 	 var h1 = document.querySelectortree.height();
 	 var w = Treesinfo[m].width;
@@ -790,8 +792,8 @@ function wsnow()
 
 	 for (var tryit=0; tryit<100; tryit++)
 	 {
-	    var x = randint(document.querySelectorContainer.width()-w);
-	    var y = document.querySelectorContainer.height()-h-0.25*randint(document.querySelectorContainer.height());
+	    var x = randint(Container.width()-w);
+	    var y = Container.height()-h-0.25*randint(Container.height());
 	    var good = true;
 
 	    for (var i = 0; i<Treeregion.length; i++)
@@ -849,7 +851,7 @@ function wsnow()
 
       function createHello()
       {
-	 document.querySelectorContainer.append(document.querySelector('<div id="wsnow_hello"></div>'));
+	 Container.append(document.querySelector('<div id="wsnow_hello"></div>'));
 	 var x = ""
 	    + '<div style="text-align: right">'
 	    + '<button class="wsnow_button wsnow_remove_hello">X</button>'
@@ -953,13 +955,13 @@ function wsnow()
 	    + '</div>'
 	 ;
 
-	 document.querySelectorHello = document.querySelector("#wsnow_hello");
+	 Hello = document.querySelector("#wsnow_hello");
 	 // static relative fixed absolute sticky
-	 document.querySelectorHello.html(x).hide().css({'color': 'white', 'background-color': 'black',
+	 Hello.html(x).hide().css({'color': 'white', 'background-color': 'black',
 	    'width': 500, 'font-family': "Verdana, Geneva, sans-serif",'text-align':'center',
 	    left:20,top:30,position:Position,'padding':"20px"});
 	 document.querySelector(".wsnow_button").css("background-color",Buttonbackground);
-	 return document.querySelectorHello;
+	 return Hello;
       }
 
 
@@ -1029,19 +1031,19 @@ function wsnow()
 
       function showHello()
       {
-	 document.querySelectorHello.css({"margin":"auto"}).show();
-	 document.querySelectorContainer.off("click");
+	 Hello.css({"margin":"auto"}).show();
+	 Container.off("click");
       }
 
       function clickon()
       {
-	 document.querySelectorContainer.click(showHello);
+	 Container.click(showHello);
       }
 
 
       function removeHello()
       {
-	 document.querySelectorHello.hide();
+	 Hello.hide();
 	 setTimeout(clickon,200);
       }
 
@@ -1056,7 +1058,7 @@ function wsnow()
 	 start_snow();
 	 createTrees();
 	 createStars();
-	 document.querySelectorVintagebutton.off().html("default").click(do_default);
+	 Vintagebutton.off().html("default").click(do_default);
 
 	 Vintage = false;
       }
@@ -1071,7 +1073,7 @@ function wsnow()
 	 start_snow();
 	 createTrees();
 	 createStars();
-	 document.querySelectorVintagebutton.off().html("vintage").click(do_vintage);
+	 Vintagebutton.off().html("vintage").click(do_vintage);
       }
 
       function do_Santa(target)
@@ -1320,7 +1322,7 @@ function wsnow()
       {
 	 if (!Dobackground)
 	    return;
-	 document.querySelectorContainer.css({"background-image":'linear-gradient('+Topcolor+', '+Botcolor+')',
+	 Container.css({"background-image":'linear-gradient('+Topcolor+', '+Botcolor+')',
 	    "background-size":"100% 105%"});  // 105% ?: sometimes, using chromium browser, 
 	 //                                // there remains a small Topcolor region at the bottom
 	 //                                // when using 100%.
@@ -1331,7 +1333,7 @@ function wsnow()
       // ----- start of main program ------
 
 
-      document.querySelectorContainer = document.querySelector(Where);
+      Container = document.querySelector(Where);
 
       document.querySelector(window).resize( 
 	 function()
@@ -1376,7 +1378,7 @@ function wsnow()
 	    if (!Show_menu)
 	       return;
 
-	    document.querySelectorHello = createHello();
+	    Hello = createHello();
 	    showHello();
 	    closeMenus();
 	    document.querySelector("#wsnow_hello .wsnow_remove_hello").click(removeHello);
@@ -1389,7 +1391,7 @@ function wsnow()
 	    ShowRudolf = false;
 	    ShowSanta  = true;
 
-	    document.querySelectorVintagebutton = document.querySelector('.wsnow_choices[what="vintage"]');
+	    Vintagebutton = document.querySelector('.wsnow_choices[what="vintage"]');
 	    document.querySelector('.wsnow_santaspeedbutton').click(do_Santaspeed);
 	    document.querySelector('.wsnow_tree_button').click(do_trees);
 	    document.querySelector('.wsnow_maxtreesbutton').click(do_maxtrees);
@@ -1401,7 +1403,5 @@ function wsnow()
 	 },10);  // waitfor
    });  // document.querySelector(document).ready
 }  // wsnow
-
-
 
 </script></body></html>
