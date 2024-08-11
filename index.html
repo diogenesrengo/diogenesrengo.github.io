@@ -830,15 +830,14 @@ function wsnow()
 	 for (var i=0; i<Maxtrees; i++)
 	 {
 	    var m;
-	    if (Vintage)
-	       m = 1 else {
+	    if (Vintage) m = 1;
+        else {
 	       if (Ntrees <= Object.keys(Forbiddentrees).length)
-		  return;
-	       while (true)
-	       {
-		  m = 1+randint(Ntrees);
-		  if (Forbiddentrees[m] === undefined)
-		     break;
+		       return;
+	       while (true) {
+		       m = 1+randint(Ntrees);
+		       if (Forbiddentrees[m] === undefined)
+		       break;
 	       }
 	    }
 	    var flop = (Math.random()>0.5);
