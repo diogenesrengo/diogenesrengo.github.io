@@ -1335,9 +1335,9 @@ function wsnow()
 
       function do_background()
       {
-	 var $top = $("#colorpickertop");
+	 //var $top = $("#colorpickertop");
 	 //$top.spectrum({ color:Topcolor });
-	 var $bot = $("#colorpickerbot");
+	 //var $bot = $("#colorpickerbot");
 	 //$bot.spectrum({ color:Botcolor });
 	 $top.change( function () {
 	    Topcolor = $top.val();
