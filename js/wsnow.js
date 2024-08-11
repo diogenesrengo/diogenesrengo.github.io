@@ -178,7 +178,7 @@ function wsnow()
 	 if(Santa_dt       === undefined) Santa_dt       = 0.1;
 	 if(Santa_speed    === undefined) Santa_speed    = Santa_speed_default;
 	 if(Show_menu      === undefined) Show_menu      = false;
-	 if(Topcolor       === undefined) Topcolor       = 'darkred';
+	 if(Topcolor       === undefined) Topcolor       = 'black';
 	 if(Vintage        === undefined) Vintage        = false;
 	 if(Windspeed      === undefined) Windspeed      = Windspeed_default;
 	 if(Windtimer      === undefined) Windtimer      = 1;
