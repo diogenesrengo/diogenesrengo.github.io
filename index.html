@@ -208,7 +208,8 @@ function wsnow() {
 	        var s = Santasinfo[Santa_type];
 	        $santa.addClass(s.name+"_"+n).css({width: s.width, height: s.height});
 	        santatype = Santa_type;     // Santa_type can change, so we remember it here
-	        xspeed = Santa_speed + 1.5*Wind;
+	        //xspeed = Santa_speed + 1.5*Wind;
+	        xspeed = Santa_speed;
 	        if(xspeed > 2*Santa_speed)     xspeed = 2*Santa_speed;
 	        if (xspeed < -0.2*Santa_speed) xspeed = -0.2*Santa_speed;
 	        x += xspeed * Santa_dt;
