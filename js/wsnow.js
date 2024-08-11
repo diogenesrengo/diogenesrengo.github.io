@@ -4,23 +4,6 @@
  * MIT licensed
  */
 
-/* 
- * Acknowledgements:
- *
- * As usual, also this program is build on the shoulders of giants
- * and the fine manuals on the Internet.
- *
- * Special thanks to: 
- *    Fincza AndrÃ¡s: his let-it-snow program inspired me
- *    to write wsnow.
- *
- *    Brian Grinstead: the creator of spectrum.js/css.
- *    His software is used to change the background colors.
- *
- *    Rick Jansen who wrote the pristine version of xsnow.
- */
-
-
 /*
  * HOWTO
  *
@@ -33,7 +16,6 @@
     <title>WSNOW - Let is snow in your browser</title>
     <meta name="description" content="">
     <link rel="stylesheet" href="css/wsnow.css">
-    <link rel="stylesheet" href="css/spectrum.css">
     <style>
 	 body, html {
 	     height: 100%;
@@ -48,7 +30,6 @@
     "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script src="js/wsnow.js"></script> 
-    <script src="js/spectrum.js"></script> 
     <script>
 
    // here you can set your favorite settings:
@@ -1355,13 +1336,9 @@ function wsnow()
       function do_background()
       {
 	 var $top = $("#colorpickertop");
-	 $top.spectrum({
-	    color:Topcolor 
-	 });
+	 //$top.spectrum({ color:Topcolor });
 	 var $bot = $("#colorpickerbot");
-	 $bot.spectrum({
-	    color:Botcolor 
-	 });
+	 //$bot.spectrum({ color:Botcolor });
 	 $top.change( function () {
 	    Topcolor = $top.val();
 	    setbackground();
