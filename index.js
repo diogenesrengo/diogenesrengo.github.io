@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>WSNOW - Let is snow in your browser</title>
-    <meta name="description" content="">
-    <link rel="stylesheet" href="css/wsnow.css">
-    <style>
-	 body, html {
-	     height: 100%;
-	     width: 100%;
-	     overflow: hidden;
-	 }
-    </style>
-    <!-- here styling of your background image -->
-</head>
-<body>
-    <script>
 	var wsnow_parms = {
 	   // Santa_dt      : 0.1,           // update interval for santa, seconds
 	   // Santa_speed   : 100,           // speed of Santa, pixels/second
@@ -35,7 +17,7 @@
 	wsnow();
 
 function wsnow() {
-    document.addEventListener("DOMContentLoaded", function() {
+    $(document).ready(function() {
         if (wsnow_parms !== undefined) {
 	        var Santa_dt    = wsnow_parms.Santa_dt;     // update interval for santa, seconds
 	        var Santa_speed = wsnow_parms.Santa_speed;  // speed of Santa, pixels/second
@@ -88,7 +70,7 @@ function wsnow() {
 	    var i = 0;
 	    while (1) {
 	        i++;
-	        var item = document.querySelector('<div class="wsnow"></div>');
+	        var item = $('<div class="wsnow"></div>');
 	        item.addClass(item+i).hide();
 	        Container.append(item);
 	        var b = item.css("background-image");
@@ -151,20 +133,20 @@ function wsnow() {
     function getiteminfo(c) {
 	    Itemscount ++;
 	    var iteminfo = {};
-	    var item = document.querySelector('<div class="'+c+'"></div>');
+	    var item = $('<div class="'+c+'"></div>');
 	    item.css({left: 100, top: 100, overflow: 'hidden' }).show();
-	    document.querySelector('body').append(item);
+	    $('body').append(item);
 	    var x = item.css("background-image");
 	    iteminfo = {src: urltoimg(x),width:-314,height:-314};
 	    item.remove();
 
-	    item = document.querySelector('<img id="wsnow_apekool'+Itemscount+'" src="'+iteminfo.src+'">').hide();
-	    document.querySelector("body").append(item);
-	    document.querySelector("#wsnow_apekool"+Itemscount).each(function() {
-	        document.querySelector(this).on('load', function(){
+	    item = $('<img id="wsnow_apekool'+Itemscount+'" src="'+iteminfo.src+'">').hide();
+	    $("body").append(item);
+	    $("#wsnow_apekool"+Itemscount).each(function() {
+	        $(this).on('load', function(){
 	            iteminfo.width  = this.width;
 	            iteminfo.height = this.height;
-	            document.querySelector(this).remove();
+	            $(this).remove();
 	        });
         });
 	    return iteminfo;
@@ -225,7 +207,7 @@ function wsnow() {
 	        });
 	    }
 	    
-        var santa = document.querySelector('<div class="wsnow"></div>');
+        var santa = $('<div class="wsnow"></div>');
 	    var y = (randint(100)+50);
 	    var x = -300;
 	    var xspeed = Santa_speed;
@@ -236,12 +218,12 @@ function wsnow() {
     }
 
     function startSanta() {
-	    document.querySelector(".wsnow_santa").remove();
+	    $(".wsnow_santa").remove();
 	    createSanta();
     }
     
     function stopSanta() {
-	    document.querySelector(".wsnow_santa").stop().remove();
+	    $(".wsnow_santa").stop().remove();
     }
 
     function createResize() {
@@ -263,7 +245,7 @@ function wsnow() {
 	    if (ShowRudolf) rs = 0; else rs = 1;
         for (var i=1; i<=Nsantas; i++) {
 	        var k=2*i-rs;
-	        document.querySelector('.wsnow_santa_button[index="'+i+'"] img').attr("src",Santasinfo[k].src);
+	        $('.wsnow_santa_button[index="'+i+'"] img').attr("src",Santasinfo[k].src);
 	    }
     }
 
@@ -293,9 +275,9 @@ function wsnow() {
     // ----- start of main program ------
 
 
-    Container = document.querySelector(Where);
+    Container = $(Where);
 
-    document.querySelector(window).resize( function() { Resized=true; } );
+    $(window).resize( function() { Resized=true; } );
 
     getsantainfo();
     waitfor( checkSanta, function() {
@@ -313,9 +295,6 @@ function wsnow() {
 	    ShowSanta  = true;
 
 	 },10);  // waitfor
-   });  // document.querySelector(document).ready
+   });  // $(document).ready
 }  // wsnow
-    </script>
-</body>
-</html>
 
