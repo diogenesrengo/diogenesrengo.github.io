@@ -15,7 +15,6 @@
     <!-- here styling of your background image -->
 </head>
 <body>
-    <script src="js/jquery.min.js"></script>
     <script>
 	var wsnow_parms = {
 	   // Santa_dt      : 0.1,           // update interval for santa, seconds
@@ -36,11 +35,12 @@
 	wsnow();
 
 function wsnow() {
-    $(document).ready(function() {
+    document.addEventListener("DOMContentLoaded", function() {
         if (wsnow_parms !== undefined) {
 	        var Santa_dt    = wsnow_parms.Santa_dt;     // update interval for santa, seconds
 	        var Santa_speed = wsnow_parms.Santa_speed;  // speed of Santa, pixels/second
 	        var Santa_type  = wsnow_parms.Santa_type;   // which Santa to show
+	        var Where       = wsnow_parms.where;        // where to snow
         }
 
       var Container;
@@ -54,6 +54,8 @@ function wsnow() {
       var ShowRudolf;
       var ShowSanta;
 
+      if (Where === undefined) Where = 'body';
+
     function defaults() {
 	    if (Santa_dt    === undefined) Santa_dt    = 0.5;
 	    if (Santa_speed === undefined) Santa_speed = Santa_speed_default;
@@ -65,6 +67,20 @@ function wsnow() {
 	    return Math.floor(Math.random()*n);
     }
 
+        // convert 'url("file:///home/etc/etc")' 
+        //  and    'url("http://localhost/etc/etc")'
+        //  to ///home/etc/etc
+        //  resp
+        //  to //localhost/etc/etc
+        //
+    function urltoimg(url) {
+	    //var x = url.replace(/.*:/,"");
+	    // but: if url is like 'url("http://localhost:8081/etc/etc")' ....
+	    var x = url.replace(/^[^:]*:/,"");
+	    x = x.replace(/\"\)/,"");
+	    return x;
+    }
+
         // to count items like
         // .wsnow.tree1 { background-image: url("../images/tannenbaum.png");}
         // .wsnow.tree2 { background-image: url("../images/baum.png");}
@@ -72,11 +88,11 @@ function wsnow() {
 	    var i = 0;
 	    while (1) {
 	        i++;
-	        var $item = $('<div class="wsnow"></div>');
-	        $item.addClass(item+i).hide();
-	        Container.append($item);
-	        var b = $item.css("background-image");
-	        $item.remove();
+	        var item = document.querySelector('<div class="wsnow"></div>');
+	        item.addClass(item+i).hide();
+	        Container.append(item);
+	        var b = item.css("background-image");
+	        item.remove();
 	        if (b == "none")
 	            return i-1;
 	    }
@@ -135,20 +151,20 @@ function wsnow() {
     function getiteminfo(c) {
 	    Itemscount ++;
 	    var iteminfo = {};
-	    var $item = $('<div class="'+c+'"></div>');
-	    $item.css({left: 100, top: 100, overflow: 'hidden' }).show();
-	    $('body').append($item);
-	    var x = $item.css("background-image");
-	    iteminfo = {src: x, width:-314, height:-314};
-	    $item.remove();
+	    var item = document.querySelector('<div class="'+c+'"></div>');
+	    item.css({left: 100, top: 100, overflow: 'hidden' }).show();
+	    document.querySelector('body').append(item);
+	    var x = item.css("background-image");
+	    iteminfo = {src: urltoimg(x),width:-314,height:-314};
+	    item.remove();
 
-	    $item = $('<img id="wsnow_apekool'+Itemscount+'" src="'+iteminfo.src+'">').hide();
-	    $("body").append($item);
-	    $("#wsnow_apekool"+Itemscount).each(function() {
-	        $(this).on('load', function(){
+	    item = document.querySelector('<img id="wsnow_apekool'+Itemscount+'" src="'+iteminfo.src+'">').hide();
+	    document.querySelector("body").append(item);
+	    document.querySelector("#wsnow_apekool"+Itemscount).each(function() {
+	        document.querySelector(this).on('load', function(){
 	            iteminfo.width  = this.width;
 	            iteminfo.height = this.height;
-	            $(this).remove();
+	            document.querySelector(this).remove();
 	        });
         });
 	    return iteminfo;
@@ -184,11 +200,11 @@ function wsnow() {
 	        if (y <= 0)  y = 0;
 	        if (y > 150) y = 150;
 
-	        $santa.removeClass(Santasinfo[santatype].name+"_"+n);
+	        santa.removeClass(Santasinfo[santatype].name+"_"+n);
 	        n++;
 	        if (n > 4) n = 1;
 	        var s = Santasinfo[Santa_type];
-	        $santa.addClass(s.name+"_"+n).css({width: s.width, height: s.height});
+	        santa.addClass(s.name+"_"+n).css({width: s.width, height: s.height});
 	        santatype = Santa_type;     // Santa_type can change, so we remember it here
 	        //xspeed = Santa_speed + 1.5*Wind;
 	        xspeed = Santa_speed;
@@ -204,28 +220,28 @@ function wsnow() {
 	        }
 	        else timer = Santa_dt * 1000;
 
-	        $santa.animate({left: x+'px', top: y+'px'},timer,"linear",function(){
+	        santa.animate({left: x+'px', top: y+'px'},timer,"linear",function(){
 	            stepSanta(n);
 	        });
 	    }
 	    
-        var $santa = $('<div class="wsnow"></div>');
+        var santa = document.querySelector('<div class="wsnow"></div>');
 	    var y = (randint(100)+50);
 	    var x = -300;
 	    var xspeed = Santa_speed;
 
-	    $santa.css({ top: y, left: x, opacity: 1, position: Position} ).addClass("wsnow_santa");
-	        Container.append($santa);
+	    santa.css({ top: y, left: x, opacity: 1, position: Position} ).addClass("wsnow_santa");
+	        Container.append(santa);
 	    stepSanta(1);
     }
 
     function startSanta() {
-	    $(".wsnow_santa").remove();
+	    document.querySelector(".wsnow_santa").remove();
 	    createSanta();
     }
     
     function stopSanta() {
-	    $(".wsnow_santa").stop().remove();
+	    document.querySelector(".wsnow_santa").stop().remove();
     }
 
     function createResize() {
@@ -247,7 +263,7 @@ function wsnow() {
 	    if (ShowRudolf) rs = 0; else rs = 1;
         for (var i=1; i<=Nsantas; i++) {
 	        var k=2*i-rs;
-	        $('.wsnow_santa_button[index="'+i+'"] img').attr("src",Santasinfo[k].src);
+	        document.querySelector('.wsnow_santa_button[index="'+i+'"] img').attr("src",Santasinfo[k].src);
 	    }
     }
 
@@ -277,9 +293,9 @@ function wsnow() {
     // ----- start of main program ------
 
 
-    Container = 'body';
+    Container = document.querySelector(Where);
 
-    $(window).resize( function() { Resized=true; } );
+    //document.querySelector(window).resize( function() { Resized=true; } );
 
     getsantainfo();
     waitfor( checkSanta, function() {
@@ -287,6 +303,7 @@ function wsnow() {
 	    console.log("Santa_dt:",Santa_dt);
 	    console.log("Santa_speed:",Santa_speed);
 	    console.log("Santa_type:",Santa_type);
+	    console.log("Where:",Where);
 	    startSanta();
 	    createResize();
 
@@ -296,9 +313,9 @@ function wsnow() {
 	    ShowSanta  = true;
 
 	 },10);  // waitfor
-   });  // $(document).ready
+   });  // document.querySelector(document).ready
 }  // wsnow
-
     </script>
 </body>
 </html>
+

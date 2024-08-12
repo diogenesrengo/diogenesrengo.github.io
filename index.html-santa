@@ -16,7 +16,6 @@
 </head>
 <body>
     <script src="js/jquery.min.js"></script>
-
     <script>
 	var wsnow_parms = {
 	   // Santa_dt      : 0.1,           // update interval for santa, seconds
@@ -42,7 +41,6 @@ function wsnow() {
 	        var Santa_dt    = wsnow_parms.Santa_dt;     // update interval for santa, seconds
 	        var Santa_speed = wsnow_parms.Santa_speed;  // speed of Santa, pixels/second
 	        var Santa_type  = wsnow_parms.Santa_type;   // which Santa to show
-	        var Where       = wsnow_parms.where;        // where to snow
         }
 
       var Container;
@@ -56,8 +54,6 @@ function wsnow() {
       var ShowRudolf;
       var ShowSanta;
 
-      if (Where === undefined) Where = 'body';
-
     function defaults() {
 	    if (Santa_dt    === undefined) Santa_dt    = 0.5;
 	    if (Santa_speed === undefined) Santa_speed = Santa_speed_default;
@@ -67,20 +63,6 @@ function wsnow() {
     function randint(n) {
 	    // returns int <n, >=0
 	    return Math.floor(Math.random()*n);
-    }
-
-        // convert 'url("file:///home/etc/etc")' 
-        //  and    'url("http://localhost/etc/etc")'
-        //  to ///home/etc/etc
-        //  resp
-        //  to //localhost/etc/etc
-        //
-    function urltoimg(url) {
-	    //var x = url.replace(/.*:/,"");
-	    // but: if url is like 'url("http://localhost:8081/etc/etc")' ....
-	    var x = url.replace(/^[^:]*:/,"");
-	    x = x.replace(/\"\)/,"");
-	    return x;
     }
 
         // to count items like
@@ -157,7 +139,7 @@ function wsnow() {
 	    $item.css({left: 100, top: 100, overflow: 'hidden' }).show();
 	    $('body').append($item);
 	    var x = $item.css("background-image");
-	    iteminfo = {src: urltoimg(x),width:-314,height:-314};
+	    iteminfo = {src: x, width:-314, height:-314};
 	    $item.remove();
 
 	    $item = $('<img id="wsnow_apekool'+Itemscount+'" src="'+iteminfo.src+'">').hide();
@@ -295,7 +277,7 @@ function wsnow() {
     // ----- start of main program ------
 
 
-    Container = $(Where);
+    Container = 'body';
 
     $(window).resize( function() { Resized=true; } );
 
@@ -305,7 +287,6 @@ function wsnow() {
 	    console.log("Santa_dt:",Santa_dt);
 	    console.log("Santa_speed:",Santa_speed);
 	    console.log("Santa_type:",Santa_type);
-	    console.log("Where:",Where);
 	    startSanta();
 	    createResize();
 
