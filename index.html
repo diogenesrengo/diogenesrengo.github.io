@@ -143,7 +143,7 @@ function wsnow() {
 	    $item.css({left: 100, top: 100, overflow: 'hidden' }).show();
 	    $('body').append($item);
 	    var x = $item.css("background-image");
-	    iteminfo = {src: x, width:-314, height:-314};
+	    iteminfo = {src: url(x), width:-314, height:-314};
 	    $item.remove();
 
 	    $item = $('<img id="wsnow_apekool'+Itemscount+'" src="'+iteminfo.src+'">').hide();
