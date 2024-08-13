@@ -77,9 +77,9 @@ Your browser does not support the HTML canvas tag.
                 x: this.x,
                 y: this.y,
             };
-            this.theta += this.rotateSpeed;
-            this.x = cursor.x + Math.cos(this.theta) * this.t;
-            this.y = cursor.y + Math.sin(this.theta) * this.t;
+            //this.theta += this.rotateSpeed;
+            //this.x = cursor.x + Math.cos(this.theta) * this.t;
+            //this.y = cursor.y + Math.sin(this.theta) * this.t;
             context.beginPath();
             context.lineWidth = this.particleTrailWidth;
             context.strokeStyle = this.strokeColor;
