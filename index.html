@@ -21,7 +21,6 @@
 <script>
     const canvas = document.getElementById("cw");
     const context = canvas.getContext("2d");
-    context.globalAlpha = 0.5;
 
     const cursor = {
         x: innerWidth / 2,
@@ -31,22 +30,7 @@
     let particlesArray = [];
 
     generateParticles(101);
-    //setSize();
     anim();
-
-    addEventListener("mousemove", (e) => {
-        cursor.x = e.clientX;
-        cursor.y = e.clientY;
-    });
-
-    addEventListener("touchmove", (e) => {
-        e.preventDefault();
-        cursor.x = e.touches[0].clientX;
-        cursor.y = e.touches[0].clientY; },
-        { passive: false },
-    );
-
-    addEventListener("resize", () => setSize());
 
     function generateParticles(amount) {
         for (let i = 0; i < amount; i++) {
