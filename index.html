@@ -6,21 +6,23 @@
         position: fixed;
         z-index: -1;
     }
-
     body {
         margin: 0;
         padding: 0;
-        background-color: transparent;
+        background-color: rgb(0 0 0 / 5%);
     }
 </style>
 </head>
 <body>
 
-<canvas id="cw" width="800" height="600"></canvas>
+<canvas id="cw" width="400" height="400" style="border:1px solid #000000;">
+Your browser does not support the HTML canvas tag.
+</canvas>
 
 <script>
     const canvas = document.getElementById("cw");
     const context = canvas.getContext("2d");
+    context.globalAlpha = 0.5;
 
     const cursor = {
         x: innerWidth / 2,
@@ -30,7 +32,10 @@
     let particlesArray = [];
 
     generateParticles(101);
+    setSize();
     anim();
+
+    addEventListener("resize", () => setSize());
 
     function generateParticles(amount) {
         for (let i = 0; i < amount; i++) {
