@@ -13,11 +13,14 @@
     </style>
   </head>
   <body>
-    <canvas id="fireworksCanvas" width="800" height="600"></canvas>
+    <canvas id="fireworksCanvas"></canvas>
 
     <script>
       const canvas = document.getElementById("fireworksCanvas");
       const ctx = canvas.getContext("2d");
+
+      canvas.width = 800;
+      canvas.height = 600;
 
       class Particle {
         constructor(x, y, color, velocity) {
