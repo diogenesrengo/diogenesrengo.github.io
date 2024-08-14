@@ -132,8 +132,13 @@
 
       let fireworks = [];
       let amount = 10;
+      let text = "rengo";
 
       function animate() {
+        
+        ctx.font = "50px Arial";
+        ctx.fillText(text,10,80);
+        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         fireworks.forEach((firework) => {
           firework.update();
@@ -150,7 +155,7 @@
         );
         requestAnimationFrame(animate);
       }
-
+        
       animate();
 
       window.addEventListener("resize", () => {
