@@ -28,20 +28,22 @@
           this.velocity = velocity;
           this.life = 100;
           this.alpha = 1;
-          this.shimmer = Math.random() < 0.3;
+          this.shimmer = Math.random() < 0.3; // 30% chance of shimmer
         }
         draw() {
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
           let alpha = this.alpha;
-          if (this.shimmer) { alpha *= 0.5 + Math.random() * 0.5; }
+          if (this.shimmer) {
+            alpha *= 0.5 + Math.random() * 0.5; // Random shimmer effect
+          }
           ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
           ctx.fill();
         }
         update() {
           this.x += this.velocity.x;
           this.y += this.velocity.y;
-          this.velocity.y += 0.05;
+          this.velocity.y += 0.05; // gravity
           this.life--;
           this.alpha -= 0.01;
         }
@@ -56,23 +58,27 @@
           this.color = { r: 255, g: 234, b: 0 }; //bright yellow
           const angle = (Math.random() * Math.PI) / 4 - Math.PI / 8;
           const speed = Math.random() * 3 + 5;
-          this.velocity = { x: Math.sin(angle) * speed, y: -Math.cos(angle) * speed, };
+          this.velocity = {
+            x: Math.sin(angle) * speed,
+            y: -Math.cos(angle) * speed,
+          };
           this.particles = [];
           this.trail = [];
           this.exploded = false;
           this.explosionProgress = 0;
-          this.hasShimmer = Math.random() < 0.5;
+          this.hasShimmer = Math.random() < 0.5; // 50% chance of shimmering trail
         }
         explode() {
-          for (let i = 0; i < 50; i++) {
+          for (let i = 0; i < 150; i++) {
             const angle = Math.random() * Math.PI * 2;
             const speed = Math.random() * 3 + 1;
             const velocity = {
-                display: none;
-                x: Math.cos(angle) * speed,
-                y: Math.sin(angle) * speed,
+              x: Math.cos(angle) * speed,
+              y: Math.sin(angle) * speed,
             };
-            this.particles.push( new Particle(this.x, this.y, this.color, velocity));
+            this.particles.push(
+              new Particle(this.x, this.y, this.color, velocity)
+            );
           }
           this.exploded = true;
         }
