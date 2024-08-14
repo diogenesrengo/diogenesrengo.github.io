@@ -1,88 +1,196 @@
 <!DOCTYPE html>
-<html>
-<head>
-<style>
-    #cw {
-        position: fixed;
-        z-index: -1;
-    }
-    body {
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Realistic Fireworks Display with Sound</title>
+    <style>
+      body {
         margin: 0;
-        padding: 0;
-        background-color: rgb(0 0 0 / 90%);
-    }
-</style>
-</head>
-<body>
+        overflow: hidden;
+        background-color: #000;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="fireworksCanvas"></canvas>
 
-<canvas id="cw" width="400" height="400"></canvas>
+    <script>
+      const canvas = document.getElementById("fireworksCanvas");
+      const ctx = canvas.getContext("2d");
 
-<script>
-    const canvas = document.getElementById("cw");
-    const c = canvas.getContext("2d");
-    //c.globalAlpha = 0.5;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-    let fireworksArray = [];
+      // Sound effects
+      const launchSounds = ["assets/launch.wav"];
 
-    generateFireworks(10);
-    setSize();
-    anim();
+      const explosionSounds = [
+        "assets/explosion1.wav",
+        "assets/explosion2.wav",
+        "assets/explosion3.wav",
+      ];
 
-    addEventListener("resize", () => setSize());
+      function playRandomSound(soundArray) {
+        const sound = soundArray[Math.floor(Math.random() * soundArray.length)];
+        const audio = new Audio(sound);
+        audio.play();
+      }
 
-    function generateFirework(amount) {
-        for (let i = 0; i < amount; i++) {
-            fireworksArray[i] = new Firework(
-                Math.random() * innerWidth,
-                innerHeight,
-                2,
-                generateColor(),
-                1 + Math.random() * 10,
+      class Particle {
+        constructor(x, y, color, velocity) {
+          this.x = x;
+          this.y = y;
+          this.color = color;
+          this.radius = Math.random() * 2 + 1;
+          this.velocity = velocity;
+          this.life = 100;
+          this.alpha = 1;
+          this.shimmer = Math.random() < 0.3; // 30% chance of shimmer
+        }
+
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          let alpha = this.alpha;
+          if (this.shimmer) {
+            alpha *= 0.5 + Math.random() * 0.5; // Random shimmer effect
+          }
+          ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
+          ctx.fill();
+        }
+
+        update() {
+          this.x += this.velocity.x;
+          this.y += this.velocity.y;
+          this.velocity.y += 0.05; // gravity
+          this.life--;
+          this.alpha -= 0.01;
+        }
+      }
+
+      class Firework {
+        constructor(x, y) {
+          this.x = x;
+          this.y = canvas.height;
+          this.targetX = x;
+          this.targetY = y;
+          this.color = {
+            r: Math.floor(Math.random() * 255),
+            g: Math.floor(Math.random() * 255),
+            b: Math.floor(Math.random() * 255),
+          };
+          const angle = (Math.random() * Math.PI) / 4 - Math.PI / 8;
+          const speed = Math.random() * 3 + 5;
+          this.velocity = {
+            x: Math.sin(angle) * speed,
+            y: -Math.cos(angle) * speed,
+          };
+          this.particles = [];
+          this.trail = [];
+          this.exploded = false;
+          this.explosionProgress = 0;
+          this.hasShimmer = Math.random() < 0.5; // 50% chance of shimmering trail
+
+          playRandomSound(launchSounds);
+        }
+
+        explode() {
+          for (let i = 0; i < 150; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 3 + 1;
+            const velocity = {
+              x: Math.cos(angle) * speed,
+              y: Math.sin(angle) * speed,
+            };
+            this.particles.push(
+              new Particle(this.x, this.y, this.color, velocity)
             );
+          }
+          this.exploded = true;
+          playRandomSound(explosionSounds);
         }
-    }
 
-    function generateColor() {
-        let hexSet = "0123456789ABCDEF";
-        let finalHexString = "#";
-        for (let i = 0; i < 6; i++) {
-            finalHexString += hexSet[Math.ceil(Math.random() * 15)];
+        update() {
+          if (!this.exploded) {
+            this.x += this.velocity.x;
+            this.y += this.velocity.y;
+            this.velocity.y += 0.05;
+            this.trail.push(
+              new Particle(this.x, this.y, this.color, { x: 0, y: 0 })
+            );
+            if (this.trail.length > 20) this.trail.shift();
+            if (this.velocity.y >= 0 || this.y <= this.targetY) this.explode();
+          } else {
+            this.explosionProgress += 0.02;
+            this.particles.forEach((particle) => {
+              particle.update();
+              particle.draw();
+            });
+            this.particles = this.particles.filter(
+              (particle) => particle.life > 0
+            );
+          }
+
+          this.trail.forEach((particle, index) => {
+            particle.alpha =
+              (index / this.trail.length) * (1 - this.explosionProgress);
+            if (this.hasShimmer) {
+              particle.shimmer = true;
+            }
+            particle.draw();
+          });
         }
-        return finalHexString;
-    }
 
-    function setSize() {
-        canvas.height = innerHeight;
-        canvas.width = innerWidth;
-    }
+        draw() {
+          if (!this.exploded) {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+            ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+            ctx.fill();
+          }
+        }
+      }
 
-    function Firework(x, y, trailWidth, strokeColor, speed) {
-        this.x = x;
-        this.y = y;
-        this.trailWidth = trailWidth;
-        this.strokeColor = strokeColor;
-        this.speed = speed;
+      let fireworks = [];
 
-        this.ignite = () => {
-            const yb = this.y;
-            this.y -= this.speed;
-            c.beginPath();
-            c.lineWidth = this.trailWidth;
-            c.strokeStyle = this.strokeColor;
-            c.moveTo(this.x, yb);
-            c.lineTo(this.x, this.y);
-            c.stroke();
-        };
-    }
+      function animate() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    function anim() {
-        requestAnimationFrame(anim);
-        c.fillStyle = "rgb(0 0 0 / 5%)";
-        //c.fillRect(0, 0, canvas.width, canvas.height);
-        c.clearRect(0, 0, canvas.width, canvas.height);
-        fireworksArray.forEach((firework) => firework.ignite());
-    }
-</script>
+        fireworks.forEach((firework) => {
+          firework.update();
+          firework.draw();
+        });
 
-</body>
+        if (Math.random() < 0.05) {
+          const x = Math.random() * canvas.width;
+          const y = (Math.random() * canvas.height) / 2;
+          fireworks.push(new Firework(x, y));
+        }
+
+        fireworks = fireworks.filter(
+          (firework) => !firework.exploded || firework.particles.length > 0
+        );
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      // Resize canvas when window is resized
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+
+      // Create firework on click
+      canvas.addEventListener("click", (event) => {
+        fireworks.push(new Firework(event.clientX, event.clientY));
+      });
+    </script>
+  </body>
 </html>
