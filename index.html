@@ -20,8 +20,8 @@
       const canvas = document.getElementById("fireworksCanvas");
       const ctx = canvas.getContext("2d");
 
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width = 800;
+      canvas.height = 600;
 
       class Particle {
         constructor(x, y, color, velocity) {
@@ -131,19 +131,15 @@
 
       let fireworks = [];
       let amount = 10;
-      let username = "whatever";
-      let tokens = 10;
+      let username = "rengo250";
+      let message = amount + " tokens from " + username;
 
       function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         ctx.font = "25px Verdana";
         ctx.textAlign = "center";   
-        ctx.fillText(
-          tokens + " tokens from " + username,
-          innerWidth * 0.45,
-          innerHeight-10
-        );
+        ctx.fillText(message, canvas.width, canvas.height);
 
         fireworks.forEach((firework) => {firework.update(); firework.draw();});
         
@@ -163,10 +159,6 @@
       if (amount > 0) 
           animate();
 
-      window.addEventListener("resize", () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      });
     </script>
   </body>
 </html>

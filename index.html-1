@@ -131,14 +131,19 @@
 
       let fireworks = [];
       let amount = 10;
-      let username = "username";
-      let tip = 25;
+      let username = "whatever";
+      let tokens = 10;
 
       function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         ctx.font = "25px Verdana";
-        ctx.fillText(text + ":" + tip, innerWidth*0.45, innerHeight-10);
+        ctx.textAlign = "center";   
+        ctx.fillText(
+          tokens + " tokens from " + username,
+          innerWidth * 0.45,
+          innerHeight-10
+        );
 
         fireworks.forEach((firework) => {firework.update(); firework.draw();});
         
@@ -155,7 +160,8 @@
         requestAnimationFrame(animate);
       }
         
-      if (amount > 0) animate();
+      if (amount > 0) 
+          animate();
 
       window.addEventListener("resize", () => {
         canvas.width = window.innerWidth;
