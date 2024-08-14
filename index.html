@@ -140,7 +140,7 @@
         
         ctx.font = "25px Verdana";
         ctx.textAlign = "center";   
-        ctx.fillText(message, canvas.width, canvas.height);
+        ctx.fillText(message, canvas.width / 2, 10);
 
         fireworks.forEach((firework) => {firework.update(); firework.draw();});
         
