@@ -77,11 +77,13 @@ Your browser does not support the HTML canvas tag.
                 x: this.x,
                 y: this.y,
             };
-            //this.theta += this.rotateSpeed;
-            //this.x = cursor.x + Math.cos(this.theta) * this.t;
-            this.x = cursor.x + 10;
-            //this.y = cursor.y + Math.sin(this.theta) * this.t;
-            this.y = cursor.y + 10;
+            this.theta += this.rotateSpeed;
+            this.x = cursor.x + Math.cos(this.theta) * this.t;
+            this.y = cursor.y + Math.sin(this.theta) * this.t;
+            
+            //this.x = cursor.x + 10;
+            //this.y = cursor.y + 10;
+            
             context.beginPath();
             context.lineWidth = this.particleTrailWidth;
             context.strokeStyle = this.strokeColor;
@@ -93,7 +95,7 @@ Your browser does not support the HTML canvas tag.
 
     function anim() {
         requestAnimationFrame(anim);
-        context.fillStyle = "rgb(0 0 0 / 5%)";
+        //context.fillStyle = "rgb(0 0 0 / 5%)";
         context.fillRect(0, 0, canvas.width, canvas.height);
         particlesArray.forEach((particle) => particle.rotate());
     }
