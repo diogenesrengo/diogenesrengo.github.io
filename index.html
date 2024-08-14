@@ -24,7 +24,7 @@
 
     let particlesArray = [];
 
-    generateParticles(10);
+    generateParticles(1);
     setSize();
     anim();
 
@@ -35,9 +35,9 @@
             particlesArray[i] = new Particle(
                 Math.random() * innerWidth,
                 innerHeight,
-                4,
+                2,
                 generateColor(),
-                10,
+                5 + Math.random() * 10,
             );
         }
     }
