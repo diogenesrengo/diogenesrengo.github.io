@@ -139,7 +139,9 @@
         ctx.font = "25px Verdana";
         ctx.fillStyle = "white";
         ctx.fillText(text, innerWidth*0.45, innerHeight-20);
-        
+        ctx.fillStroke = "black";
+        ctx.strokeText(text, innerWidth*0.45, innerHeight-20);
+
         fireworks.forEach((firework) => {
           firework.update();
           firework.draw();
