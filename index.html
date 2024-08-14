@@ -34,7 +34,7 @@
         for (let i = 0; i < amount; i++) {
             particlesArray[i] = new Particle(
                 Math.random() * innerWidth,
-                innerHeight / 2,
+                innerHeight,
                 4,
                 generateColor(),
                 10,
@@ -65,7 +65,7 @@
 
         this.elevate = () => {
             const yb = this.y;
-            this.y += this.speed;
+            this.y -= this.speed;
             c.beginPath();
             c.lineWidth = this.trailWidth;
             c.strokeStyle = this.strokeColor;
