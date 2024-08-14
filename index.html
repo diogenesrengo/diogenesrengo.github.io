@@ -131,14 +131,15 @@
 
       let fireworks = [];
       let amount = 10;
-      let text = "username";
+      let username = "username";
+      let tip = 25;
 
       function animate() {
         if (amount < 0) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         ctx.font = "25px Verdana";
-        ctx.fillText(text, innerWidth*0.45, innerHeight-10);
+        ctx.fillText(text + ":" + tip, innerWidth*0.45, innerHeight-10);
 
         fireworks.forEach((firework) => {firework.update(); firework.draw();});
         
