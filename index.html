@@ -22,17 +22,17 @@
     const c = canvas.getContext("2d");
     //c.globalAlpha = 0.5;
 
-    let particlesArray = [];
+    let fireworksArray = [];
 
-    generateParticles(10);
+    generateFireworks(10);
     setSize();
     anim();
 
     addEventListener("resize", () => setSize());
 
-    function generateParticles(amount) {
+    function generateFirework(amount) {
         for (let i = 0; i < amount; i++) {
-            particlesArray[i] = new Particle(
+            fireworksArray[i] = new Firework(
                 Math.random() * innerWidth,
                 innerHeight,
                 2,
@@ -56,14 +56,14 @@
         canvas.width = innerWidth;
     }
 
-    function Particle(x, y, trailWidth, strokeColor, speed) {
+    function Firework(x, y, trailWidth, strokeColor, speed) {
         this.x = x;
         this.y = y;
         this.trailWidth = trailWidth;
         this.strokeColor = strokeColor;
         this.speed = speed;
 
-        this.elevate = () => {
+        this.ignite = () => {
             const yb = this.y;
             this.y -= this.speed;
             c.beginPath();
@@ -80,7 +80,7 @@
         //c.fillStyle = "rgb(255 255 255 / 5%)";
         //c.fillRect(0, 0, canvas.width, canvas.height);
         //c.clearRect(0, 0, canvas.width, canvas.height);
-        particlesArray.forEach((particle) => particle.elevate());
+        fireworksArray.forEach((firework) => firework.ignite());
     }
 </script>
 
