@@ -51,7 +51,7 @@
           this.targetY = y;
           this.color = { r: 255, g: 234, b: 0 }; //bright yellow
           const angle = (Math.random() * Math.PI) / 4 - Math.PI / 8;
-          const speed = Math.random() * 3 + 15;
+          const speed = Math.random() * 3 + 5;
           this.velocity = { x: Math.sin(angle) * speed, y: -Math.cos(angle) * speed, };
           this.particles = [];
           this.trail = [];
@@ -73,7 +73,9 @@
           if (!this.exploded) {
             this.x += this.velocity.x;
             this.y += this.velocity.y;
-            this.velocity.y += 0.05;
+            //
+            this.velocity.y += 0.1; //0.05;
+            //
             this.trail.push( new Particle(this.x, this.y, this.color, {x:0, y:0}) );
             if (this.trail.length > 20) this.trail.shift();
             if (this.velocity.y >= 0 || this.y <= this.targetY) this.explode();
