@@ -13,7 +13,7 @@
 
     <script>
       const canvas = document.getElementById("fireworksCanvas");
-      const ctx = canvas.getContext("2d");
+      const c = canvas.getContext("2d");
 
       class Particle {
         constructor(x, y, color, velocity) {
@@ -27,12 +27,12 @@
           this.shimmer = Math.random() < 0.3;
         }
         draw() {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          c.beginPath();
+          c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
           let alpha = this.alpha;
           if (this.shimmer) { alpha *= 0.5 + Math.random() * 0.5; }
-          ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
-          ctx.fill();
+          c.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
+          c.fill();
         }
         update() {
           this.x += this.velocity.x;
@@ -90,10 +90,10 @@
         }
         draw() {
           if (!this.exploded) {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-            ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
-            ctx.fill();
+            c.beginPath();
+            c.arc(this.x, this.y, 2, 0, Math.PI * 2);
+            c.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+            c.fill();
           }
         }
       }
@@ -104,15 +104,15 @@
       let message = amount + " tokens from " + username;
 
       function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        c.clearRect(0, 0, canvas.width, canvas.height);
         
-        ctx.font = "15px Verdana";
-        ctx.textAlign = "center";   
-        ctx.fillText(message, canvas.width / 2, canvas.height - 10);
+        c.font = "15px Verdana";
+        c.textAlign = "center";   
+        c.fillText(message, canvas.width / 2, canvas.height - 10);
 
         fireworks.forEach((firework) => {firework.update(); firework.draw();});
         
-        if (amount > 0 && Math.random() < 0.05) {
+        if (amount > 0 && amount < 50 && Math.random() < 0.05) {
           fireworks.push( 
             new Firework( Math.random() * canvas.width, (Math.random() * canvas.height) / 2)
           );
@@ -129,3 +129,5 @@
     </script>
   </body>
 </html>
+
+
