@@ -34,6 +34,7 @@
           this.alpha = 1;
           this.shimmer = Math.random() < 0.3; // 30% chance of shimmer
         }
+
         draw() {
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -44,6 +45,7 @@
           ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
           ctx.fill();
         }
+
         update() {
           this.x += this.velocity.x;
           this.y += this.velocity.y;
@@ -76,6 +78,7 @@
           this.explosionProgress = 0;
           this.hasShimmer = Math.random() < 0.5; // 50% chance of shimmering trail
         }
+
         explode() {
           for (let i = 0; i < 150; i++) {
             const angle = Math.random() * Math.PI * 2;
@@ -90,6 +93,7 @@
           }
           this.exploded = true;
         }
+
         update() {
           if (!this.exploded) {
             this.x += this.velocity.x;
@@ -110,6 +114,7 @@
               (particle) => particle.life > 0
             );
           }
+
           this.trail.forEach((particle, index) => {
             particle.alpha =
               (index / this.trail.length) * (1 - this.explosionProgress);
@@ -133,21 +138,25 @@
       let fireworks = [];
 
       function animate() {
+        //ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+        //ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         fireworks.forEach((firework) => {
           firework.update();
           firework.draw();
         });
-        /*
+
         if (Math.random() < 0.05) {
           const x = Math.random() * canvas.width;
           const y = (Math.random() * canvas.height) / 2;
           fireworks.push(new Firework(x, y));
         }
+
         fireworks = fireworks.filter(
           (firework) => !firework.exploded || firework.particles.length > 0
         );
-        */
+
         requestAnimationFrame(animate);
       }
 
