@@ -131,30 +131,25 @@
 
       let fireworks = [];
       let amount = 1;
-      let text = "username";
+      let username = "username";
 
       function animate() {
+        if (amount < 0) { return; }
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
         ctx.font = "25px Verdana";
-        //ctx.fillStyle = "black";
-        ctx.fillText(text, innerWidth*0.45, innerHeight-20);
-        //ctx.fillStroke = "black";
-        //ctx.strokeText(text, innerWidth*0.45, innerHeight-20);
-
+        ctx.fillText(username, innerWidth*0.45, innerHeight-10);
         fireworks.forEach((firework) => {
           firework.update();
           firework.draw();
         });
-        if (amount > 0) { //Math.random() < 0.05) {
-          const x = Math.random() * canvas.width;
-          const y = (Math.random() * canvas.height) / 2;
-          fireworks.push(new Firework(x, y));
-          amount--;
-        }
+        fireworks.push(new Firework( 
+           Math.random() * canvas.width,
+          (Math.random() * canvas.height) / 2
+        ));
         fireworks = fireworks.filter(
           (firework) => !firework.exploded || firework.particles.length > 0
         );
+        amount--;
         requestAnimationFrame(animate);
       }
         
