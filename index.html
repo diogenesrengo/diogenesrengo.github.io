@@ -103,6 +103,7 @@
       let username = "rengo250";
       let message = amount + " tokens from " + username;
 
+      if (amount > 50) amount = 50;
       function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
         
@@ -112,7 +113,7 @@
 
         fireworks.forEach((firework) => {firework.update(); firework.draw();});
         
-        if (amount > 0 && amount < 50 && Math.random() < 0.05) {
+        if (amount > 0 && Math.random() < 0.05) {
           fireworks.push( 
             new Firework( Math.random() * canvas.width, (Math.random() * canvas.height) / 2)
           );
