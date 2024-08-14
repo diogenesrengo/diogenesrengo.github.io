@@ -137,7 +137,7 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         ctx.font = "50px Arial";
-        ctx.fillText(text,10,80);
+        ctx.fillText(text, innerWidth/2, innerHeight+20);
         
         fireworks.forEach((firework) => {
           firework.update();
