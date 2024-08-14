@@ -140,7 +140,7 @@
         ctx.font = "25px Verdana";
         ctx.textAlign = "center";   
         ctx.fillText(
-          tokens + " tokens from " username,
+          tokens + " tokens from " + username,
           innerWidth * 0.45,
           innerHeight-10
         );
@@ -160,7 +160,7 @@
         requestAnimationFrame(animate);
       }
         
-      //if (amount > 0) 
+      if (amount > 0) 
           animate();
 
       window.addEventListener("resize", () => {
