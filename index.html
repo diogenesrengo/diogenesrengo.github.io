@@ -60,11 +60,7 @@
           this.y = canvas.height;
           this.targetX = x;
           this.targetY = y;
-          this.color = {
-            r: Math.floor(Math.random() * 255),
-            g: Math.floor(Math.random() * 255),
-            b: Math.floor(Math.random() * 255),
-          };
+          this.color = { r: 255, g: 234, b: 0 }; //bright yellow
           const angle = (Math.random() * Math.PI) / 4 - Math.PI / 8;
           const speed = Math.random() * 3 + 5;
           this.velocity = {
@@ -138,9 +134,9 @@
       function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        ctx.font = "25px Verdana";
+        ctx.font = "15px Verdana";
         ctx.textAlign = "center";   
-        ctx.fillText(message, canvas.width / 2, 10);
+        ctx.fillText(message, canvas.width / 2, canvas.height - 10);
 
         fireworks.forEach((firework) => {firework.update(); firework.draw();});
         
