@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Realistic Fireworks Display with Sound</title>
     <style>
       body {
         margin: 0;
@@ -24,21 +23,6 @@
 
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-
-      // Sound effects
-      const launchSounds = ["assets/launch.wav"];
-
-      const explosionSounds = [
-        "assets/explosion1.wav",
-        "assets/explosion2.wav",
-        "assets/explosion3.wav",
-      ];
-
-      function playRandomSound(soundArray) {
-        const sound = soundArray[Math.floor(Math.random() * soundArray.length)];
-        const audio = new Audio(sound);
-        audio.play();
-      }
 
       class Particle {
         constructor(x, y, color, velocity) {
@@ -94,8 +78,6 @@
           this.exploded = false;
           this.explosionProgress = 0;
           this.hasShimmer = Math.random() < 0.5; // 50% chance of shimmering trail
-
-          playRandomSound(launchSounds);
         }
 
         explode() {
@@ -111,7 +93,6 @@
             );
           }
           this.exploded = true;
-          playRandomSound(explosionSounds);
         }
 
         update() {
