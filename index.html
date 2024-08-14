@@ -28,22 +28,20 @@
           this.velocity = velocity;
           this.life = 100;
           this.alpha = 1;
-          this.shimmer = Math.random() < 0.3; // 30% chance of shimmer
+          this.shimmer = Math.random() < 0.3;
         }
         draw() {
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
           let alpha = this.alpha;
-          if (this.shimmer) {
-            alpha *= 0.5 + Math.random() * 0.5; // Random shimmer effect
-          }
+          if (this.shimmer) { alpha *= 0.5 + Math.random() * 0.5; }
           ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
           ctx.fill();
         }
         update() {
           this.x += this.velocity.x;
           this.y += this.velocity.y;
-          this.velocity.y += 0.05; // gravity
+          this.velocity.y += 0.05;
           this.life--;
           this.alpha -= 0.01;
         }
