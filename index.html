@@ -67,7 +67,7 @@
             const yb = this.y;
             this.y += this.speed;
             c.beginPath();
-            c.lineWidth = this.particleTrailWidth;
+            c.lineWidth = this.trailWidth;
             c.strokeStyle = this.strokeColor;
             c.moveTo(this.x, yb);
             c.lineTo(this.x, this.y);
