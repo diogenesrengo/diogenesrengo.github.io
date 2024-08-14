@@ -21,8 +21,8 @@ Your browser does not support the HTML canvas tag.
 
 <script>
     const canvas = document.getElementById("cw");
-    const context = canvas.getContext("2d");
-    context.globalAlpha = 0.5;
+    const c = canvas.getContext("2d");
+    c.globalAlpha = 0.5;
 
     const cursor = {
         x: innerWidth / 2,
@@ -84,19 +84,19 @@ Your browser does not support the HTML canvas tag.
             //this.x = cursor.x + 10;
             //this.y = cursor.y + 10;
             
-            context.beginPath();
-            context.lineWidth = this.particleTrailWidth;
-            context.strokeStyle = this.strokeColor;
-            context.moveTo(ls.x, ls.y);
-            context.lineTo(this.x, this.y);
-            context.stroke();
+            c.beginPath();
+            c.lineWidth = this.particleTrailWidth;
+            c.strokeStyle = this.strokeColor;
+            c.moveTo(ls.x, ls.y);
+            c.lineTo(this.x, this.y);
+            c.stroke();
         };
     }
 
     function anim() {
         requestAnimationFrame(anim);
-        //context.fillStyle = "rgb(0 0 0 / 5%)";
-        context.fillRect(0, 0, canvas.width, canvas.height);
+        c.fillStyle = "rgb(255 255 255 / 5%)";
+        c.fillRect(0, 0, canvas.width, canvas.height);
         particlesArray.forEach((particle) => particle.rotate());
     }
 </script>
