@@ -12,6 +12,7 @@
     <canvas id="fireworksCanvas" width="800" height="600"></canvas>
 
     <script>
+      /* credits to https://github.com/The-Best-Codes/the-best-codes.github.io */
       const canvas = document.getElementById("fireworksCanvas");
       const c = canvas.getContext("2d");
 
@@ -60,7 +61,8 @@
           this.hasShimmer = Math.random() < 0.5;
         }
         explode() {
-          let parts = 15 + Math.random() * 50;
+          //let parts = 15 + Math.random() * 50;
+          let parts = 100;
           for (let i = 0; i < parts; i++) {
             const angle = Math.random() * Math.PI * 2;
             const speed = Math.random() * 3 + 1;
