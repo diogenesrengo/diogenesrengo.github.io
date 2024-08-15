@@ -111,7 +111,7 @@
       }
 
       let fireworks = [];
-      let amount = 9;
+      let amount = 5;
       let username = "rengo250";
       let message = amount + " tokens from " + username;
           
@@ -145,7 +145,7 @@
         if (amount > 0 && Math.random() < 0.05) {
           const x = Math.random() * canvas.width;
           const y = (Math.random() * canvas.height) / 2;
-          fireworks.push( new Firework(x, y, color.green, speed.fast) );
+          fireworks.push( new Firework(x, y, color.green, speed.slow) );
           amount--;
         }
         fireworks = fireworks.filter(
