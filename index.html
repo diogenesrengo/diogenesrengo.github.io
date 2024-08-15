@@ -151,7 +151,7 @@
         if (amount > 0 && Math.random() < 0.05) {
           const x = Math.random() * canvas.width;
           const y = (Math.random() * canvas.height) / 2;
-          fireworks.push( new Firework(x, y, color.yellow, 1, 1) );
+          fireworks.push( new Firework(x, y, color.yellow, 1, 1.5) );
           amount--;
         }
         fireworks = fireworks.filter(
