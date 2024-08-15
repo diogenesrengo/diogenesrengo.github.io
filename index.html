@@ -124,13 +124,9 @@
         fireworks.forEach((firework) => {firework.update(); firework.draw();});
         
         if (amount > 0 && Math.random() < 0.05) {
-          fireworks.push( 
-            new Firework(
-              Math.random() * canvas.width,
-             (Math.random() * canvas.height) / 2,
-              color
-            );
-          );
+          const x = Math.random() * canvas.width;
+          const y = (Math.random() * canvas.height) / 2;
+          fireworks.push( new Firework(x, y, color) );
           amount--;
         }
         fireworks = fireworks.filter(
