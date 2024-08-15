@@ -45,13 +45,12 @@
       }
 
       class Firework {
-        constructor(x, y) {
+        constructor(x, y, color) {
           this.x = x;
           this.y = canvas.height;
           this.targetX = x;
           this.targetY = y;
-          //this.color = { r: 255, g: 234, b: 0 }; //bright yellow
-          this.color = {
+          this.color = (color)? color : {
             r: Math.floor(Math.random() * 255),
             g: Math.floor(Math.random() * 255),
             b: Math.floor(Math.random() * 255),
@@ -111,6 +110,8 @@
       let amount = 25;
       let username = "rengo250";
       let message = amount + " tokens from " + username;
+          
+      let color = { r: 255, g: 234, b: 0 }; //bright yellow
 
       if (amount > 50) amount = 50;
       function animate() {
@@ -124,7 +125,11 @@
         
         if (amount > 0 && Math.random() < 0.05) {
           fireworks.push( 
-            new Firework( Math.random() * canvas.width, (Math.random() * canvas.height) / 2)
+            new Firework(
+              Math.random() * canvas.width,
+             (Math.random() * canvas.height) / 2,
+              color
+            );
           );
           amount--;
         }
@@ -140,5 +145,3 @@
     </script>
   </body>
 </html>
-
-
