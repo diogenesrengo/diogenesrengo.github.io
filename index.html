@@ -107,11 +107,18 @@
       }
 
       let fireworks = [];
-      let amount = 10;
+      let amount = 11;
       let username = "rengo250";
       let message = amount + " tokens from " + username;
           
-      let color = { r: 255, g: 234, b: 0 }; //bright yellow
+      let colors = {
+        yellow: {r:255, g:253, b:  1},
+        green:  {r:157, g:255, b:  0},
+        cyan:   {r:  0, g:255, b:255},
+        blue:   {r:  1, g:101, b:252},
+        pink:   {r:254, g:  1, b:177},
+        orange: {r:255, g: 91, b:  0},
+      }
 
       if (amount > 50) amount = 50;
       function animate() {
@@ -126,7 +133,7 @@
         if (amount > 0 && Math.random() < 0.05) {
           const x = Math.random() * canvas.width;
           const y = (Math.random() * canvas.height) / 2;
-          fireworks.push( new Firework(x, y, color) );
+          fireworks.push( new Firework(x, y, color.pink) );
           amount--;
         }
         fireworks = fireworks.filter(
