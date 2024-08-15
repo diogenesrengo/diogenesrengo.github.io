@@ -130,7 +130,7 @@
         slow:       0.5,
         very_slow:  0.25,
       };
-      let part = {
+      let parts = {
         few:        0.5,
         normal:     1,
         much:       2,
@@ -151,7 +151,7 @@
         if (amount > 0 && Math.random() < 0.05) {
           const x = Math.random() * canvas.width;
           const y = (Math.random() * canvas.height) / 2;
-          fireworks.push( new Firework(x, y, color.blue, 1, parts.much) );
+          fireworks.push( new Firework(x, y, color.blue, speed.normal, parts.much) );
           amount--;
         }
         fireworks = fireworks.filter(
