@@ -69,8 +69,8 @@
           this.hasShimmer = Math.random() < 0.5;
         }
         explode() {
-          //let parts = 15 + Math.random() * 50;
-          let n = (15 + Math.random() * 50) * ((parts)? parts : 1);
+          let n = 15 + Math.random() * 50;
+          //let n = (15 + Math.random() * 50) * ((parts)? parts : 1);
           for (let i = 0; i < n; i++) {
             const angle = Math.random() * Math.PI * 2;
             const speed = Math.random() * 3 + 1;
@@ -151,7 +151,7 @@
         if (amount > 0 && Math.random() < 0.05) {
           const x = Math.random() * canvas.width;
           const y = (Math.random() * canvas.height) / 2;
-          fireworks.push( new Firework(x, y, color.blue, speed.normal, parts.normal) );
+          fireworks.push( new Firework(x, y, color.yellow, 1, 1) );
           amount--;
         }
         fireworks = fireworks.filter(
