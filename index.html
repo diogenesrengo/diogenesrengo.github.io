@@ -74,7 +74,7 @@
         }
         explode() {
         //here
-          let n = 15 + Math.random() * ((this.parts)? 50 * this.parts : 50);
+          let n = (15 + Math.random() * 50) * ((this.parts)? this.parts : 1);
         //====/
           for (let i = 0; i < n; i++) {
             const angle = Math.random() * Math.PI * 2;
@@ -116,11 +116,10 @@
       }
 
       let fireworks = [];
-      let amount = 1;
+      let amount = 2;
       let username = "rengo250";
       let message = amount + " tokens from " + username;
       
-      //here
       let color = {
         yellow:     {r:255, g:253, b:  1},
         green:      {r:157, g:255, b:  0},
@@ -143,7 +142,6 @@
         much:       5,
         huge:       10,
       };
-      //====/
 
       if (amount > 50) amount = 50;
       
@@ -159,9 +157,9 @@
         if (amount > 0 && Math.random() < 0.05) {
           const x = Math.random() * canvas.width;
           const y = (Math.random() * canvas.height) / 2;
-          //here
-          fireworks.push( new Firework(x, y, color.random, speed.normal, parts.huge) );
-          //====/
+        //here
+          fireworks.push( new Firework(x, y, color.pink, speed.normal, parts.huge) );
+        //====/
           amount--;
         }
         fireworks = fireworks.filter(
