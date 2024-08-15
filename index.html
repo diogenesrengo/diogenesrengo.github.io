@@ -45,7 +45,7 @@
       }
 
       class Firework {
-        constructor(x, y, color, speed) {
+        constructor(x, y, color, speed, parts) {
           this.x = x;
           this.y = canvas.height;
           this.targetX = x;
@@ -70,8 +70,8 @@
         }
         explode() {
           //let parts = 15 + Math.random() * 50;
-          let parts = 100;
-          for (let i = 0; i < parts; i++) {
+          let n = (15 + Math.random() * 50) * ((parts)? parts : 1);
+          for (let i = 0; i < n; i++) {
             const angle = Math.random() * Math.PI * 2;
             const speed = Math.random() * 3 + 1;
             const velocity = { x: Math.cos(angle) * speed, y: Math.sin(angle) * speed, };
@@ -111,7 +111,7 @@
       }
 
       let fireworks = [];
-      let amount = 6;
+      let amount = 7;
       let username = "rengo250";
       let message = amount + " tokens from " + username;
           
@@ -130,6 +130,12 @@
         slow:       0.5,
         very_slow:  0.25,
       };
+      let parts = {
+        few:        0.5,
+        normal:     1,
+        much:       2,
+        huge:       3,
+      };
 
       if (amount > 50) amount = 50;
       
@@ -145,7 +151,7 @@
         if (amount > 0 && Math.random() < 0.05) {
           const x = Math.random() * canvas.width;
           const y = (Math.random() * canvas.height) / 2;
-          fireworks.push( new Firework(x, y, color.green, speed.very_slow) );
+          fireworks.push( new Firework(x, y, color.blue, , parts.much) );
           amount--;
         }
         fireworks = fireworks.filter(
