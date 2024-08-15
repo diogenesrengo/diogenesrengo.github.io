@@ -50,7 +50,12 @@
           this.y = canvas.height;
           this.targetX = x;
           this.targetY = y;
-          this.color = { r: 255, g: 234, b: 0 }; //bright yellow
+          //this.color = { r: 255, g: 234, b: 0 }; //bright yellow
+          this.color = {
+            r: Math.floor(Math.random() * 255),
+            g: Math.floor(Math.random() * 255),
+            b: Math.floor(Math.random() * 255),
+          };
           const angle = (Math.random() * Math.PI) / 4 - Math.PI / 8;
           const speed = Math.random() * 3 + 5;
           this.velocity = { x: Math.sin(angle) * speed, y: -Math.cos(angle) * speed, };
