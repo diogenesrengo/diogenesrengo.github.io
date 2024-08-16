@@ -117,7 +117,6 @@
         }
       }
 
-      let fireworks = [];
       let to_color = {
         yellow:     {r:255, g:253, b:  1},
         green:      {r:157, g:255, b:  0},
@@ -128,11 +127,11 @@
         random:     undefined,
       };
       let to_speed = {
-        very_fast:  3,
-        fast:       2,
-        normal:     1,
-        slow:       0.5,
         very_slow:  0.25,
+        slow:       0.5,
+        normal:     1,
+        fast:       2,
+        very_fast:  3,
       };
       let to_parts = {
         few:        0.5,
@@ -142,21 +141,19 @@
         atomic:     100,
       };
       let from_setts = {
-        color: "random",
-        speed: "normal",
+        color: "green",
+        speed: "very_fast",
         parts: "normal",
         tperf: 2,
         f_max: 50,
         e_msg: true,
       };
-
-      //----------------------\
       let from_event = {
         amount: 2, //tokens
         username: "username",
       }
-      //----------------------/
       
+      let fireworks = [];
       let fws = Math.round(from_event.amount / from_setts.tperf); //fireworks
       let msg = from_event.amount + "(" + fws + ")" + " tokens from " + from_event.username;
 
