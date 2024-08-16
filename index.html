@@ -143,7 +143,7 @@
       };
       let settings = {
         color: "random",
-        speed; "normal",
+        speed: "normal",
         parts: "normal",
         tperf: 2,
         f_max: 50,
@@ -151,14 +151,14 @@
       }:
 
       //----------------------\
-      let e {
+      let from_event {
         amount = 2, //tokens
         username = "username",
       }
       //----------------------/
       
-      let fws = Math.round(e.amount / settings.tperf); //fireworks
-      let msg = e.amount + "(" + amount + ")" + " tokens from " + e.username;
+      let fws = Math.round(from_event.amount / settings.tperf); //fireworks
+      let msg = from_event.amount + "(" + amount + ")" + " tokens from " + from_event.username;
 
       function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
