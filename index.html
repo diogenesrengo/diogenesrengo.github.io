@@ -141,14 +141,14 @@
         huge:       10,
         atomic:     100,
       };
-      let settings = {
+      let from_setts = {
         color: "random",
         speed: "normal",
         parts: "normal",
         tperf: 2,
         f_max: 50,
         e_msg: true,
-      }:
+      };
 
       //----------------------\
       let from_event {
@@ -157,12 +157,12 @@
       }
       //----------------------/
       
-      let fws = Math.round(from_event.amount / settings.tperf); //fireworks
+      let fws = Math.round(from_event.amount / from_setts.tperf); //fireworks
       let msg = from_event.amount + "(" + amount + ")" + " tokens from " + from_event.username;
 
       function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
-        if (settings.e_msg) {
+        if (from_setts.e_msg) {
           c.font = "12px Tahoma";
           c.textAlign = "center";   
           c.fillText(msg, canvas.width / 2, canvas.height - 10);
@@ -174,9 +174,9 @@
           fireworks.push( new Firework(
               x,
               y,
-              to_color[settings.color],
-              to_speed[settings.speed],
-              to_parts[settings.parts])
+              to_color[from_setts.color],
+              to_speed[from_setts.speed],
+              to_parts[from_setts.parts])
           );
           fws--;
         }
