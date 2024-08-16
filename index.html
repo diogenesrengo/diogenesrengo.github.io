@@ -143,7 +143,7 @@
         },
         tk2fw :       2,
       };
-      let amount = 11;
+      let amount = 2;
       let username = "username";
       let fw_amount = Math.round(amount / fw_settings.tk2fw);
       let fw_message = amount + "(" + fw_amount + ")" + " tokens from " + username;
@@ -151,7 +151,7 @@
       function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
         
-        c.font = "10px Tahoma";
+        c.font = "12px Tahoma";
         c.textAlign = "center";   
         c.fillText(fw_message, canvas.width / 2, canvas.height - 10);
 
