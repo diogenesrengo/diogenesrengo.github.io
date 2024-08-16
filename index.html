@@ -118,59 +118,67 @@
       }
 
       let fireworks = [];
-      let fw_settings = {
-        color: {
-          yellow:     {r:255, g:253, b:  1},
-          green:      {r:157, g:255, b:  0},
-          cyan:       {r:  0, g:255, b:255},
-          blue:       {r:  1, g:101, b:252},
-          pink:       {r:254, g:  1, b:177},
-          orange:     {r:255, g: 91, b:  0},
-          random:     undefined,
-        },
-        speed: {
-          very_fast:  3,
-          fast:       2,
-          normal:     1,
-          slow:       0.5,
-          very_slow:  0.25,
-        },
-        parts: {
-          few:        0.5,
-          normal:     1,
-          much:       5,
-          huge:       10,
-        },
-        tk2fw :       2,
-        enamsg:       false,
+      let to_color = {
+        yellow:     {r:255, g:253, b:  1},
+        green:      {r:157, g:255, b:  0},
+        cyan:       {r:  0, g:255, b:255},
+        blue:       {r:  1, g:101, b:252},
+        pink:       {r:254, g:  1, b:177},
+        orange:     {r:255, g: 91, b:  0},
+        random:     undefined,
       };
-      let amount = 2;
-      let username = "username";
-      let fw_amount = Math.round(amount / fw_settings.tk2fw);
-      let fw_message = amount + "(" + fw_amount + ")" + " tokens from " + username;
+      let to_speed = {
+        very_fast:  3,
+        fast:       2,
+        normal:     1,
+        slow:       0.5,
+        very_slow:  0.25,
+      };
+      let to_parts = {
+        few:        0.5,
+        normal:     1,
+        much:       5,
+        huge:       10,
+        atomic:     100,
+      };
+      let settings = {
+        color; "random",
+        speed; "normal",
+        parts: "normal",
+        tperf: 2,
+        f_max: 50,
+        e_msg: false,
+      }:
+
+      //----------------------\
+      let e {
+        amount = 2; //tokens
+        username = "username";
+      }
+      //----------------------/
+      
+      let fws = Math.round(e.amount / settings.tperf); //fireworks
+      let msg = e.amount + "(" + amount + ")" + " tokens from " + e.username;
 
       function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
-        
-        if (fw_settings.enamsg) {
+        if (settings.e_msg) {
           c.font = "12px Tahoma";
           c.textAlign = "center";   
-          c.fillText(fw_message, canvas.width / 2, canvas.height - 10);
+          c.fillText(msg, canvas.width / 2, canvas.height - 10);
         }
-
         fireworks.forEach((firework) => {firework.update(); firework.draw();});
-        
-        if (fw_amount > 0 && Math.random() < 0.05) {
+        if (fws > 0 && Math.random() < 0.05) {
           const x = Math.random() * canvas.width;
           const y = (Math.random() * canvas.height) / 2;
           fireworks.push( new Firework(
               x,
               y,
-              fw_settings.color.random,
-              fw_settings.speed.normal,
-              fw_settings.parts.normal)
+              to_color[settings.color],
+              to_speed[settings.speed],
+              to_parts[settings.parts])
           );
-          fw_amount--;
+          fws--;
         }
         fireworks = fireworks.filter(
           (firework) => !firework.exploded || firework.particles.length > 0
@@ -178,8 +186,7 @@
         requestAnimationFrame(animate);
       }
         
-      if (fw_amount > 0) animate();
-
+      if (fws > 0) animate();
 
     </script>
   </body>
