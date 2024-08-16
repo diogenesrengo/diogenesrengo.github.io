@@ -118,7 +118,6 @@
       }
 
       let fireworks = [];
-      let amount = 11;
       let fw_settings = {
         color: {
           yellow:     {r:255, g:253, b:  1},
@@ -142,10 +141,11 @@
           much:       5,
           huge:       10,
         },
-        tk2fw :       1,
+        tk2fw :       2,
       };
+      let amount = 11;
+      let username = "username";
       let fw_amount = Math.round(amount / fw_settings.tk2fw);
-      let fw_username = "username";
       let fw_message = amount + " tokens from " + username;
 
       function animate() {
