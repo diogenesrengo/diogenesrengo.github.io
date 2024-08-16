@@ -142,6 +142,7 @@
           huge:       10,
         },
         tk2fw :       2,
+        enamsg:       false,
       };
       let amount = 2;
       let username = "username";
@@ -151,9 +152,11 @@
       function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
         
-        c.font = "12px Tahoma";
-        c.textAlign = "center";   
-        c.fillText(fw_message, canvas.width / 2, canvas.height - 10);
+        if (fw_settings.enamsg) {
+          c.font = "12px Tahoma";
+          c.textAlign = "center";   
+          c.fillText(fw_message, canvas.width / 2, canvas.height - 10);
+        }
 
         fireworks.forEach((firework) => {firework.update(); firework.draw();});
         
