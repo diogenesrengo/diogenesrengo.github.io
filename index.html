@@ -205,8 +205,8 @@
         app.fireworks = app.fireworks.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
-        if (app.fireworks) 
-            requestAnimationFrame(animate);
+        requestAnimationFrame(animate);
+        if (!app.fireworks) return; 
         if (!(i % 500)) {
             console.log("i=" + i);
             console.log(app.fireworks[0]);
