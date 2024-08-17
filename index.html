@@ -116,48 +116,54 @@
             this.fireworks = [];
             this.total = Math.round(this.events.tip.tokens / this.settings.tperf);
             this.text = this.events.tip.tokens + " tokens from " + this.events.username;
-
+        
+            this.settings = {
+                color: "pink",
+                speed: "normal",
+                parts: "normal",
+                tperf: 1,
+                f_max: 50,
+                e_msg: true,
+            };
+            this.events = {
+                tip: {
+                    tokens: 1,
+                    username: "username",
+                },
+                start: true,
+            };
         }
-        let color2rgb = {
-            yellow: {r:255, g:253, b:  1},
-            green:  {r:157, g:255, b:  0},
-            cyan:   {r:  0, g:255, b:255},
-            blue:   {r:  1, g:101, b:252},
-            pink:   {r:254, g:  1, b:177},
-            orange: {r:255, g: 91, b:  0},
-            random: undefined,
-        };
-        let speed2num = {
-            very_slow:  0.25,
-            slow:       0.5,
-            normal:     1,
-            fast:       2,
-            very_fast:  3,
-        };
-        let parts2num = {
-            few:    0.5,
-            normal: 1,
-            much:   5,
-            huge:   10,
-            heavy:  50,
-        };
-        let settings = {
-            color:  "pink",
-            speed:  "normal",
-            parts:  "normal",
-            tperf:  1,
-            f_max:  50,
-            e_msg:  true,
-        };
-        let events = {
-            tip: {
-                tokens: 1,
-                username: "username",
-            },
-            start: true,
+        color2rgb(str) {
+            switch (str) {
+                case "yellow": return {r:255, g:253, b:  1};
+                case "green":  return {r:157, g:255, b:  0};
+                case "cyan":   return {r:  0, g:255, b:255}:
+                case "blue":   return {r:  1, g:101, b:252};
+                case "pink":   return {r:254, g:  1, b:177};
+                case "orange": return {r:255, g: 91, b:  0};
+                default: return undefined;
+            }
+        }
+        speed2num(str) {
+            switch (str) {
+                case "very_slow":  return 0.25;
+                case "slow":       return 0.5;
+                case "fast":       return 2;
+                case "very_fast":  return 3;
+                default: return 1;
+            }
+        }
+        parts2num() {
+            switch (str) {
+                case "few":     return 0.5;
+                case "much":    return 5;
+                case "huge":    return 10;
+                case "killer":  return 50;
+                default; return 1;
+            }
         }
     }
-      
+
     function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
         if (app.settings.e_msg) {
@@ -174,9 +180,9 @@
             app.fireworks.push( new Firework(
                 x,
                 y,
-                app.color2rgb[app.settings.color],
-                app.speed2num[app.settings.speed],
-                app.parts2num[app.settsing.parts])
+                app.color2rgb( app.settings.color ),
+                app.speed2num( app.settings.speed ),
+                app.parts2num( app.settsing.parts ))
             );
             app.total--;
         }
