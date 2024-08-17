@@ -134,7 +134,7 @@
             };
             this.events = {
                 tip: {
-                    tokens: 5,
+                    tokens: 1,
                     username: "rengo",
                 },
                 start: true,
@@ -204,7 +204,7 @@
         app.fireworks = app.fireworks.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
-        if (app.total > 0) requestAnimationFrame(animate);
+        if (app.fireworks) requestAnimationFrame(animate);
     }
 
     if (app.total > 0) animate();
