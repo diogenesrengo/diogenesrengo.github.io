@@ -200,7 +200,6 @@
                     app.speed2num( app.settings.speed ),
                     app.parts2num( app.settings.parts )
             ));
-            console.log("=====");
             console.log("0.fireworks.length=" + app.fireworks.length);
             app.total--;
         }
@@ -208,10 +207,12 @@
             (firework) => !firework.exploded || firework.particles.length > 0
         );
         if (!(i % 500)) {
+            console.log("-----------------\\");
             console.log("i=" + i);
             console.log("fireworks=" + app.fireworks);
             console.log("1.fireworks.length=" + app.fireworks.length);
             console.log("total=" + app.total);
+            console.log("-----------------/");
         }
         requestAnimationFrame(animate);
         i++;
