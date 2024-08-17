@@ -184,7 +184,7 @@
 
     function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
-        if (app.settings.e_txt) {
+        if (app.settings.e_txt && app.total > 0) {
             c.font = "12px Tahoma";
             c.fillStyle = "white"; 
             c.textAlign = "center";
