@@ -145,7 +145,7 @@
             this.text = 
                 "<" +
                 this.events.tip.tokens +
-                (this.total == 1)? " token" : " tokens" + " from " +
+                ((this.total == 1)? " token" : " tokens") + " from " +
                 this.events.tip.username +
                 ">";
         }
@@ -186,7 +186,7 @@
         c.clearRect(0, 0, canvas.width, canvas.height);
         if (app.settings.e_txt) {
             c.font = "12px Tahoma";
-            c.textAlign = "center";   
+            c.textAlign = "center";
             c.fillText(app.text, canvas.width / 2, canvas.height - 10);
         }
         app.fireworks.forEach(
@@ -195,9 +195,7 @@
         if (app.total > 0 && Math.random() < 0.05) {
             const x = Math.random() * canvas.width;
             const y = (Math.random() * canvas.height) / 2;
-            app.fireworks.push(new Firework(
-                    x,
-                    y,
+            app.fireworks.push( new Firework(x, y,
                     app.color2rgb( app.settings.color ),
                     app.speed2num( app.settings.speed ),
                     app.parts2num( app.settings.parts )
