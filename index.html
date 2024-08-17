@@ -206,10 +206,9 @@
         app.fireworks = app.fireworks.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
-        if (!(i % 500)) {
+        if (!(i % 100)) {
             console.log("-----------------\\");
             console.log("i=" + i);
-            console.log("fireworks=" + app.fireworks);
             console.log("1.fireworks.length=" + app.fireworks.length);
             console.log("total=" + app.total);
             console.log("-----------------/");
