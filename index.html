@@ -206,12 +206,12 @@
         app.fireworks = app.fireworks.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
-        requestAnimationFrame(animate);
-        if (!app.fireworks) return; 
+        if (app.fireworks) requestAnimationFrame(animate);
         if (!(i % 200)) {
             console.log("i=" + i);
             console.log("app.fireworks=" + app.fireworks);
             console.log("length=" + app.fireworks.length);
+            console.log("total=" + app.total);
         }
         i++;
     }
