@@ -200,17 +200,18 @@
                     app.speed2num( app.settings.speed ),
                     app.parts2num( app.settings.parts )
             ));
-            console.log("new=" + app.fireworks[app.total]);
+            console.log("0.fireworks.length=" + app.fireworks.length);
             app.total--;
         }
         app.fireworks = app.fireworks.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
-        if (app.fireworks) requestAnimationFrame(animate);
-        if (!(i % 200)) {
+        //if (app.fireworks) 
+            requestAnimationFrame(animate);
+        if (!(i % 500)) {
             console.log("i=" + i);
-            console.log("app.fireworks=" + app.fireworks);
-            console.log("length=" + app.fireworks.length);
+            console.log("fireworks=" + app.fireworks);
+            console.log("1.fireworks.length=" + app.fireworks.length);
             console.log("total=" + app.total);
         }
         i++;
