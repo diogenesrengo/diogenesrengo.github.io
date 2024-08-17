@@ -214,8 +214,8 @@
             console.log("total=" + app.total);
             console.log("-----------------/");
         }
-        if (app.fireworks.length != 0)
-            requestAnimationFrame(animate);
+        if (app.fireworks.length != 0) requestAnimationFrame(animate);
+        else c.clearRect(0, 0, canvas.width, canvas.height);
         i++;
     }
 
