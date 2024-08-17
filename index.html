@@ -130,7 +130,7 @@
                 parts: "normal",
                 tperf: 1,
                 f_max: 50,
-                e_msg: true,
+                e_txt: true,
             };
             this.events = {
                 tip: {
@@ -143,8 +143,11 @@
             this.fireworks = [];
             this.total = Math.round(this.events.tip.tokens / this.settings.tperf);
             this.text = 
-                this.events.tip.tokens + " tokens from " + this.events.tip.username;
-        
+                "<" +
+                this.events.tip.tokens +
+                (this.total == 1)? " token" : " tokens" + " from " +
+                this.events.tip.username +
+                ">";
         }
         color2rgb(str) {
             switch (str) {
@@ -181,7 +184,7 @@
 
     function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
-        if (app.settings.e_msg) {
+        if (app.settings.e_txt) {
             c.font = "12px Tahoma";
             c.textAlign = "center";   
             c.fillText(app.text, canvas.width / 2, canvas.height - 10);
@@ -192,13 +195,13 @@
         if (app.total > 0 && Math.random() < 0.05) {
             const x = Math.random() * canvas.width;
             const y = (Math.random() * canvas.height) / 2;
-            app.fireworks.push( new Firework(
-                x,
-                y,
-                app.color2rgb( app.settings.color ),
-                app.speed2num( app.settings.speed ),
-                app.parts2num( app.settings.parts ))
-            );
+            app.fireworks.push(new Firework(
+                    x,
+                    y,
+                    app.color2rgb( app.settings.color ),
+                    app.speed2num( app.settings.speed ),
+                    app.parts2num( app.settings.parts )
+            ));
             app.total--;
         }
         app.fireworks = app.fireworks.filter(
