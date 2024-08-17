@@ -125,7 +125,7 @@
     class App {
         constructor() {
             this.settings = {
-                color: "",
+                color: "orange",
                 speed: "",
                 parts: "",
                 tperf: 1,
@@ -134,7 +134,7 @@
             };
             this.events = {
                 tip: {
-                    tokens: 3,
+                    tokens: 10,
                     username: "rengo",
                 },
                 start: true,
@@ -213,7 +213,7 @@
             console.log("total=" + app.total);
             console.log("-----------------/");
         }
-        if (app.total > 0 || app.fireworks.length != 0)
+        if (app.total > 0 || app.fireworks.length)
             requestAnimationFrame(animate);
         i++;
     }
