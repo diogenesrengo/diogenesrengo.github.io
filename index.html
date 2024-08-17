@@ -143,11 +143,11 @@
             this.fireworks = [];
             this.total = Math.round(this.events.tip.tokens / this.settings.tperf);
             this.text = 
-                "*" +
+                "* " +
                 this.events.tip.tokens +
                 ((this.total == 1)? " token" : " tokens") + " from " +
                 this.events.tip.username +
-                "*";
+                " *";
         }
         color2rgb(str) {
             switch (str) {
@@ -186,6 +186,7 @@
         c.clearRect(0, 0, canvas.width, canvas.height);
         if (app.settings.e_txt) {
             c.font = "12px Tahoma";
+            c.fillStyle = "white"; 
             c.textAlign = "center";
             c.fillText(app.text, canvas.width / 2, canvas.height - 10);
         }
