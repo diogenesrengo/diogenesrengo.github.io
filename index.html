@@ -207,7 +207,10 @@
         );
         if (app.fireworks) 
             requestAnimationFrame(animate);
-        if (!(i % 100)) console.log("i=" + i);
+        if (!(i % 500)) {
+            console.log("i=" + i);
+            console.log(app.fireworks);
+        }
         i++;
     }
 
