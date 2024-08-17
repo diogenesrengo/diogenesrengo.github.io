@@ -179,6 +179,7 @@
     }
 
     let app = new App;
+    let i = 0;
 
     function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
@@ -205,6 +206,7 @@
             (firework) => !firework.exploded || firework.particles.length > 0
         );
         if (app.fireworks) requestAnimationFrame(animate);
+        if (i++ % 10000) console.log("i=" + i);
     }
 
     if (app.total > 0) animate();
