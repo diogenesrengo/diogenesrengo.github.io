@@ -111,7 +111,7 @@
         }
     }
 
-    class app {
+    class App {
         constructor() {
             this.fireworks = [];
             this.total = Math.round(this.events.tip.tokens / this.settings.tperf);
@@ -137,7 +137,7 @@
             switch (str) {
                 case "yellow": return {r:255, g:253, b:  1};
                 case "green":  return {r:157, g:255, b:  0};
-                case "cyan":   return {r:  0, g:255, b:255}:
+                case "cyan":   return {r:  0, g:255, b:255};
                 case "blue":   return {r:  1, g:101, b:252};
                 case "pink":   return {r:254, g:  1, b:177};
                 case "orange": return {r:255, g: 91, b:  0};
@@ -163,6 +163,8 @@
             }
         }
     }
+
+    let app = new App;
 
     function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
