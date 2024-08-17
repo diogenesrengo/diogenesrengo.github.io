@@ -113,10 +113,6 @@
 
     class App {
         constructor() {
-            this.fireworks = [];
-            this.total = Math.round(this.events.tip.tokens / this.settings.tperf);
-            this.text = this.events.tip.tokens + " tokens from " + this.events.username;
-        
             this.settings = {
                 color: "pink",
                 speed: "normal",
@@ -132,6 +128,11 @@
                 },
                 start: true,
             };
+            
+            this.fireworks = [];
+            this.total = Math.round(this.events.tip.tokens / this.settings.tperf);
+            this.text = this.events.tip.tokens + " tokens from " + this.events.username;
+        
         }
         color2rgb(str) {
             switch (str) {
