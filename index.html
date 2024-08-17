@@ -34,7 +34,8 @@
             c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             let alpha = this.alpha;
             if (this.shimmer) { alpha *= 0.5 + Math.random() * 0.5; }
-            c.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
+            c.fillStyle = 
+                `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
             c.fill();
         }
         update() {
@@ -75,8 +76,11 @@
             for (let i = 0; i < n; i++) {
                 const angle = Math.random() * Math.PI * 2;
                 const speed = Math.random() * 3 + 1;
-                const velocity = { x: Math.cos(angle) * speed, y: Math.sin(angle) * speed, };
-                this.particles.push( new Particle(this.x, this.y, this.color, velocity) );
+                const velocity = 
+                    { x: Math.cos(angle) * speed, y: Math.sin(angle) * speed, };
+                this.particles.push( 
+                    new Particle(this.x, this.y, this.color, velocity)
+                );
             }
             this.exploded = true;
         }
@@ -87,16 +91,22 @@
                 //here
                 this.velocity.y += 0.02; //0.05;
                 //
-                this.trail.push( new Particle(this.x, this.y, this.color, {x:0, y:0}) );
+                this.trail.push( 
+                    new Particle(this.x, this.y, this.color, {x:0, y:0})
+                );
                 if (this.trail.length > 20) this.trail.shift();
                 if (this.velocity.y >= 0 || this.y <= this.targetY) this.explode();
             } else {
                 this.explosionProgress += 0.02;
-                this.particles.forEach( (particle) => {particle.update(); particle.draw();} );
-                this.particles = this.particles.filter( (particle) => particle.life > 0 );
+                this.particles.forEach( 
+                    (particle) => {particle.update(); particle.draw();}
+                );
+                this.particles = 
+                    this.particles.filter( (particle) => particle.life > 0);
             }
             this.trail.forEach( (particle, index) => {
-                particle.alpha = (index / this.trail.length) * (1 - this.explosionProgress);
+                particle.alpha = 
+                    (index / this.trail.length) * (1 - this.explosionProgress);
                 if (this.hasShimmer) { particle.shimmer = true; }
                 particle.draw();
             });
@@ -105,7 +115,8 @@
             if (!this.exploded) {
                 c.beginPath();
                 c.arc(this.x, this.y, 2, 0, Math.PI * 2);
-                c.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+                c.fillStyle = 
+                    `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
                 c.fill();
             }
         }
@@ -131,7 +142,8 @@
             
             this.fireworks = [];
             this.total = Math.round(this.events.tip.tokens / this.settings.tperf);
-            this.text = this.events.tip.tokens + " tokens from " + this.events.username;
+            this.text = 
+                this.events.tip.tokens + " tokens from " + this.events.username;
         
         }
         color2rgb(str) {
@@ -185,7 +197,7 @@
                 y,
                 app.color2rgb( app.settings.color ),
                 app.speed2num( app.settings.speed ),
-                app.parts2num( app.settsing.parts ))
+                app.parts2num( app.settings.parts ))
             );
             app.total--;
         }
