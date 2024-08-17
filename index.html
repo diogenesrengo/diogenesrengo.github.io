@@ -143,11 +143,11 @@
             this.fireworks = [];
             this.total = Math.round(this.events.tip.tokens / this.settings.tperf);
             this.text = 
-                "<" +
+                "*" +
                 this.events.tip.tokens +
                 ((this.total == 1)? " token" : " tokens") + " from " +
                 this.events.tip.username +
-                ">";
+                "*";
         }
         color2rgb(str) {
             switch (str) {
