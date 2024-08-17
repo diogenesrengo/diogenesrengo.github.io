@@ -206,7 +206,8 @@
             (firework) => !firework.exploded || firework.particles.length > 0
         );
         if (app.fireworks) requestAnimationFrame(animate);
-        if (i++ % 10000) console.log("i=" + i);
+        if (!(i % 1000)) console.log("i=" + i);
+        i++;
     }
 
     if (app.total > 0) animate();
