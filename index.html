@@ -214,7 +214,7 @@
             console.log("total=" + app.total);
             console.log("-----------------/");
         }
-        if (app.fireworks.length != 0)
+        if (app.total > 0 || app.fireworks.length != 0)
             requestAnimationFrame(animate);
         i++;
     }
