@@ -143,11 +143,9 @@
             this.fireworks = [];
             this.total = Math.round(this.events.tip.tokens / this.settings.tperf);
             this.text = 
-                "* " +
                 this.events.tip.tokens +
                 ((this.total == 1)? " token" : " tokens") + " from " +
-                this.events.tip.username +
-                " *";
+                this.events.tip.username;
         }
         color2rgb(str) {
             switch (str) {
@@ -185,7 +183,7 @@
     function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
         if (app.settings.e_txt && app.total > 0) {
-            c.font = "12px Tahoma";
+            c.font = "12px Arial";
             c.fillStyle = "white"; 
             c.textAlign = "center";
             c.fillText(app.text, canvas.width / 2, canvas.height - 10);
@@ -206,7 +204,7 @@
         app.fireworks = app.fireworks.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
-        requestAnimationFrame(animate);
+        if (app.total > 0) requestAnimationFrame(animate);
     }
 
     if (app.total > 0) animate();
