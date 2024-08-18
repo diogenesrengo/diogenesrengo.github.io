@@ -231,7 +231,9 @@
             requestAnimationFrame(animate);
     }
     
-    document.getElementById("username").innerHTML = app.events.tip.username;
+    let un = document.getElementById("username");
+    x.style.color = "red";
+    x.innerHTML = app.events.tip.username;
     document.getElementById("tipped").innerHTML = 
         app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
     //setTimeout(
