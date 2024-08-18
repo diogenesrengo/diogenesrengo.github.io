@@ -15,17 +15,25 @@
             border-radius: 4px;
             background-color: #ffff33;
         }
-        #notice_text {
+        #username {
             position: absolute;
             left: 5px;
             top: 4px;
+            color: red;
+            font: bold 12px Tahoma, serif;
+        }
+        #tipped {
+            position: relative;
             font: bold 12px Tahoma, serif;
         }
     </style>
 </head>
 <body>
     <div style="position: relative;">
-        <div id="notice"><div id="notice_text"></div></div>
+        <div id="notice">
+            <div id="username"></div>
+            <div id="tipped"></div>
+        </div>
         <canvas id="fireworksCanvas" width="800" height="600"></canvas>
     </div>
 
@@ -232,7 +240,9 @@
             requestAnimationFrame(animate);
     }
     
-    document.getElementById("notice_text").innerHTML = app.notice;
+    document.getElementById("username").innerHTML = app.events.tip.username;
+    document.getElementById("tipped").innerHTML = 
+        " tipped " + app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
     setTimeout(
         () => document.getElementById("notice").style.display = "none",
         3000
