@@ -222,7 +222,7 @@
     }
     
     function show_notice() {
-        if (!app.settings.e_txt) return;
+      if (app.settings.e_txt) {
         let x = document.getElementById("username");
         x.style.color = app.events.tip.color;
         x.innerHTML = app.events.tip.username;
@@ -232,7 +232,7 @@
         for (let i=1, j=5; i <= 5; i++, j--) 
             setTimeout( () => { x.style.opacity = i / 10; }, 2500 + j * 100);
         setTimeout(() => x.style.display = "none", 3000);
-    }
+      }}
     
     show_notice();
     animate();
