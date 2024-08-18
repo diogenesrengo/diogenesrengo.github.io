@@ -238,9 +238,10 @@
         x.innerHTML = app.events.tip.username;
         document.getElementById("tipped").innerHTML = 
             app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
-        setTimeout(
-            () => document.getElementById("notice_box").style.display = "none", 3000
-        );
+        x = document.getElementById("notice_box");
+        setTimeout(() => x.style.opacity = 0.5, 1000);
+        setTimeout(() => x.style.opacity = 0.25, 2000);
+        setTimeout(() => x.style.display = "none", 3000);
     }
     
     show_notice();
