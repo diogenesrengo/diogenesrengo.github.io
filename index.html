@@ -6,7 +6,7 @@
             display: block;
             background-color: black;
         }
-        #container {
+        #notice {
             position: absolute;
             left: 590px;
             top: 565px;
@@ -15,7 +15,7 @@
             border-radius: 4px;
             background-color: #ffff33;
         }
-        #notice {
+        #notice_text {
             position: absolute;
             left: 5px;
             top: 4px;
@@ -25,7 +25,7 @@
 </head>
 <body>
     <div style="position: relative;">
-        <div id="container"><div id="notice"></div></div>
+        <div id="notice"><div id="notice_text"></div></div>
         <canvas id="fireworksCanvas" width="800" height="600"></canvas>
     </div>
 
@@ -232,9 +232,9 @@
             requestAnimationFrame(animate);
     }
     
-    document.getElementById("notice").innerHTML = app.notice;
+    document.getElementById("notice_text").innerHTML = app.notice;
     setTimeout(
-        () => document.getElementById("container").style.display = "none",
+        () => document.getElementById("notice").style.display = "none",
         3000
     )
 
