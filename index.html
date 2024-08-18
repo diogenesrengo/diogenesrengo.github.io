@@ -240,8 +240,8 @@
             app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
         x = document.getElementById("notice_box");
         x.style.opacity = 0.6;
-        for (let i=5; i>0; i++) 
-            setTimeout( () => x.style.opacity -= 0.1, i * 100);
+        for (let i = 5; i > 0; i--) 
+            setTimeout( () => { x.style.opacity -= 0.1; }, i * 100);
         setTimeout(() => x.style.display = "none", 3000);
     }
     
