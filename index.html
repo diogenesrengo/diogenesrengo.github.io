@@ -184,8 +184,12 @@
     function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
         if (app.settings.e_txt && app.total > 0) {
-            c.font = "12px Arial";
-            c.fillStyle = "white"; 
+            
+            c.fillStyle = "#ffff33";
+            c.fillRect(canvas.width / 2, canvas.height - 10, 100, 20);
+
+            c.font = "10px Tahoma";
+            c.fillStyle = "black";
             c.textAlign = "center";
             c.fillText(app.text, canvas.width / 2, canvas.height - 10);
         }
