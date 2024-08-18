@@ -147,7 +147,7 @@
     class App {
         constructor() {
             this.settings = {
-                color: "random",
+                color: "pink",
                 speed: "",
                 parts: "",
                 tperf: 1,
@@ -156,7 +156,7 @@
             };
             this.events = {
                 tip: {
-                    tokens: 1,
+                    tokens: 3,
                     username: "rengo",
                     color: "red",
                 },
@@ -231,15 +231,19 @@
             requestAnimationFrame(animate);
     }
     
-    let x = document.getElementById("username");
-    x.style.color = "red";
-    x.innerHTML = app.events.tip.username;
-    document.getElementById("tipped").innerHTML = 
-        app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
-    //setTimeout(
-    //    () => document.getElementById("notice").style.display = "none", 3000
-    //)
-
+    function show_notice() {
+        if (!app.settings.e_txt) return;
+        let x = document.getElementById("username");
+        x.style.color = app.events.tip.color;
+        x.innerHTML = app.events.tip.username;
+        document.getElementById("tipped").innerHTML = 
+            app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
+        setTimeout(
+            () => document.getElementById("notice").style.display = "none", 3000
+        );
+    }
+    
+    show_notice();
     animate();
 
     </script>
