@@ -216,8 +216,6 @@
         app.fireworks = app.fireworks.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
-        i++;
-        */
         if (app.total > 0 || app.fireworks.length)
             requestAnimationFrame(animate);
     }
