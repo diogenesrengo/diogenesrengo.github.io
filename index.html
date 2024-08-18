@@ -162,7 +162,7 @@
             
             this.fireworks = [];
             this.total = Math.round(this.events.tip.tokens / this.settings.tperf);
-            this.text = 
+            this.notice = 
                 this.events.tip.username + 
                 " tipped " +
                 this.events.tip.tokens +
@@ -234,8 +234,7 @@
             requestAnimationFrame(animate);
     }
 
-    document.getElementById("notice").innerHTML = "hello";
-
+    document.getElementById("notice").innerHTML = app.notice;
 
     animate();
 
