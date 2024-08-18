@@ -6,7 +6,7 @@
             display: block;
             background-color: black;
         }
-        #notice {
+        #container {
             position: absolute;
             left: 590px;
             top: 565px;
@@ -14,14 +14,18 @@
             height: 25px;
             border-radius: 4px;
             background-color: #ffff33;
+        }
+        #notice {
+            position: absolute;
+            left: 1px;
+            top: 1px;
             font: bold 12px Tahoma, serif;
         }
     </style>
 </head>
 <body>
     <div style="position: relative;">
-        <div id="notice">
-        </div>
+        <div id="container"><div id="notice"></div></div>
         <canvas id="fireworksCanvas" width="800" height="600"></canvas>
     </div>
 
