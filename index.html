@@ -184,7 +184,7 @@
 
     function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
-        if (app.settings.e_txt && app.text) {
+        if (app.settings.e_txt) { // && app.total > 0) {
            
             c.fillStyle = "#ffff33";
             //c.strokeStyle = "#ffff33";
@@ -197,11 +197,6 @@
             //c.textAlign = "center";
             c.fillText(app.text, canvas.width / 2 + 5, canvas.height - 17);
 
-            if (!(i % 50)) {
-                console.log("i=" + app.fireworks.length);
-                console.log("app.text=" + app.text);
-            }
-            app.text = "";
         }
         app.fireworks.forEach(
             (firework) => {firework.update(); firework.draw();
@@ -214,12 +209,12 @@
                     app.speed2num( app.settings.speed ),
                     app.parts2num( app.settings.parts )
             ));
+            console.log("0.fireworks.length=" + app.fireworks.length);
             app.total--;
         }
         app.fireworks = app.fireworks.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
-        /*
         if (!(i % 100)) {
             console.log("-----------------\\");
             console.log("i=" + i);
@@ -227,7 +222,6 @@
             console.log("total=" + app.total);
             console.log("-----------------/");
         }
-        */
         if (app.total > 0 || app.fireworks.length)
             requestAnimationFrame(animate);
         i++;
