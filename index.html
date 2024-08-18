@@ -187,12 +187,12 @@
         if (app.settings.e_txt) { // && app.total > 0) {
             
             c.fillStyle = "#ffff33";
-            c.roundRect(5, 5, canvas.width / 2 - 100, canvas.height - 30, 200, 20);
+            c.roundRect(canvas.width / 2 - 100, canvas.height - 30, 200, 20, [5]);
 
             c.font = "bold 12px Tahoma";
             c.fillStyle = "black";
             c.textAlign = "center";
-            c.fillText(app.text, canvas.width / 2, canvas.height - 15);
+            c.fillText(app.text, canvas.width / 2, canvas.height - 16);
         }
         app.fireworks.forEach(
             (firework) => {firework.update(); firework.draw();
