@@ -185,9 +185,12 @@
     function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
         if (app.settings.e_txt) { // && app.total > 0) {
-            
+           
             c.fillStyle = "#ffff33";
+            c.strokeStyle = "black";
+            c.beginPath();
             c.roundRect(canvas.width / 2 - 100, canvas.height - 30, 200, 20, [5]);
+            ctx.stroke(); 
 
             c.font = "bold 12px Tahoma";
             c.fillStyle = "black";
