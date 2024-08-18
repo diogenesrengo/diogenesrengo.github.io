@@ -148,17 +148,17 @@
         constructor() {
             this.settings = {
                 color: "",
-                speed: "slow",
-                parts: "few",
-                tperf: 10,
+                speed: "fast",
+                parts: "much",
+                tperf: 1,
                 f_max: 50,
-                e_txt: false,
+                e_txt: true,
             };
             this.events = {
                 tip: {
-                    tokens: 10,
+                    tokens: 1,
                     username: "rengo250",
-                    color: "green",
+                    color: "red",
                 },
                 start: true,
             };
@@ -197,6 +197,7 @@
     }
 
     let app = new App;
+    let i = 0;
 
     function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
@@ -216,6 +217,14 @@
         app.fireworks = app.fireworks.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
+        /*
+        if (!(i % 100)) {
+            console.log("-----------------\\");
+            console.log("i=" + i);
+            console.log("1.fireworks.length=" + app.fireworks.length);
+            console.log("total=" + app.total);
+            console.log("-----------------/");
+        }
         i++;
         */
         if (app.total > 0 || app.fireworks.length)
