@@ -198,7 +198,10 @@
             c.fillText(app.text, canvas.width / 2 + 5, canvas.height - 17);
 
             app.text = "";
-            if (!(i % 50)) console.log("i=" + app.fireworks.length);
+            if (!(i % 50)) {
+                console.log("i=" + app.fireworks.length);
+                console.log("app.text=" + app.text);
+            }
         }
         app.fireworks.forEach(
             (firework) => {firework.update(); firework.draw();
