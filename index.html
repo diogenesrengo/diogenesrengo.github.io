@@ -156,7 +156,7 @@
             };
             this.events = {
                 tip: {
-                    tokens: 5,
+                    tokens: 3,
                     username: "rengo250",
                     color: "green",
                 },
@@ -239,7 +239,7 @@
         document.getElementById("tipped").innerHTML = 
             app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
         x = document.getElementById("notice_box");
-        for (let i=1; i <= 5; i++) {
+        for (let i=5; i <= 1; i--) {
             setTimeout(() => x.style.opacity = i * 0.1, i * 400);
         }
         setTimeout(() => x.style.display = "none", 3000);
