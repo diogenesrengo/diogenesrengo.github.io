@@ -238,10 +238,9 @@
     document.getElementById("username").innerHTML = app.events.tip.username;
     document.getElementById("tipped").innerHTML = 
         " tipped " + app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
-    setTimeout(
-        () => document.getElementById("notice").style.display = "none",
-        3000
-    )
+    //setTimeout(
+    //    () => document.getElementById("notice").style.display = "none", 3000
+    //)
 
     animate();
 
