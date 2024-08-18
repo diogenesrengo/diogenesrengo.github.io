@@ -14,6 +14,7 @@
             height: 25px;
             border-radius: 4px;
             background-color: #ffff33;
+            transition: 1s;
         }
         #notice {
             position: absolute;
@@ -157,8 +158,8 @@
             this.events = {
                 tip: {
                     tokens: 3,
-                    username: "rengo250",
-                    color: "green",
+                    username: "rengo",
+                    color: "red",
                 },
                 start: true,
             };
@@ -239,9 +240,6 @@
         document.getElementById("tipped").innerHTML = 
             app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
         x = document.getElementById("notice_box");
-        for (let i=5; i <= 1; i--) {
-            setTimeout(() => x.style.opacity = i * 0.1, i * 400);
-        }
         setTimeout(() => x.style.display = "none", 3000);
     }
     
