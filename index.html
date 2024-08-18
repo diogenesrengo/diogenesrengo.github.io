@@ -125,7 +125,7 @@
     class App {
         constructor() {
             this.settings = {
-                color: "orange",
+                color: "random",
                 speed: "",
                 parts: "",
                 tperf: 1,
@@ -134,7 +134,7 @@
             };
             this.events = {
                 tip: {
-                    tokens: 10,
+                    tokens: 2,
                     username: "rengo",
                 },
                 start: true,
@@ -186,7 +186,7 @@
         if (app.settings.e_txt && app.total > 0) {
             
             c.fillStyle = "#ffff33";
-            c.fillRect(canvas.width / 2, canvas.height - 10, 100, 20);
+            c.fillRect(canvas.width / 2, canvas.height - 20, 150, 20);
 
             c.font = "10px Tahoma";
             c.fillStyle = "black";
