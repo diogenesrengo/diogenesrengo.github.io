@@ -2,14 +2,11 @@
 <html>
 <head>
     <style>
-        #container {
-            position: relative;
-        }
         canvas {
             display: block;
             background-color: black;
         }
-        #notice {
+        #container {
             position: absolute;
             left: 590px;
             top: 565px;
@@ -18,11 +15,19 @@
             border-radius: 4px;
             background-color: #ffff33;
         }
+        #notice {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            font: bold 11px Tahoma, serif;
+        }
     </style>
 </head>
 <body>
-    <div id="container">
-        <div id="notice"></div>
+    <div style="position: relative;">
+        <div id="container">
+            <p id="notice"></p>
+        </div>
         <canvas id="fireworksCanvas" width="800" height="600"></canvas>
     </div>
 
