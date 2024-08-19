@@ -4,7 +4,6 @@
     <style>
         canvas {
             display: block;
-            background-image: "back.jpg";
         }
         #notice_box {
             position: absolute;
@@ -30,11 +29,13 @@
             position: absolute;
             width: 800px;
             height: 600px;
+            z-index: 20;
         }
     </style>
 </head>
 <body>
     <div style="position: relative;">
+        <img id="back" src="back.jpg">
         <div id="notice_box">
             <div id="notice">
                 <span id="username"></span> tipped <span id="tipped"></span>
