@@ -14,7 +14,7 @@
             height: 25px;
             border-radius: 4px;
             background-color: #ffff33;
-            display: none;
+            visibility: hidden;
         }
         #notice {
             position: absolute;
@@ -241,7 +241,7 @@
         document.getElementById("tipped").innerHTML = 
             app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
         elem = document.getElementById("notice_box");
-        elem.style.display = "block"; 
+        elem.style.visibility = "visible"; 
         
         //for (let i=1, j=5; i <= 5; i++, j--) 
         //    setTimeout( () => { elem.style.opacity = i / 10; }, 2500 + j * 100);
@@ -250,7 +250,7 @@
       }
     }
     
-    let app = new App("rengo", 1, "l");
+    let app = new App("rengo", 1, "o");
     show_notice();
     animate();
 
