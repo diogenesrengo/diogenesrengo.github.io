@@ -235,8 +235,13 @@
     
     function show_notice() {
       if (app.settings.notice) {
+        console.log("tip.colorGroup:"+app.events.tip.colorGroup);
+
         let elem = document.getElementById("username");
         elem.style.color = app.color2rgb( app.events.tip.colorGroup );
+        
+        console.log("username.style.color:"+elem.style.color);
+        
         elem.innerHTML = app.events.tip.username;
         document.getElementById("tipped").innerHTML = 
             app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
