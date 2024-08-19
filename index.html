@@ -234,11 +234,11 @@
     
     function show_notice() {
       if (app.settings.notice) {
-        console.log("tip.colorGroup:"+app.events.tip.colorGroup);
 
         let elem = document.getElementById("username");
-        elem.style.color = app.events.tip.colorGroup;
-        console.log("app.color2rgb(colorGroup):"+app.color2rgb(app.events.tip.colorGroup));
+        let c = app.color2rgb( app.events.tip.colorGroup );
+        elem.style.color = `rgb(${c.r}, ${c.g}, ${c.b})`;
+        console.log("style.color:" + elem.style.color);
         elem.innerHTML = app.events.tip.username;
        
         document.getElementById("tipped").innerHTML = 
