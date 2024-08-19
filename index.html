@@ -151,34 +151,47 @@
                 color: "",
                 speed: "",
                 parts: "",
-                tperf: 1,
-                f_max: 50,
-                e_txt: true,
+                tperfw: 1,
+                max_fw: 50,
+                notice: true,
             };
             this.events = {
                 tip: {
-                    tokens: 5,
-                    username: "rengo250",
-                    color: "green",
+                    tokens: 0,
+                    username: "",
+                    colorGroup: "",
                 },
                 start: true,
             };
             this.fireworks = [];
-            this.total = Math.round(this.events.tip.tokens / this.settings.tperf);
+            this.total = Math.round(this.events.tip.tokens / this.settings.tperfw);
         }
         color2rgb(str) {
             switch (str) {
+                // $settings.color
                 case "yellow": return {r:255, g:253, b:  1};
                 case "green":  return {r:157, g:255, b:  0};
                 case "cyan":   return {r:  0, g:255, b:255};
                 case "blue":   return {r:  1, g:101, b:252};
                 case "pink":   return {r:254, g:  1, b:177};
                 case "orange": return {r:255, g: 91, b:  0};
+                // $user.colorGroup
+                case "o": // owner
+                case "m": // moderator
+                case "f": // fanclub member
+                           return {r:255, g:  0, b:  0}; // red
+                case "l":  return {r: 48, g: 25, b: 52}; // dark purple
+                case "p":  return {r:177, g:156, b:217}; // light purple
+                case "tr": return {r:  0, g:  0, b:139}; // dark blue
+                case "t":  return {r:173, g:216, b:230}; // light blue
+                case "g":  return {r:128, g:128, b:128}; // grey
+                //    
                 default: return undefined;
             }
         }
         speed2num(str) {
             switch (str) {
+                // $settings.speed
                 case "very_slow":  return 0.25;
                 case "slow":       return 0.5;
                 case "fast":       return 2;
@@ -188,6 +201,7 @@
         }
         parts2num(str) {
             switch (str) {
+                // $settings.parts
                 case "few":     return 0.5;
                 case "much":    return 5;
                 case "huge":    return 10;
@@ -222,18 +236,24 @@
     }
     
     function show_notice() {
-      if (app.settings.e_txt) {
-        let x = document.getElementById("username");
-        x.style.color = app.events.tip.color;
-        x.innerHTML = app.events.tip.username;
+      if (app.settings.notice) {
+        let elem = document.getElementById("username");
+        elem.style.color = app.events.tip.colorGroup;
+        elem.innerHTML = app.events.tip.username;
         document.getElementById("tipped").innerHTML = 
             app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
-        x = document.getElementById("notice_box");
-        for (let i=1, j=5; i <= 5; i++, j--) 
-            setTimeout( () => { x.style.opacity = i / 10; }, 2500 + j * 100);
-        setTimeout(() => x.style.display = "none", 3000);
-      }}
+        elem = document.getElementById("notice_box");
+        
+        //for (let i=1, j=5; i <= 5; i++, j--) 
+        //    setTimeout( () => { elem.style.opacity = i / 10; }, 2500 + j * 100);
+        
+        setTimeout(() => elem.style.display = "none", 3000);
+      }
+    }
     
+    app.events.tip.username = "rengo";
+    app.events.tip.tokens = 1;
+    app.events.tip.colorGroup = app.color2rgb("o");
     show_notice();
     animate();
 
