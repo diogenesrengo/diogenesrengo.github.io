@@ -146,7 +146,7 @@
     }
 
     class App {
-        constructor() {
+        constructor(username, tokens, color) {
             this.settings = {
                 color: "",
                 speed: "",
@@ -157,9 +157,9 @@
             };
             this.events = {
                 tip: {
-                    tokens: 2,
-                    username: "default",
-                    colorGroup: "black",
+                    username: username,
+                    tokens: tokens,
+                    colorGroup: color,
                 },
                 start: true,
             };
@@ -249,10 +249,7 @@
       }
     }
     
-    let app = new App;
-    app.events.tip.username = "rengo";
-    app.events.tip.tokens = 1;
-    app.events.tip.colorGroup = app.color2rgb("o");
+    let app = new App("rengo", 1, "red");
     show_notice();
     animate();
 
