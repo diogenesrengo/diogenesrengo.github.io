@@ -36,12 +36,16 @@
             </div>
         </div>
         <canvas id="fireworksCanvas" width="800" height="600"></canvas>
+        <img id="webcam" src="back.jpg">
     </div>
 
     <script>
     /* classes Particle and Firework with some modifications from
        https://github.com/The-Best-Codes/the-best-codes.github.io */
 
+    const image = document.getElementById("webcam");
+    image.addEventListener("load", (e) => {c.drawImage(image, 0, 0);} );
+    
     const canvas = document.getElementById("fireworksCanvas");
     const c = canvas.getContext("2d");
 
