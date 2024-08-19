@@ -25,10 +25,16 @@
             font: bold 12px Tahoma, serif;
             opacity: 1;
         }
+        #back {
+            position: absolute;
+            width: 800px;
+            height: 600px;
+        }
     </style>
 </head>
 <body>
     <div style="position: relative;">
+        <img id="back" src="back.jpg">
         <div id="notice_box">
             <div id="notice">
                 <span id="username"></span> tipped <span id="tipped"></span>
@@ -36,18 +42,11 @@
         </div>
         <canvas id="fireworksCanvas" width="800" height="600"></canvas>
     </div>
-    
-    <img id="webcam" src="back.jpg" style="position:absolute; display:none;">
 
     <script>
     /* classes Particle and Firework with some modifications from
        https://github.com/The-Best-Codes/the-best-codes.github.io */
 
-    const image = document.getElementById("webcam");
-    image.addEventListener("load", 
-        (e) => {c.drawImage(image, canvas.width, canvas.height);}
-    );
-    
     const canvas = document.getElementById("fireworksCanvas");
     const c = canvas.getContext("2d");
 
