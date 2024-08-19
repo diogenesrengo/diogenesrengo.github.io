@@ -241,6 +241,7 @@
         document.getElementById("tipped").innerHTML = 
             app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
         elem = document.getElementById("notice_box");
+        elem.style.display = "block"; 
         
         //for (let i=1, j=5; i <= 5; i++, j--) 
         //    setTimeout( () => { elem.style.opacity = i / 10; }, 2500 + j * 100);
