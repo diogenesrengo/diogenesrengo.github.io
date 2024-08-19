@@ -236,7 +236,7 @@
     function show_notice() {
       if (app.settings.notice) {
         let elem = document.getElementById("username");
-        elem.style.color = color2rgb( app.events.tip.colorGroup );
+        elem.style.color = app.color2rgb( app.events.tip.colorGroup );
         elem.innerHTML = app.events.tip.username;
         document.getElementById("tipped").innerHTML = 
             app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
