@@ -44,7 +44,9 @@
        https://github.com/The-Best-Codes/the-best-codes.github.io */
 
     const image = document.getElementById("webcam");
-    image.addEventListener("load", (e) => {c.drawImage(image, 0, 0);} );
+    image.addEventListener("load", 
+        (e) => {c.drawImage(image, canvas.width, canvas.height);}
+    );
     
     const canvas = document.getElementById("fireworksCanvas");
     const c = canvas.getContext("2d");
