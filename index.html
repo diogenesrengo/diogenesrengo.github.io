@@ -8,18 +8,25 @@
         }
         #notice_box {
             position: absolute;
-            left: 490px;
-            top: 565px;
+            visibility: hidden;
             width: 300px;
             height: 25px;
             border-radius: 4px;
+            /*
+            left: 490px;
+            top: 565px;
             background-color: #ffff33;
-            visibility: hidden;
+            */
+            left: 400px;
+            top: 565px;
+            background-color: #fff;
+            opacity: 0.5;
         }
         #notice {
             position: absolute;
             left: 5px;
             top: 4px;
+            color: white;
             font: bold 12px Tahoma, serif;
         }
     </style>
@@ -234,11 +241,9 @@
     
     function show_notice() {
       if (app.settings.notice) {
-
         let elem = document.getElementById("username");
         let c = app.color2rgb( app.events.tip.colorGroup );
         elem.style.color = `rgb(${c.r}, ${c.g}, ${c.b})`;
-        console.log("style.color:" + elem.style.color);
         elem.innerHTML = app.events.tip.username;
        
         document.getElementById("tipped").innerHTML = 
