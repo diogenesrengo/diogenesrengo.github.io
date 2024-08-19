@@ -193,10 +193,8 @@
         speed2num(str) {
             switch (str) {
                 // $settings.speed
-                case "very_slow":  return 0.25;
                 case "slow":       return 0.5;
                 case "fast":       return 2;
-                case "very_fast":  return 3;
                 default: return 1;
             }
         }
@@ -256,7 +254,7 @@
       }
     }
     
-    let app = new App("rengo", 1, "o");
+    let app = new App("rengo", 2, "red");
     show_notice();
     animate();
 
