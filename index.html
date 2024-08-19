@@ -240,19 +240,19 @@
 
         let elem = document.getElementById("username");
         elem.style.color = app.color2rgb( app.events.tip.colorGroup );
-        
-        console.log("app.color2rgb(colorGroup):"+app.color2rgb(app.events.tip.colorGroup);
-        
+        console.log("app.color2rgb(colorGroup):"+app.color2rgb(app.events.tip.colorGroup));
         elem.innerHTML = app.events.tip.username;
+       
         document.getElementById("tipped").innerHTML = 
             app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
+        
         elem = document.getElementById("notice_box");
         elem.style.visibility = "visible"; 
         
         //for (let i=1, j=5; i <= 5; i++, j--) 
         //    setTimeout( () => { elem.style.opacity = i / 10; }, 2500 + j * 100);
         
-        setTimeout(() => elem.style.display = "none", 3000);
+        setTimeout(() => elem.style.visibility = "hidden", 3000);
       }
     }
     
