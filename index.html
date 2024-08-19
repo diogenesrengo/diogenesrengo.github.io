@@ -157,9 +157,9 @@
             };
             this.events = {
                 tip: {
-                    tokens: 0,
-                    username: "",
-                    colorGroup: "",
+                    tokens: 2,
+                    username: "default",
+                    colorGroup: "black",
                 },
                 start: true,
             };
@@ -211,8 +211,6 @@
         }
     }
 
-    let app = new App;
-
     function animate() {
         c.clearRect(0, 0, canvas.width, canvas.height);
         app.fireworks.forEach(
@@ -251,6 +249,7 @@
       }
     }
     
+    let app = new App;
     app.events.tip.username = "rengo";
     app.events.tip.tokens = 1;
     app.events.tip.colorGroup = app.color2rgb("o");
