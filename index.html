@@ -4,6 +4,7 @@
     <style>
         canvas {
             display: block;
+            border:1px solid #000000;
         }
         #notice_box {
             position: absolute;
@@ -245,9 +246,6 @@
         
         elem = document.getElementById("notice_box");
         elem.style.visibility = "visible"; 
-        
-        //for (let i=1, j=5; i <= 5; i++, j--) 
-        //    setTimeout( () => { elem.style.opacity = i / 10; }, 2500 + j * 100);
         
         setTimeout(() => elem.style.visibility = "hidden", 3000);
       }
