@@ -239,9 +239,9 @@
         console.log("tip.colorGroup:"+app.events.tip.colorGroup);
 
         let elem = document.getElementById("username");
-          elem.style.color = app.color2rgb( app.events.tip.colorGroup );
+        elem.style.color = app.color2rgb( app.events.tip.colorGroup );
         
-        console.log("username.style.color:"+elem.style.color);
+        console.log("app.color2rgb(colorGroup):"+app.color2rgb(app.events.tip.colorGroup);
         
         elem.innerHTML = app.events.tip.username;
         document.getElementById("tipped").innerHTML = 
