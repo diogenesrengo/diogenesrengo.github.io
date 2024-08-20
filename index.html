@@ -239,6 +239,7 @@
     }
 
     function animate_fireworks(fireworks, total, settings) {
+        console.log("fireworks="+fireworks);
         c.clearRect(0, 0, canvas.width, canvas.height);
         fireworks.forEach( (firework) => {firework.update(); firework.draw();} );
         if (total > 0 && Math.random() < settings.fired) {
