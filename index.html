@@ -265,7 +265,7 @@
     
     function show_notice(delay) {
       if (app.settings.notice) {
-        elem = document.getElementById("notice_box");
+        let elem = document.getElementById("notice_box");
         elem.style.visibility = "visible"; 
         setTimeout(() => elem.style.visibility = "hidden", delay);
       }
@@ -294,7 +294,7 @@
     app.total = 1;
     animate_fireworks();
 
-    app.get_settings("pink", "", "", "together", 1, 50, true);
+    app.get_settings("", "", "much", "together", 1, 50, true);
     setTimeout(() => {
         console.log("now");
         app.total = 10;
