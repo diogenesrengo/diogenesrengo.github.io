@@ -244,7 +244,7 @@
             (firework) => {firework.update(); firework.draw();}
         );
         if (app.total > 0 && Math.random() < app.settings.fired) {
-            console.log("settings.fired=" + app.settings.fired);
+            //console.log("settings.fired=" + app.settings.fired);
             app.fireworks.push( 
                 new Firework(
                     Math.random() * canvas.width,
@@ -286,8 +286,8 @@
         elem.innerHTML = "Starting Fireworks For Tokens!";
     }
 
-    let app = new App("rengo250", 5, "l");
-    app.get_settings("", "", "", "", 1, 50, true);
+    let app = new App("rengo250", 5, "o");
+    app.get_settings("green", "", "", "slow", 1, 50, true);
     
     notice_start();
     show_notice(2000);
