@@ -235,7 +235,7 @@
         });
         let fired = (app.settings.fired)? Math.random() < app.settings.fired : 1;
         if (app.total > 0 && fired) {
-            console.log("fired="+fired);
+            console.log("settings.fired="+app.settings.fired);
             const x = Math.random() * canvas.width;
             const y = (Math.random() * canvas.height) / 2;
             app.fireworks.push( new Firework(x, y,
