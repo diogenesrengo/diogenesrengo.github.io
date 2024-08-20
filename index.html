@@ -152,10 +152,10 @@
     class App {
         constructor(username, tokens, color) {
             this.settings = {
-                color: "",
-                speed: "",
-                parts: "",
-                fired:  0.1,
+                color: 1,
+                speed: 1,
+                parts: 1,
+                fired: 0.1,
                 tperfw: 1,
                 max_fw: 50,
                 notice: true,
@@ -225,7 +225,17 @@
                 default: return 0.1;
             }
         }
-
+        get_setts(color, speed, parts, fired, tperfw, max_fw, notice) {
+            this.settings = {
+                color: this.color2rgb(color),
+                speed: this.speed2num(speed),
+                parts: this.parts2num(parts),
+                fired: this.fired2num(fired),
+                tperfw: tperfw,
+                max_fw: max_fw,
+                notice: notice
+            };
+        }
     }
 
     function animate() {
@@ -269,6 +279,7 @@
     }
     
     let app = new App("rengo", 3, "t");
+    app.get_setts("red", "", "", "separate", 1, 50, true);
     show_notice();
     animate();
 
