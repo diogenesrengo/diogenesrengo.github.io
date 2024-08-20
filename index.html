@@ -150,7 +150,7 @@
     }
 
     class App {
-        constructor(username, tokens, color) {
+        constructor() {
             this.settings = {
                 color: 1,
                 speed: 1,
@@ -160,16 +160,11 @@
                 max_fw: 50,
                 notice: true,
             };
-            this.events = {
-                tip: {
-                    username: username,
-                    tokens: tokens,
-                    colorGroup: this.color2rgb(color),
-                },
-                start: true,
-            };
             this.fireworks = [];
-            this.total = Math.round(this.events.tip.tokens / this.settings.tperfw);
+            this.total = 0;
+        }
+        set_total(tokens) {
+            this.total = Math.round(tokens / this.settings.tperfw);
         }
         color2rgb(str) {
             switch (str) {
@@ -225,17 +220,18 @@
                 default: return 0.1;
             }
         }
-        get_settings(color, speed, parts, fired, tperfw, max_fw, notice) {
-            this.settings = {
-                color: this.color2rgb(color),
-                speed: this.speed2num(speed),
-                parts: this.parts2num(parts),
-                fired: this.fired2num(fired),
-                tperfw: tperfw,
-                max_fw: max_fw,
-                notice: notice
-            };
-        }
+    }
+
+    function get_settings(app, c, s, p, f, t, m, n) {
+        app.settings = {
+            color: app.color2rgb(c),
+            speed: app.speed2num(s),
+            parts: app.parts2num(p),
+            fired: app.fired2num(f),
+            tperfw: t,
+            max_fw: m,
+            notice: n
+        };
     }
 
     function animate_fireworks() {
@@ -286,20 +282,30 @@
         elem.innerHTML = "Starting Fireworks For Tokens!";
     }
 
-    let app = new App("rengo250", 5, "o");
+            
+    events_data = {
+        tip: {
+            username: "rengo",
+            tokens: 1,
+            colorGroup: "o",
+        },
+        start: true,
+    };
+
+    let app = new App();
     
-    app.get_settings("", "fast", "huge", "", 1, 50, true);
+    get_settings(app, "", "fast", "huge", "", 1, 50, true);
     notice_start();
     show_notice(5000);
-    app.total = 1;
+    app.set_total(1);
     animate_fireworks();
 
-    app.get_settings("", "", "much", "", 1, 50, true);
+    get_settings(app, "", "", "much", "", 1, 50, true);
     setTimeout(() => {
         console.log("now");
-        app.total = 10;
-        notice_tip(app.events.tip);
-        show_notice(10000);
+        app.set(10);
+        notice_tip(events_data.tip);
+        show_notice(3000);
         animate_fireworks();
     }, 10000);
 
