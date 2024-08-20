@@ -151,12 +151,12 @@
     class App {
         constructor(username, tokens, color) {
             this.settings = {
-                color: "black",
+                color: "gold",
                 speed: "",
                 parts: "",
                 tperfw: 1,
-                max_fw: 2,
-                notice: false,
+                max_fw: 50,
+                notice: true,
             };
             this.events = {
                 tip: {
@@ -222,7 +222,7 @@
         app.fireworks.forEach(
             (firework) => {firework.update(); firework.draw();
         });
-        if (app.total > 0 && Math.random() < 0.10) { //0.05) {
+        if (app.total > 0 && Math.random() < 0.50) { //0.05) {
             const x = Math.random() * canvas.width;
             const y = (Math.random() * canvas.height) / 2;
             app.fireworks.push( new Firework(x, y,
