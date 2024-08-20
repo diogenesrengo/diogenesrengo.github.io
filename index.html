@@ -5,6 +5,7 @@
         canvas {
             display: block;
             border:2px solid green;
+            background-color: black;
         }
         #notice_box {
             position: absolute;
@@ -151,9 +152,10 @@
     class App {
         constructor(username, tokens, color) {
             this.settings = {
-                color: "blue",
+                color: "white",
                 speed: "",
                 parts: "",
+                fired:  0.5,
                 tperfw: 1,
                 max_fw: 50,
                 notice: true,
@@ -215,6 +217,15 @@
                 default: return 1;
             }
         }
+        fired2num(str) {
+            switch (str) {
+                // $settings.fired
+                case "separate": return 0.05;
+                case "together": return 0;
+                default: return 0.1;
+            }
+        }
+
     }
 
     function animate() {
@@ -222,7 +233,8 @@
         app.fireworks.forEach(
             (firework) => {firework.update(); firework.draw();
         });
-        if (app.total > 0 && Math.random() < 0.01) { //0.05) {
+        let fired = (app.settings.fired)? Math.random() < app.settings.fired : 1;
+        if (app.total > 0 && fired) {
             const x = Math.random() * canvas.width;
             const y = (Math.random() * canvas.height) / 2;
             app.fireworks.push( new Firework(x, y,
