@@ -294,11 +294,11 @@
     app.total = 2;
     animate_fireworks();
 
-  setTimeout({
-    notice_tipped(app.events.tip);
-    show_notice(3000);
-    animate_fireworks();
-  }, 5000);
+    setTimeout(() => {
+        notice_tipped(app.events.tip);
+        show_notice(3000);
+        animate_fireworks();
+    }, 5000);
 
     </script>
   </body>
