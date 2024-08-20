@@ -151,9 +151,9 @@
     class App {
         constructor(username, tokens, color) {
             this.settings = {
-                color: "purple",
+                color: "",
                 speed: "",
-                parts: "much",
+                parts: "",
                 tperfw: 1,
                 max_fw: 50,
                 notice: true,
@@ -172,17 +172,12 @@
         color2rgb(str) {
             switch (str) {
                 // $settings.color
-                case "red":    return {r:255, g:  0, b:  0};
-                case "orange": return {r:255, g:135, b:  0};
-                case "pink":   return {r:255, g:  0, b:144};
-                case "gold":   return {r:255, g:211, b:  0};
-                case "yellow": return {r:255, g:255, b:  0};
-                case "green":  return {r:161, g:255, b: 10};
-                case "cyan":   return {r: 10, g:239, b:255};
-                case "blue":   return {r: 20, g:125, b:245};
-                case "purple": return {r:190, g: 10, b:255};
-                case "white":  return {r:255, g:255, b:255};
-                case "black":  return {r:  0, g:  0, b:  0};
+                case "yellow": return {r:255, g:253, b:  1};
+                case "green":  return {r:157, g:255, b:  0};
+                case "cyan":   return {r:  0, g:255, b:255};
+                case "blue":   return {r:  1, g:101, b:252};
+                case "pink":   return {r:254, g:  1, b:177};
+                case "orange": return {r:255, g: 91, b:  0};
                 // $user.colorGroup
                 case "o":      // owner
                 case "m":      // moderator
@@ -211,7 +206,7 @@
                 case "few":     return 0.5;
                 case "much":    return 5;
                 case "huge":    return 10;
-                case "atomic":  return 50;
+                case "killer":  return 50;
                 default: return 1;
             }
         }
