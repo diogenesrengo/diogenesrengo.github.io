@@ -238,7 +238,7 @@
         }
     }
 
-    function animate_fireworks(app) {
+    function animate_fireworks() {
         c.clearRect(0, 0, canvas.width, canvas.height);
         app.fireworks.forEach( 
             (firework) => {firework.update(); firework.draw();}
@@ -292,7 +292,7 @@
     notice_start();
     show_notice(true, 2000);
     app.total = 2;
-    animate_fireworks(app);
+    animate_fireworks();
 
     //notice_tipped(app.events.tip);
     //show_notice(app.settings.notice, 3000);
