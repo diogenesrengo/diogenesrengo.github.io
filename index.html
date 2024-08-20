@@ -291,12 +291,12 @@
     app.get_settings("", "fast", "", "fast", 1, 50, true);
     notice_start();
     show_notice(2000);
-    app.total = 2;
+    app.total = 3;
     animate_fireworks();
 
-    app.get_settings("green", "", "", "slow", 1, 50, false);
+    app.get_settings("green", "", "", "slow", 1, 50, true);
     setTimeout(() => {
-        app.total = 5;
+        app.total = 10;
         notice_tip(app.events.tip);
         show_notice(3000);
         animate_fireworks();
