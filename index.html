@@ -220,8 +220,8 @@
         fired2num(str) {
             switch (str) {
                 // $settings.fired
-                case "separate": return 0.01;
-                case "together": return 1;
+                case "slow": return 0.01;
+                case "fast": return 1;
                 default: return 0.1;
             }
         }
@@ -278,8 +278,8 @@
       }
     }
     
-    let app = new App("rengo", 3, "t");
-    app.get_setts("red", "", "", "together", 1, 50, true);
+    let app = new App("rengo250", 2, "l");
+    app.get_setts("red", "", "", "slow", 1, 50, true);
     show_notice();
     animate();
 
