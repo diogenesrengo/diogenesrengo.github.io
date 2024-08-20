@@ -238,23 +238,28 @@
         }
     }
 
-    function animate_fireworks(fireworks, total, settings) {
-        console.log("fireworks="+ typeof fireworks);
+    function animate_fireworks(app) {
         c.clearRect(0, 0, canvas.width, canvas.height);
-        fireworks.forEach( (firework) => {firework.update(); firework.draw();} );
-        if (total > 0 && Math.random() < settings.fired) {
-            console.log("settings.fired="+settings.fired);
-            const x = Math.random() * canvas.width;
-            const y = (Math.random() * canvas.height) / 2;
-            fireworks.push(
-              new Firework(x, y, settings.color, settings.speed, settings.parts)
+        app.fireworks.forEach( 
+            (firework) => {firework.update(); firework.draw();}
+        );
+        if (app.total > 0 && Math.random() < app.settings.fired) {
+            console.log("settings.fired=" + app.settings.fired);
+            app.fireworks.push( 
+                new Firework(
+                    Math.random() * canvas.width,
+                    (Math.random() * canvas.height) / 2,
+                    app.settings.color,
+                    app.settings.speed,
+                    app.settings.parts
+                )
             );
-            total--;
+            app.total--;
         }
-        fireworks = fireworks.filter(
+        app.fireworks = app.fireworks.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
-        if (total > 0 || fireworks.length)
+        if (total > 0 || app.fireworks.length)
             requestAnimationFrame(animate_fireworks);
     }
     
@@ -286,7 +291,8 @@
     
     notice_start();
     show_notice(true, 2000);
-    animate_fireworks(app.fireworks, app.total, app.settings);
+    app.total = 2;
+    animate_fireworks(app);
 
     //notice_tipped(app.events.tip);
     //show_notice(app.settings.notice, 3000);
