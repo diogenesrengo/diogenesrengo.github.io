@@ -32,7 +32,7 @@
     <div style="position: relative;">
         <div id="notice_box">
             <div id="notice">
-                <span id="username"></span> tipped <span id="tipped"></span>
+                <span id="span1"></span><span id="span2"></span>
             </div>
         </div>
         <canvas id="fireworksCanvas" width="800" height="600"></canvas>
@@ -164,7 +164,7 @@
                 tip: {
                     username: username,
                     tokens: tokens,
-                    colorGroup: color,
+                    colorGroup: this.color2rgb(color),
                 },
                 start: true,
             };
@@ -225,7 +225,7 @@
                 default: return 0.1;
             }
         }
-        get_setts(color, speed, parts, fired, tperfw, max_fw, notice) {
+        get_settings(color, speed, parts, fired, tperfw, max_fw, notice) {
             this.settings = {
                 color: this.color2rgb(color),
                 speed: this.speed2num(speed),
@@ -238,50 +238,60 @@
         }
     }
 
-    function animate() {
+    function animate_fireworks(fireworks, total, settings) {
         c.clearRect(0, 0, canvas.width, canvas.height);
-        app.fireworks.forEach(
+        fireworks.forEach(
             (firework) => {firework.update(); firework.draw();
         });
-        if (app.total > 0 && Math.random() < app.settings.fired) {
-            console.log("settings.fired="+app.settings.fired);
+        if (total > 0 && Math.random() < settings.fired) {
+            console.log("settings.fired="+settings.fired);
             const x = Math.random() * canvas.width;
             const y = (Math.random() * canvas.height) / 2;
-            app.fireworks.push( new Firework(x, y,
-                    app.color2rgb( app.settings.color ),
-                    app.speed2num( app.settings.speed ),
-                    app.parts2num( app.settings.parts )
-            ));
-            app.total--;
+            fireworks.push(
+              new Firework(x, y, settings.color, settings.speed, settings.parts)
+            );
+            total--;
         }
-        app.fireworks = app.fireworks.filter(
+        fireworks = fireworks.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
-        if (app.total > 0 || app.fireworks.length)
-            requestAnimationFrame(animate);
+        if (total > 0 || fireworks.length)
+            requestAnimationFrame(animate_fireworks);
     }
     
-    function show_notice() {
-      if (app.settings.notice) {
-        let elem = document.getElementById("username");
-        let c = app.color2rgb( app.events.tip.colorGroup );
-        elem.style.color = `rgb(${c.r}, ${c.g}, ${c.b})`;
-        elem.innerHTML = app.events.tip.username;
-       
-        document.getElementById("tipped").innerHTML = 
-            app.events.tip.tokens + ((app.total == 1)? " token" : " tokens");
-        
+    function show_notice(enable, delay) {
+      if (enable) {
         elem = document.getElementById("notice_box");
         elem.style.visibility = "visible"; 
-        
-        setTimeout(() => elem.style.visibility = "hidden", 3000);
+        setTimeout(() => elem.style.visibility = "hidden", delay);
       }
     }
     
+    function notice_tip(tip) {
+        let elem = document.getElementById("span1");
+        elem.style.color = 
+          `rgb(${tip.colorGroup.r}, ${tip.colorGroup.g}, ${tip.colorGroup.b})`;
+        elem.innerHTML = tip.username;
+        document.getElementById("span2").innerHTML = 
+          " tipped " + tip.tokens + ((tip.tokens == 1)? " token" : " tokens");
+    }
+
+    function notice_start() {
+        let elem = document.getElementById("span1");
+        elem.style.color = "white";
+        elem.innerHTML = "Fireworks For Tokens!";
+    }
+
     let app = new App("rengo250", 5, "l");
-    app.get_setts("red", "", "", "fast", 1, 50, true);
-    show_notice();
-    animate();
+    app.get_settings("", "", "", "", 1, 50, true);
+    
+    notice_start();
+    show_notice(true, 2000);
+    animate_fireworks(app.fireworks, 1, app.settings);
+
+    //notice_tipped(app.events.tip);
+    //show_notice(app.settings.notice, 3000);
+    //animate_fireworks(app.fireworks, app.total, app.settings);
 
     </script>
   </body>
