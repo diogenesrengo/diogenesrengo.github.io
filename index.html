@@ -263,8 +263,8 @@
             requestAnimationFrame(animate_fireworks);
     }
     
-    function show_notice(enable, delay) {
-      if (enable) {
+    function show_notice(delay) {
+      if (app.settings.notice) {
         elem = document.getElementById("notice_box");
         elem.style.visibility = "visible"; 
         setTimeout(() => elem.style.visibility = "hidden", delay);
@@ -290,13 +290,15 @@
     app.get_settings("", "", "", "", 1, 50, true);
     
     notice_start();
-    show_notice(true, 2000);
+    show_notice(2000);
     app.total = 2;
     animate_fireworks();
 
-    //notice_tipped(app.events.tip);
-    //show_notice(app.settings.notice, 3000);
-    //animate_fireworks(app.fireworks, app.total, app.settings);
+  setTimeout({
+    notice_tipped(app.events.tip);
+    show_notice(3000);
+    animate_fireworks();
+  }, 5000);
 
     </script>
   </body>
