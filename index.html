@@ -287,13 +287,14 @@
     }
 
     let app = new App("rengo250", 5, "o");
-    app.get_settings("green", "", "", "slow", 1, 50, true);
     
+    app.get_settings("", "fast", "", "fast", 1, 50, true);
     notice_start();
     show_notice(2000);
     app.total = 2;
     animate_fireworks();
 
+    app.get_settings("green", "", "", "slow", 1, 50, false);
     setTimeout(() => {
         app.total = 5;
         notice_tip(app.events.tip);
