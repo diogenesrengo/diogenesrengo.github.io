@@ -152,10 +152,10 @@
     class App {
         constructor(username, tokens, color) {
             this.settings = {
-                color: "green",
+                color: "",
                 speed: "",
                 parts: "",
-                fired:  0.05,
+                fired:  0.1,
                 tperfw: 1,
                 max_fw: 50,
                 notice: true,
@@ -221,8 +221,8 @@
             switch (str) {
                 // $settings.fired
                 case "separate": return 0.01;
-                case "together": return 0;
-                default: return 0.05;
+                case "together": return 1;
+                default: return 0.1;
             }
         }
 
@@ -233,8 +233,7 @@
         app.fireworks.forEach(
             (firework) => {firework.update(); firework.draw();
         });
-        let fired = (app.settings.fired)? Math.random() < app.settings.fired : 1;
-        if (app.total > 0 && fired) {
+        if (app.total > 0 && Math.random() < app.settings.fired) {
             console.log("settings.fired="+app.settings.fired);
             const x = Math.random() * canvas.width;
             const y = (Math.random() * canvas.height) / 2;
