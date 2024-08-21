@@ -56,9 +56,7 @@
             };
             this.radius = Math.random() * 2 + 1;
             this.velocity = velocity;
-            //here
-            this.life = 50; //100;
-            //
+            this.life = 100;
             this.alpha = 1;
             this.shimmer = Math.random() < 0.3;
         }
@@ -75,7 +73,7 @@
             this.x += this.velocity.x;
             this.y += this.velocity.y;
             this.velocity.y += 0.05;
-            this.life--;
+            this.life -= 2; //--;
             this.alpha -= 0.01;
         }
     }
