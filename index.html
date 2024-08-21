@@ -73,7 +73,9 @@
             this.x += this.velocity.x;
             this.y += this.velocity.y;
             this.velocity.y += 0.05;
+            //here
             this.life -= 2; //--;
+            //
             this.alpha -= 0.01;
         }
     }
@@ -126,7 +128,7 @@
                 this.x += this.velocity.x;
                 this.y += this.velocity.y;
                 //here
-                this.velocity.y += 0.02; //0.05;
+                this.velocity.y += 0.05;
                 //
                 this.trail.push( 
                     new Particle(this.x, this.y, this.color, {x:0, y:0})
