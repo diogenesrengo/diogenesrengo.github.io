@@ -125,9 +125,7 @@
             if (!this.exploded) {
                 this.x += this.velocity.x;
                 this.y += this.velocity.y;
-                //here
                 this.velocity.y += 0.05;
-                //
                 this.trail.push( 
                     new Particle(this.x, this.y, this.color, {x:0, y:0})
                 );
@@ -327,7 +325,7 @@
     app.set_fireworks_total(1);
     animate_fireworks();
 
-    app.get_settings("purple", "", "much", "separate", 1, 50, true, true);
+    app.get_settings("gold", "", "much", "together", 1, 50, true, true);
     setTimeout(() => {
         app.set_fireworks_total( $events_data.tip.tokens );
         notice_tip( $events_data.tip );
