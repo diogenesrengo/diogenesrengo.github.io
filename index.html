@@ -138,7 +138,7 @@
                 particle.draw();
             });
         }
-        draw() {
+
             if (!this.exploded) {
                 c.beginPath();
                 c.arc(this.x, this.y, 2, 0, Math.PI * 2);
@@ -222,18 +222,17 @@
                 default: return 0.1;
             }
         }
-    }
-
-    function get_settings(app, c, s, p, f, t, m, n) {
-        app.settings = {
-            color: app.color2rgb(c),
-            speed: app.speed2num(s),
-            parts: app.parts2num(p),
-            fired: app.fired2num(f),
-            tperfw: t,
-            max_fw: m,
-            notice: n
-        };
+        get_settings(c, s, p, f, t, m, n) {
+            this.settings = {
+                color: this.color2rgb( (c)? c : $settings.color ),
+                speed: this.speed2num( (s)? s : $settings.speed ),
+                parts: this.parts2num( (p)? p : $settings.parts ),
+                fired: this.fired2num( (f)? f : $settings.fired ),
+                tperfw: (t)? t : $settings.tperfw,
+                max_fw: (m)? m : $settings.max_fw,
+                notice: (n)? n : $settings.notice,
+            };
+        }
     }
 
     function animate_fireworks() {
@@ -242,7 +241,6 @@
             (firework) => {firework.update(); firework.draw();}
         );
         if (app.firesworks_total > 0 && Math.random() < app.settings.fired) {
-            //console.log("settings.fired=" + app.settings.fired);
             app.fireworks.data.push( 
                 new Firework(
                     Math.random() * canvas.width,
@@ -284,8 +282,17 @@
         elem.innerHTML = "Starting Fireworks For Tokens!";
     }
 
+    $settings = {
+         color: "green",
+         speed: "",
+         parts: "",
+         fired: "",
+         tperfw: 1,
+         max_fw: 50,
+         notice: true,
+    };
             
-    events_data = {
+    $events_data = {
         tip: {
             username: "rengo",
             tokens: 5,
@@ -296,16 +303,16 @@
 
     let app = new App();
     
-    get_settings(app, "", "fast", "huge", "", 1, 50, true);
+    get_settings();
     notice_start();
     show_notice(5000);
-    app.set_total(1);
+    app.set_fireworks_total(1);
     animate_fireworks();
 
-    get_settings(app, "", "", "much", "", 1, 50, true);
+    get_settings("", "", "much", "", 1, 50, true);
     setTimeout(() => {
-        app.set_total(events_data.tip.tokens);
-        notice_tip(events_data.tip);
+        app.set_fireworks_total( $events_data.tip.tokens );
+        notice_tip( $events_data.tip );
         show_notice(3000);
         animate_fireworks();
     }, 5000);
