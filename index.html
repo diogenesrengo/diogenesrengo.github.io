@@ -163,11 +163,11 @@
                 color: undefined,
                 speed: 1,
                 parts: 1,
-                multi: true,
                 fired: 0.1,
                 tperfw: 1,
                 max_fw: 50,
                 notice: true,
+                multi: true,
             };
             this.fireworks = {
                 data: [],
@@ -234,10 +234,10 @@
                 speed: this.speed2num( (s)? s : $settings.speed ),
                 parts: this.parts2num( (p)? p : $settings.parts ),
                 fired: this.fired2num( (f)? f : $settings.fired ),
-                multi:  (u)? u : $settings.multi,
                 tperfw: (t)? t : $settings.tperfw,
                 max_fw: (m)? m : $settings.max_fw,
                 notice: (n)? n : $settings.notice,
+                multi:  (u)? u : $settings.multi,
             };
             //console.log(app.settings);
         }
@@ -301,7 +301,7 @@
          speed: "",
          parts: "much",
          fired: "",
-         tperfw: 1,
+         tperfw: 10,
          max_fw: 50,
          notice: true,
          multi: true,
@@ -310,7 +310,7 @@
     $events_data = {
         tip: {
             username: "rengo250",
-            tokens: 3,
+            tokens: 10,
             colorGroup: "tr",
         },
         start: true,
