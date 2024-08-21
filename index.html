@@ -163,15 +163,15 @@
     class App {
         constructor() {
             this.settings = {
-                color: undefined,
-                speed: 1,
-                parts: 1,
+                color:  undefined,
+                speed:  1,
+                parts:  1,
                 radius: 0,
-                fired: 0.1,
+                fired:  1,
                 tperfw: 1,
                 max_fw: 50,
                 notice: true,
-                multi: true,
+                multi:  true,
             };
             this.fireworks = {
                 data: [],
@@ -236,7 +236,7 @@
             switch (str) {
                 // $settings.radius
                 case "small":   return 0.5;
-                case "big":     return 1;
+                case "big":     return 1.25;
                 default: return 0.75;
             }
         }
