@@ -166,7 +166,7 @@
                 color:  undefined,
                 speed:  1,
                 parts:  1,
-                radius: 0,
+                radius: 0.75,
                 fired:  1,
                 tperfw: 1,
                 max_fw: 50,
@@ -236,7 +236,7 @@
             switch (str) {
                 // $settings.radius
                 case "small":   return 0.5;
-                case "big":     return 1.25;
+                case "big":     return 1.1;
                 default: return 0.75;
             }
         }
@@ -310,10 +310,10 @@
     }
 
     $settings = {
-         color:  "green",
+         color:  "",
          speed:  "",
-         parts:  "much",
-         radius: "big",
+         parts:  "",
+         radius: "",
          fired:  "",
          tperfw: 1,
          max_fw: 25,
@@ -324,8 +324,8 @@
     $events_data = {
         tip: {
             username: "rengo250",
-            tokens: 10,
-            colorGroup: "tr",
+            tokens: 5,
+            colorGroup: "o",
         },
         start: true,
     };
