@@ -287,7 +287,7 @@
 
     //-----------------------\
     $settings = {
-         color: "green",
+         color: "",
          speed: "",
          parts: "",
          fired: "",
@@ -298,9 +298,9 @@
             
     $events_data = {
         tip: {
-            username: "rengo",
-            tokens: 5,
-            colorGroup: "o",
+            username: "rengo250",
+            tokens: 3,
+            colorGroup: "tr",
         },
         start: true,
     };
@@ -314,7 +314,7 @@
     app.set_fireworks_total(1);
     animate_fireworks();
 
-    app.get_settings("", "", "much", "", 1, 50, true);
+    app.get_settings("purple", "", "", "separate", 1, 50, true);
     setTimeout(() => {
         app.set_fireworks_total( $events_data.tip.tokens );
         notice_tip( $events_data.tip );
