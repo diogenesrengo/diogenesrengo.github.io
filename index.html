@@ -152,7 +152,7 @@
     class App {
         constructor() {
             this.settings = {
-                color: 1,
+                color: undefined,
                 speed: 1,
                 parts: 1,
                 fired: 0.1,
@@ -220,7 +220,6 @@
             }
         }
         get_settings(c, s, p, f, t, m, n) {
-            console.log("settings old=" + JSON.stringify(app.settings));
             this.settings = {
                 color: this.color2rgb( (c)? c : $settings.color ),
                 speed: this.speed2num( (s)? s : $settings.speed ),
@@ -230,6 +229,7 @@
                 max_fw: (m)? m : $settings.max_fw,
                 notice: (n)? n : $settings.notice,
             };
+            //console.log("settings=" + JSON.stringify(app.settings));
             console.log(app.settings);
         }
         set_fireworks_total(tokens) {
