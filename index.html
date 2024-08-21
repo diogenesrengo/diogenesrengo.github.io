@@ -322,10 +322,13 @@
     app.get_settings();
     notice_start();
     show_notice(5000);
-    app.set_fireworks_total(1);
+    app.fireworks_total = 1;
     animate_fireworks();
 
-    app.get_settings("gold", "", "much", "together", 1, 50, true, true);
+    let a = "";
+    if (a) console.log("a="+a);
+
+    app.get_settings("gold", "", "much", "together");
     setTimeout(() => {
         app.set_fireworks_total( $events_data.tip.tokens );
         notice_tip( $events_data.tip );
