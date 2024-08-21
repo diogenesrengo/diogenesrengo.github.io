@@ -73,10 +73,8 @@
             this.x += this.velocity.x;
             this.y += this.velocity.y;
             this.velocity.y += 0.05;
-            //here
-            this.life -= 2; //--;
-            //
-            this.alpha -= 0.01;
+            this.life--;
+            this.alpha -= 0.02; //0.01;
         }
     }
 
