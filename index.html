@@ -322,7 +322,8 @@
     app.get_settings();
     notice_start();
     show_notice(5000);
-    app.fireworks_total = 1;
+    app.settings.tperfw = 1;
+    app.set_fireworks_total(1);
     animate_fireworks();
 
     let a = "string";
