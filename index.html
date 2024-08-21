@@ -46,7 +46,7 @@
     const c = canvas.getContext("2d");
 
     class Particle {
-        constructor(x, y, color, velocity) {
+        constructor(x, y, color, velocity, radius) {
             this.x = x;
             this.y = y;
             this.color = (color)? color : {
@@ -55,7 +55,7 @@
                 b: Math.floor(Math.random() * 255),
             };
             //this.radius = Math.random() * 2 + 1;
-            this.radius = Math.random() * 2 + 0.5;
+            this.radius = Math.random() * 2 + ((radius)? radius : 0.75);
             this.velocity = velocity;
             this.life = 100;
             this.alpha = 1;
@@ -80,7 +80,7 @@
     }
 
     class Firework {
-        constructor(x, y, color, speed, parts, multi) {
+        constructor(x, y, color, speed, parts, radius, multi) {
             this.x = x;
             this.y = canvas.height;
             this.targetX = x;
@@ -103,6 +103,7 @@
             this.hasShimmer = Math.random() < 0.5;
             this.parts = parts;
             this.partsMulticolor = multi;
+            this.radius = radius;
         }
         explode() {
             let n = (15 + Math.random() * 50) * ((this.parts)? this.parts : 1);
@@ -116,7 +117,8 @@
                         this.x,
                         this.y, 
                         (this.partsMulticolor)? null : this.color,
-                        velocity
+                        velocity,
+                        this.radius
                     )
                 );
             }
@@ -128,7 +130,7 @@
                 this.y += this.velocity.y;
                 this.velocity.y += 0.05;
                 this.trail.push( 
-                    new Particle(this.x, this.y, this.color, {x:0, y:0})
+                    new Particle(this.x, this.y, this.color, {x:0, y:0}, this.radius)
                 );
                 if (this.trail.length > 20) this.trail.shift();
                 if (this.velocity.y >= 0 || this.y <= this.targetY) this.explode();
@@ -164,6 +166,7 @@
                 color: undefined,
                 speed: 1,
                 parts: 1,
+                radius: 0,
                 fired: 0.1,
                 tperfw: 1,
                 max_fw: 50,
@@ -206,8 +209,8 @@
         speed2num(str) {
             switch (str) {
                 // $settings.speed
-                case "slow":       return 0.5;
-                case "fast":       return 2;
+                case "slow":    return 0.5;
+                case "fast":    return 2;
                 default: return 1;
             }
         }
@@ -229,12 +232,21 @@
                 default: return 0.1;
             }
         }
+        radius2num(str) {
+            switch (str) {
+                // $settings.radius
+                case "small":   return 0.5;
+                case "big":     return 1;
+                default: return 0.75;
+            }
+        }
         get_settings() {
             this.settings = {
-                color: this.color2rgb( $settings.color ),
-                speed: this.speed2num( $settings.speed ),
-                parts: this.parts2num( $settings.parts ),
-                fired: this.fired2num( $settings.fired ),
+                color:  this.color2rgb( $settings.color ),
+                speed:  this.speed2num( $settings.speed ),
+                parts:  this.parts2num( $settings.parts ),
+                radius: this.radius2num( $settings.radius ),
+                fired:  this.fired2num( $settings.fired ),
                 tperfw: $settings.tperfw,
                 max_fw: $settings.max_fw,
                 notice: $settings.notice,
@@ -260,9 +272,9 @@
                     app.settings.speed,
                     app.settings.parts,
                     app.settings.multi,
+                    app.settings.radius,
                 )
             );
-            //console.log(app.fireworks.data);
             app.fireworks.total--;
         }
         app.fireworks.data = app.fireworks.data.filter(
@@ -298,10 +310,11 @@
     }
 
     $settings = {
-         color: "gold",
-         speed: "",
-         parts: "much",
-         fired: "",
+         color:  "gold",
+         speed:  "",
+         parts:  "much",
+         radius: "",
+         fired:  "",
          tperfw: 1,
          max_fw: 50,
          notice: true,
