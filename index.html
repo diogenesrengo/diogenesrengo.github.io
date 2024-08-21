@@ -167,6 +167,7 @@
                 color: undefined,
                 speed: 1,
                 parts: 1,
+                multi: true,
                 fired: 0.1,
                 tperfw: 1,
                 max_fw: 50,
@@ -231,12 +232,13 @@
                 default: return 0.1;
             }
         }
-        get_settings(c, s, p, f, t, m, n) {
+        get_settings(c, s, p, f, t, m, n, u) {
             this.settings = {
                 color: this.color2rgb( (c)? c : $settings.color ),
                 speed: this.speed2num( (s)? s : $settings.speed ),
                 parts: this.parts2num( (p)? p : $settings.parts ),
                 fired: this.fired2num( (f)? f : $settings.fired ),
+                multi:  (u)? u : $settings.multi,
                 tperfw: (t)? t : $settings.tperfw,
                 max_fw: (m)? m : $settings.max_fw,
                 notice: (n)? n : $settings.notice,
@@ -261,7 +263,7 @@
                     app.settings.color,
                     app.settings.speed,
                     app.settings.parts,
-                    true
+                    app.settings.multi,
                 )
             );
             //console.log(app.fireworks.data);
@@ -306,6 +308,7 @@
          tperfw: 1,
          max_fw: 50,
          notice: true,
+         multi: true,
     };
             
     $events_data = {
@@ -326,7 +329,7 @@
     app.set_fireworks_total(1);
     animate_fireworks();
 
-    app.get_settings("purple", "", "much", "separate", 1, 50, true);
+    app.get_settings("purple", "", "much", "separate", 1, 50, true, true);
     setTimeout(() => {
         app.set_fireworks_total( $events_data.tip.tokens );
         notice_tip( $events_data.tip );
