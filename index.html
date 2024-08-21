@@ -161,12 +161,9 @@
                 notice: true,
             };
             this.fireworks = {
-                data = [],
-                total = 0,
+                data: [],
+                total: 0,
             }
-        }
-        set_fireworks_total(tokens) {
-            this.fireworks.total = Math.round(tokens / this.settings.tperfw);
         }
         color2rgb(str) {
             switch (str) {
@@ -232,6 +229,9 @@
                 max_fw: (m)? m : $settings.max_fw,
                 notice: (n)? n : $settings.notice,
             };
+        }
+        set_fireworks_total(tokens) {
+            this.fireworks.total = Math.round(tokens / this.settings.tperfw);
         }
     }
 
