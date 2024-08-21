@@ -230,7 +230,7 @@
                 max_fw: (m)? m : $settings.max_fw,
                 notice: (n)? n : $settings.notice,
             };
-            console.log("settings new=" + JSON.stringify(app.settings));
+            console.log(app.settings);
         }
         set_fireworks_total(tokens) {
             this.fireworks.total = Math.round(tokens / this.settings.tperfw);
