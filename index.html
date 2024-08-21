@@ -279,19 +279,21 @@
       }
     }
     
-    function notice_tip(tip) {
+    function notice_tip(tip, delay) {
         let elem = document.getElementById("span1");
         let c = app.color2rgb(tip.colorGroup);
         elem.style.color = `rgb(${c.r}, ${c.g}, ${c.b})`;
         elem.innerHTML = tip.username;
         document.getElementById("span2").innerHTML = 
           " tipped " + tip.tokens + ((tip.tokens == 1)? " token" : " tokens");
+        show_notice(delay);
     }
 
-    function notice_start() {
+    function notice_start(delay) {
         let elem = document.getElementById("span1");
         elem.style.color = "white";
         elem.innerHTML = "Starting Fireworks For Tokens!";
+        show_notice(delay);
     }
 
     //-----------------------\
@@ -318,18 +320,16 @@
 
     let app = new App();
     
-    app.get_settings();
-    notice_start();
-    show_notice(5000);
+    notice_start(5000, delay);
     app.settings.tperfw = 1;
     app.set_fireworks_total(1);
     animate_fireworks();
 
+    app.get_settings();
     app.settings.multi = false;
     setTimeout(() => {
         app.set_fireworks_total( $events_data.tip.tokens );
-        notice_tip( $events_data.tip );
-        show_notice(3000);
+        notice_tip($events_data.tip, 5000);
         animate_fireworks();
     }, 5000);
 
