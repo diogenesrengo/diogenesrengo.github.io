@@ -242,7 +242,7 @@
         app.fireworks.data.forEach( 
             (firework) => {firework.update(); firework.draw();}
         );
-        if (app.firesworks_total > 0 && Math.random() < app.settings.fired) {
+        if (app.fireworks_total > 0 && Math.random() < app.settings.fired) {
             app.fireworks.data.push( 
                 new Firework(
                     Math.random() * canvas.width,
@@ -252,6 +252,7 @@
                     app.settings.parts
                 )
             );
+            console.log(app.fireworks.data);
             app.fireworks.total--;
         }
         app.fireworks.data = app.fireworks.data.filter(
