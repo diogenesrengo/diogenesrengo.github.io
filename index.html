@@ -160,11 +160,13 @@
                 max_fw: 50,
                 notice: true,
             };
-            this.fireworks = [];
-            this.total = 0;
+            this.fireworks = {
+                data[],
+                total = 0,
+            }
         }
-        set_total(tokens) {
-            this.total = Math.round(tokens / this.settings.tperfw);
+        set_fireworks_total(tokens) {
+            this.fireworks.total = Math.round(tokens / this.settings.tperfw);
         }
         color2rgb(str) {
             switch (str) {
@@ -236,12 +238,12 @@
 
     function animate_fireworks() {
         c.clearRect(0, 0, canvas.width, canvas.height);
-        app.fireworks.forEach( 
+        app.fireworks.data.forEach( 
             (firework) => {firework.update(); firework.draw();}
         );
-        if (app.total > 0 && Math.random() < app.settings.fired) {
+        if (app.firesworks_total > 0 && Math.random() < app.settings.fired) {
             //console.log("settings.fired=" + app.settings.fired);
-            app.fireworks.push( 
+            app.fireworks.data.push( 
                 new Firework(
                     Math.random() * canvas.width,
                     (Math.random() * canvas.height) / 2,
@@ -250,12 +252,12 @@
                     app.settings.parts
                 )
             );
-            app.total--;
+            app.fireworks.total--;
         }
-        app.fireworks = app.fireworks.filter(
+        app.fireworks.data = app.fireworks.data.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
-        if (app.total > 0 || app.fireworks.length)
+        if (app.fireworks.total > 0 || app.fireworks.data.length)
             requestAnimationFrame(animate_fireworks);
     }
     
@@ -286,7 +288,7 @@
     events_data = {
         tip: {
             username: "rengo",
-            tokens: 1,
+            tokens: 5,
             colorGroup: "o",
         },
         start: true,
@@ -302,14 +304,12 @@
 
     get_settings(app, "", "", "much", "", 1, 50, true);
     setTimeout(() => {
-        console.log("now");
-        //
-        app.set_total(10);
+        app.set_total(events_data.tip.tokens);
         notice_tip(events_data.tip);
-        //
         show_notice(3000);
         animate_fireworks();
-    }, 10000);
+    }, 5000);
+
 
     </script>
   </body>
