@@ -295,13 +295,13 @@
             elem.innerHTML = tip.username;
             document.getElementById("span2").innerHTML = 
         " tipped " + tip.tokens + ((tip.tokens == 1)? " token" : " tokens");
-            show_notice(delay);
+            this.show_notice(delay);
         }
         notice_start(delay) {
             let elem = document.getElementById("span1");
             elem.style.color = "white";
             elem.innerHTML = "Starting Fireworks For Tokens!";
-            show_notice(delay);
+            this.show_notice(delay);
         }
     }
 
