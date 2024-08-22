@@ -328,7 +328,7 @@
 
     let fireworks = new FireworkApp();
     
-    notice_start(fireworks, 3000);
+    notice_start(3000);
     fireworks.settings.tperfw = 1;
     fireworks.set_total(1);
     animate_fireworks(fireworks);
@@ -336,7 +336,7 @@
     fireworks.get_settings();
     fireworks.settings.multi = false;
     setTimeout(() => {
-        notice_tip(fireworks, $events_data.tip, 3000);
+        notice_tip($events_data.tip, 3000);
         fireworks.set_total( $events_data.tip.tokens );
         animate_fireworks(fireworks);
     }, 5000);
