@@ -278,7 +278,7 @@
                 !firework.exploded || firework.particles.length > 0
             );
             if (this.total > 0 || this.data.length)
-                requestAnimationFrame(animate());
+                requestAnimationFrame(this.animate());
         }
     
         show_notice(delay) {
@@ -321,8 +321,8 @@
     $events_data = {
         tip: {
             username: "rengo250",
-            tokens: 5,
-            colorGroup: "o",
+            tokens: 3,
+            colorGroup: "l",
         },
         start: true,
     };
