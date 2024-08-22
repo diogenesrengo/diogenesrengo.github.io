@@ -23,7 +23,7 @@
             position: absolute;
             left: 5px;
             top: 3px;
-            color: black;
+            color: white;
             font: bold 11px Tahoma, serif;
         }
     </style>
@@ -345,6 +345,7 @@
     setTimeout(() => {
         notice_tip($events_data.tip, 3000);
         app.total = $events_data.tip.tokens;
+        console.log("total="+app.total);
         animate_fireworks();
     }, 5000);
 
