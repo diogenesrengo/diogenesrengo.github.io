@@ -257,10 +257,6 @@
     }
 
     function animate_fireworks(app) {
-        console.log(app); 
-        console.log(app.data); 
-        console.log(app.total); 
-        return;
         c.clearRect(0, 0, canvas.width, canvas.height);
         app.data.forEach((firework) => {firework.update(); firework.draw();});
         if (app.total > 0 && Math.random() < app.settings.fired) {
@@ -294,7 +290,7 @@
     
     function notice_tip(tip, delay) {
         let elem = document.getElementById("span1");
-        let c = FireworkApp.color2rgb(tip.colorGroup);
+        let c = fireworks.color2rgb(tip.colorGroup);
         elem.style.color = `rgb(${c.r}, ${c.g}, ${c.b})`;
         elem.innerHTML = tip.username;
         document.getElementById("span2").innerHTML = 
