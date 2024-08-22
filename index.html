@@ -257,6 +257,8 @@
     }
 
     function animate_fireworks(app) {
+        console.log(app); 
+        return;
         c.clearRect(0, 0, canvas.width, canvas.height);
         app.data.forEach((firework) => {firework.update(); firework.draw();});
         if (app.total > 0 && Math.random() < app.settings.fired) {
