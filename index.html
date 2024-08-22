@@ -277,7 +277,7 @@
             (firework) => !firework.exploded || firework.particles.length > 0
         );
         if (app.total > 0 || app.data.length)
-            requestAnimationFrame(animate_fireworks());
+            requestAnimationFrame(animate_fireworks, app);
     }
     
     function show_notice(delay) {
