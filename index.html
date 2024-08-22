@@ -276,7 +276,7 @@
                 );
                 this.fireworks.total--;
             }
-            this.fireworks.data = this.data.filter( (firework) => 
+            this.fireworks.data = this.fireworks.data.filter( (firework) => 
                 !firework.exploded || firework.particles.length > 0
             );
             if (this.fireworks.total > 0 || this.fireworks.data.length)
