@@ -257,7 +257,7 @@
             this.fireworks.total = Math.round(tokens / this.settings.tperfw);
         }
         
-        animate() {
+        animate_fireworks() {
             c.clearRect(0, 0, canvas.width, canvas.height);
             this.fireworks.data.forEach(
                 (firework) => { firework.update(); firework.draw(); }
