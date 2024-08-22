@@ -160,7 +160,7 @@
         }
     }
 
-    class App {
+    class FireworkApp {
         constructor() {
             this.settings = {
                 color:  undefined,
@@ -173,10 +173,8 @@
                 notice: true,
                 multi:  true,
             };
-            this.fireworks = {
-                data: [],
-                total: 0,
-            }
+            this.data = [];
+            this.total = 0;
         }
         color2rgb(str) {
             switch (str) {
@@ -253,18 +251,16 @@
                 multi:  $settings.multi,
             };
         }
-        set_fireworks_total(tokens) {
-            this.fireworks.total = Math.round(tokens / this.settings.tperfw);
+        set_total(tokens) {
+            this.total = Math.round(tokens / this.settings.tperfw);
         }
     }
 
-    function animate_fireworks() {
+    function animate_fireworks(app) {
         c.clearRect(0, 0, canvas.width, canvas.height);
-        app.fireworks.data.forEach( 
-            (firework) => {firework.update(); firework.draw();}
-        );
-        if (app.fireworks.total > 0 && Math.random() < app.settings.fired) {
-            app.fireworks.data.push( 
+        app.data.forEach((firework) => {firework.update(); firework.draw();});
+        if (app.total > 0 && Math.random() < app.settings.fired) {
+            app.data.push( 
                 new Firework(
                     Math.random() * canvas.width,
                     (Math.random() * canvas.height) / 2,
@@ -275,17 +271,17 @@
                     app.settings.multi,
                 )
             );
-            app.fireworks.total--;
+            app.total--;
         }
-        app.fireworks.data = app.fireworks.data.filter(
+        app.data = app.data.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
         );
-        if (app.fireworks.total > 0 || app.fireworks.data.length)
-            requestAnimationFrame(animate_fireworks);
+        if (app.total > 0 || app.data.length)
+            requestAnimationFrame(animate_fireworks(app));
     }
     
     function show_notice(delay) {
-      if (app.settings.notice) {
+      if (fireworks.settings.notice) {
         let elem = document.getElementById("notice_box");
         elem.style.visibility = "visible"; 
         setTimeout(() => elem.style.visibility = "hidden", delay);
@@ -294,7 +290,7 @@
     
     function notice_tip(tip, delay) {
         let elem = document.getElementById("span1");
-        let c = app.color2rgb(tip.colorGroup);
+        let c = FireworkApp.color2rgb(tip.colorGroup);
         elem.style.color = `rgb(${c.r}, ${c.g}, ${c.b})`;
         elem.innerHTML = tip.username;
         document.getElementById("span2").innerHTML = 
@@ -330,19 +326,19 @@
         start: true,
     };
 
-    let app = new App();
+    let fireworks = new FireworkApp();
     
-    notice_start(3000);
-    app.settings.tperfw = 1;
-    app.set_fireworks_total(1);
-    animate_fireworks();
+    notice_start(fireworks, 3000);
+    fireworks.settings.tperfw = 1;
+    fireworks.set_total(1);
+    animate_fireworks(fireworks);
 
-    app.get_settings();
-    app.settings.multi = false;
+    fireworks.get_settings();
+    fireworks.settings.multi = false;
     setTimeout(() => {
-        notice_tip($events_data.tip, 3000);
-        app.set_fireworks_total( $events_data.tip.tokens );
-        animate_fireworks();
+        notice_tip(fireworks, $events_data.tip, 3000);
+        fireworks.set_total( $events_data.tip.tokens );
+        animate_fireworks(fireworks);
     }, 5000);
 
 
