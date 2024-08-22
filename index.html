@@ -278,7 +278,7 @@
                     app.settings.multi,
                 )
             );
-            app.fireworks.total--;
+            app.fireworks.total -= 1;
         }
         app.fireworks.data = app.fireworks.data.filter(
             (firework) => !firework.exploded || firework.particles.length > 0
