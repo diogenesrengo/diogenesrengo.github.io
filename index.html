@@ -169,13 +169,13 @@
                 radius: 0.75,
                 fired:  1,
                 tperfw: 1,
-                max_fw: 50,
+                max_fw: 25,
                 notice: true,
                 multi:  true,
             };
             this.fireworks = {
                 data: [],
-                total: 0,
+                _total: 0,
             }
         }
         color2rgb(str) {
@@ -253,8 +253,11 @@
                 multi:  $settings.multi,
             };
         }
-        set_fireworks_total(tokens) {
-            this.fireworks.total = Math.round(tokens / this.settings.tperfw);
+        set total(tokens) {
+            this.fireworks._total = Math.round(tokens / this.settings.tperfw);
+        }
+        get total(tokens) {
+            return this.fireworks._total;
         }
     }
 
@@ -330,18 +333,18 @@
         start: true,
     };
 
-    let app = new App();
+    const app = new App();
     
     notice_start(3000);
     app.settings.tperfw = 1;
-    app.set_fireworks_total(1);
+    app.total = 1;
     animate_fireworks();
 
     app.get_settings();
     app.settings.multi = false;
     setTimeout(() => {
         notice_tip($events_data.tip, 3000);
-        app.set_fireworks_total( $events_data.tip.tokens );
+        app.total = $events_data.tip.tokens;
         animate_fireworks();
     }, 5000);
 
