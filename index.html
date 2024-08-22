@@ -266,6 +266,7 @@
         app.fireworks.data.forEach( 
             (firework) => {firework.update(); firework.draw();}
         );
+        console.log("total="+app.total);
         if (app.fireworks.total > 0 && Math.random() < app.settings.fired) {
             app.fireworks.data.push( 
                 new Firework(
@@ -278,7 +279,6 @@
                     app.settings.multi,
                 )
             );
-            console.log("total="+app.total);
             app.fireworks.total -= 1;
         }
         app.fireworks.data = app.fireworks.data.filter(
