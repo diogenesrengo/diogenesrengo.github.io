@@ -160,7 +160,7 @@
         }
     }
 
-    class FireworkApp {
+    class App {
         constructor() {
             this.settings = {
                 color:  undefined,
@@ -173,8 +173,10 @@
                 notice: true,
                 multi:  true,
             };
-            this.data = [];
-            this.total = 0;
+            this.fireworks = {
+                data: [],
+                total: 0,
+            }
         }
         color2rgb(str) {
             switch (str) {
@@ -251,17 +253,17 @@
                 multi:  $settings.multi,
             };
         }
-        set_total(tokens) {
-            this.total = Math.round(tokens / this.settings.tperfw);
+        set_fireworks_total(tokens) {
+            this.fireworks.total = Math.round(tokens / this.settings.tperfw);
         }
         
         animate() {
             c.clearRect(0, 0, canvas.width, canvas.height);
-            this.data.forEach(
+            this.fireworks.data.forEach(
                 (firework) => { firework.update(); firework.draw(); }
             );
-            if (this.total > 0 && Math.random() < this.settings.fired) {
-                this.data.push( 
+            if (this.fireworks.total > 0 && Math.random() < this.settings.fired) {
+                this.fireworks.data.push( 
                     new Firework(
                         Math.random() * canvas.width,
                         (Math.random() * canvas.height) / 2,
@@ -272,12 +274,12 @@
                         this.settings.multi,
                     )
                 );
-                this.total--;
+                this.fireworks.total--;
             }
-            this.data = this.data.filter( (firework) => 
+            this.fireworks.data = this.data.filter( (firework) => 
                 !firework.exploded || firework.particles.length > 0
             );
-            if (this.total > 0 || this.data.length)
+            if (this.fireworks.total > 0 || this.fireworks.data.length)
                 requestAnimationFrame(this.animate());
         }
     
@@ -327,19 +329,19 @@
         start: true,
     };
 
-    const f = new FireworkApp();
+    const app = new App();
     
-    f.notice_start(3000);
-    f.settings.tperfw = 1;
-    f.set_total(1);
-    f.animate();
+    app.notice_start(3000);
+    app.settings.tperfw = 1;
+    app.set_fireworks_total(1);
+    app.animate_fireworks();
 
-    f.get_settings();
-    f.settings.multi = false;
+    app.get_settings();
+    app.settings.multi = false;
     setTimeout(() => {
-        f.notice_tip($events_data.tip, 3000);
-        f.set_total( $events_data.tip.tokens );
-        f.animate();
+        app.notice_tip($events_data.tip, 3000);
+        app.set_fireworks_total( $events_data.tip.tokens );
+        app.animate_fireworks();
     }, 5000);
 
 
