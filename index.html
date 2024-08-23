@@ -232,6 +232,8 @@
         }
         set_fireworks_total(tokens) {
             this.fireworks.total = Math.round(tokens / this.settings.tperfw);
+            if (this.fireworks.total >= this.settings.max_fw)
+                this.fireworks.total = this.settings.max_fw;
         }
         
         animate_fireworks() {
