@@ -180,7 +180,6 @@
         }
         color2rgb(str) {
             switch (str) {
-                // $settings.color
                 case "red":    return {r:255, g:  0, b:  0};
                 case "orange": return {r:255, g:135, b:  0};
                 case "pink":   return {r:255, g:  0, b:144};
@@ -208,7 +207,6 @@
         }
         speed2num(str) {
             switch (str) {
-                // $settings.speed
                 case "slow":    return 0.5;
                 case "fast":    return 2;
                 default: return 1;
@@ -216,7 +214,6 @@
         }
         parts2num(str) {
             switch (str) {
-                // $settings.parts
                 case "few":     return 0.5;
                 case "much":    return 5;
                 case "huge":    return 10;
@@ -226,7 +223,6 @@
         }
         fired2num(str) {
             switch (str) {
-                // $settings.fired
                 case "separate": return 0.01;
                 case "together": return 1;
                 default: return 0.1;
@@ -234,7 +230,6 @@
         }
         radius2num(str) {
             switch (str) {
-                // $settings.radius
                 case "small":   return 0.5;
                 case "big":     return 1.1;
                 default: return 0.75;
@@ -309,11 +304,11 @@
 
 
     $settings = {
-         color:  "",
+         color:  "purple",
          speed:  "",
-         parts:  "",
-         radius: "",
-         fired:  "",
+         parts:  "huge",
+         radius: "medium",
+         fired:  "together",
          tperfw: 1,
          max_fw: 25,
          notice: true,
@@ -323,7 +318,7 @@
     $events_data = {
         tip: {
             username: "rengo250",
-            tokens: 3,
+            tokens: 2,
             colorGroup: "l",
         },
         start: true,
