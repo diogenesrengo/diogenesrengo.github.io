@@ -80,7 +80,7 @@
     }
 
     class Firework {
-        constructor(x, y, color, speed, parts, radius, multi) {
+        constructor(x, y, color, speed, parts, radius, multic) {
             this.x = x;
             this.y = canvas.height;
             this.targetX = x;
@@ -102,7 +102,7 @@
             this.explosionProgress = 0;
             this.hasShimmer = Math.random() < 0.5;
             this.parts = parts;
-            this.partsMulticolor = multi;
+            this.partsMulticolor = multic;
             this.radius = radius;
         }
         explode() {
@@ -162,20 +162,11 @@
 
     class App {
         constructor() {
-            this.settings = {
-                color:  undefined,
-                speed:  1,
-                parts:  1,
-                radius: 0.75,
-                fired:  1,
-                tperfw: 1,
-                max_fw: 25,
-                notice: true,
-                multi:  true,
-            };
+            this.settings = {};
             this.fireworks = {
                 data: [],
                 total: 0,
+                fired: 1,
             }
         }
         color2rgb(str) {
@@ -236,17 +227,8 @@
             }
         }
         get_settings() {
-            this.settings = {
-                color:  this.color2rgb( $settings.color ),
-                speed:  this.speed2num( $settings.speed ),
-                parts:  this.parts2num( $settings.parts ),
-                radius: this.radius2num( $settings.radius ),
-                fired:  this.fired2num( $settings.fired ),
-                tperfw: $settings.tperfw,
-                max_fw: $settings.max_fw,
-                notice: $settings.notice,
-                multi:  $settings.multi,
-            };
+            this.settings = $settings;
+            this.fireworks.fired = this.fired2num( $settings.fired );
         }
         set_fireworks_total(tokens) {
             this.fireworks.total = Math.round(tokens / this.settings.tperfw);
@@ -257,16 +239,16 @@
             this.fireworks.data.forEach(
                 (firework) => { firework.update(); firework.draw(); }
             );
-            if (this.fireworks.total > 0 && Math.random() < this.settings.fired) {
+            if (this.fireworks.total > 0 && Math.random() < this.fireworks.fired) {
                 this.fireworks.data.push( 
                     new Firework(
                         Math.random() * canvas.width,
                         (Math.random() * canvas.height) / 2,
-                        this.settings.color,
-                        this.settings.speed,
-                        this.settings.parts,
-                        this.settings.radius,
-                        this.settings.multi,
+                        this.color2rgb( this.settings.color ),
+                        this.speed2num( this.settings.speed ),
+                        this.parts2num( this.settings.parts ),
+                        this.radius2num( this.settings.radius ),
+                        this.multic2num( this.settings.multic ),
                     )
                 );
                 this.fireworks.total--;
@@ -305,14 +287,14 @@
 
     $settings = {
          color:  "purple",
-         speed:  "",
+         speed:  "normal",
          parts:  "huge",
          radius: "medium",
          fired:  "together",
          tperfw: 1,
          max_fw: 25,
          notice: true,
-         multi: true,
+         multic: true,
     };
             
     $events_data = {
@@ -326,12 +308,12 @@
 
     const app = new App();
     
+    app.get_settings();
+    
     app.notice_start(3000);
-    app.settings.tperfw = 1;
     app.set_fireworks_total(1);
     app.animate_fireworks();
 
-    app.get_settings();
     app.settings.multi = false;
     setTimeout(() => {
         app.notice_tip($events_data.tip, 3000);
