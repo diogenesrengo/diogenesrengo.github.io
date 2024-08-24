@@ -67,9 +67,7 @@
             g:      "128, 128, 128,", //grey
         };
         let names = Object.keys(rgb);
-        console.log(names);
         if (!color) color = names[ Math.random() * 9 << 0 ];
-        console.log( `rgba(${rgb[color]} ${alpha})` );
         if (alpha) 
             return `rgba(${rgb[color]} ${alpha})`;
         return `rgb(${rgb[color]})`;
