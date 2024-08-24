@@ -43,8 +43,8 @@
     const canvas = document.getElementById("fireworksCanvas");
     const c = canvas.getContext("2d");
     
-    function color_pick(name, alpha) {
-        let color = {
+    function color_pick(color, alpha) {
+        let rgb = {
             red:    "255,   0,   0,",
             orange: "255, 135,   0,",
             pink:   "255,   0, 144,",
@@ -67,11 +67,11 @@
             t:      "173, 216, 230,",  //light blue
             g:      "128, 128, 128,",  //grey
         };
-        let keys = Object.keys(color);
+        let names = Object.keys(rgb);
         console.log(keys);
-        if (!name) name = keys[ Math.random() * 10 << 0 ];
-        console.log( `rgba(${color.name} ${alpha})` );
-        return `rgba(${color.name} ${alpha})`;
+        if (!color) color = names[ Math.random() * 10 << 0 ];
+        console.log( `rgba(${rgb[color]} ${alpha})` );
+        return `rgba(${rgb[color]} ${alpha})`;
     }
 
     class Particle {
