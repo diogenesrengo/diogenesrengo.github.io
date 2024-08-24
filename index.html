@@ -39,21 +39,46 @@
     </div>
 
     <script>
-    /* classes Particle and Firework with some modifications from
-       https://github.com/The-Best-Codes/the-best-codes.github.io */
 
     const canvas = document.getElementById("fireworksCanvas");
     const c = canvas.getContext("2d");
+    
+    function color_pick(name, alpha) {
+        let color = {
+            red:    "255,   0,   0,",
+            orange: "255, 135,   0,",
+            pink:   "255,   0, 144,",
+            gold:   "255, 211,   0,",
+            yellow: "255, 255,   0,",
+            green:  "161, 255,  10,",
+            cyan:   " 10, 239, 255,",
+            blue:   " 20, 125, 245,",
+            purple: "190,  10, 255,",
+            white:  "255, 255, 255,", //10
+            black:  "  0,   0,   0,",
+            //$user.colorGroup
+            o:                       //owner
+            m:                       //moderator
+            f:                       //fanclub member
+                    "255,   0,   0," //red
+            l:      " 48,  25,  52," //dark purple
+            p:      "177, 156, 217," //light purple
+            tr:     "  0,   0, 139," //dark blue
+            t:      "173, 216, 230," //light blue
+            g:      "128, 128, 128," //grey
+        }
+        let keys = Object.keys(color);
+        console.log(keys);
+        if (!name) name = keys[ Math.random() * 10 << 0 ];
+        console.log( `rgba(${color.name} ${alpha})` );
+        return `rgba(${color.name} ${alpha})`;
+    }
 
     class Particle {
         constructor(x, y, color, velocity, radius) {
             this.x = x;
             this.y = y;
-            this.color = (color)? color : {
-                r: Math.floor(Math.random() * 255),
-                g: Math.floor(Math.random() * 255),
-                b: Math.floor(Math.random() * 255),
-            };
+            this.color = (color)? color : color_pick();
             //this.radius = Math.random() * 2 + 1;
             this.radius = Math.random() * 2 + ((radius)? radius : 0.75);
             this.velocity = velocity;
@@ -66,8 +91,7 @@
             c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             let alpha = this.alpha;
             if (this.shimmer) { alpha *= 0.5 + Math.random() * 0.5; }
-            c.fillStyle = 
-                `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
+            c.fillStyle = pick_color(color, alpha); 
             c.fill();
         }
         update() {
@@ -85,11 +109,7 @@
             this.y = canvas.height;
             this.targetX = x;
             this.targetY = y;
-            this.color = (color)? color : {
-                r: Math.floor(Math.random() * 255),
-                g: Math.floor(Math.random() * 255),
-                b: Math.floor(Math.random() * 255),
-            };
+            this.color = (color)? color : color_pick();
             const angle = (Math.random() * Math.PI) / 4 - Math.PI / 8;
             this.speed = (Math.random() * 3 + 5) * ((speed)? speed : 1); //default: 5-8
             this.velocity = { 
@@ -153,8 +173,7 @@
             if (!this.exploded) {
                 c.beginPath();
                 c.arc(this.x, this.y, 2, 0, Math.PI * 2);
-                c.fillStyle = 
-                    `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+                c.fillStyle = color_pick(color);
                 c.fill();
             }
         }
@@ -167,33 +186,6 @@
                 data: [],
                 total: 0,
                 fired: 1,
-            }
-        }
-        color2rgb(str) {
-            switch (str) {
-                case "red":    return {r:255, g:  0, b:  0};
-                case "orange": return {r:255, g:135, b:  0};
-                case "pink":   return {r:255, g:  0, b:144};
-                case "gold":   return {r:255, g:211, b:  0};
-                case "yellow": return {r:255, g:255, b:  0};
-                case "green":  return {r:161, g:255, b: 10};
-                case "cyan":   return {r: 10, g:239, b:255};
-                case "blue":   return {r: 20, g:125, b:245};
-                case "purple": return {r:190, g: 10, b:255};
-                case "white":  return {r:255, g:255, b:255};
-                case "black":  return {r:  0, g:  0, b:  0};
-                // $user.colorGroup
-                case "o":      // owner
-                case "m":      // moderator
-                case "f":      // fanclub member
-                               return {r:255, g:  0, b:  0}; // red
-                case "l":      return {r: 48, g: 25, b: 52}; // dark purple
-                case "p":      return {r:177, g:156, b:217}; // light purple
-                case "tr":     return {r:  0, g:  0, b:139}; // dark blue
-                case "t":      return {r:173, g:216, b:230}; // light blue
-                case "g":      return {r:128, g:128, b:128}; // grey
-                //    
-                default: return undefined;
             }
         }
         speed2num(str) {
@@ -246,7 +238,7 @@
                     new Firework(
                         Math.random() * canvas.width,
                         (Math.random() * canvas.height) / 2,
-                        this.color2rgb( this.settings.color ),
+                        this.settings.color,
                         this.speed2num( this.settings.speed ),
                         this.parts2num( this.settings.parts ),
                         this.radius2num( this.settings.radius ),
@@ -271,8 +263,7 @@
         }
         notice_tip(tip, delay) {
             let elem = document.getElementById("span1");
-            let c = this.color2rgb(tip.colorGroup);
-            elem.style.color = `rgb(${c.r}, ${c.g}, ${c.b})`;
+            elem.style.color = color_pick(tip.colorGroup);
             elem.innerHTML = tip.username;
             document.getElementById("span2").innerHTML = 
         " tipped " + tip.tokens + ((tip.tokens == 1)? " token" : " tokens");
