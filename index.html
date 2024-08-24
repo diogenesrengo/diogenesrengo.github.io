@@ -92,7 +92,7 @@
             c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             let alpha = this.alpha;
             if (this.shimmer) { alpha *= 0.5 + Math.random() * 0.5; }
-            c.fillStyle = color_pick(color, alpha); 
+            c.fillStyle = color_pick(this.color, alpha); 
             c.fill();
         }
         update() {
