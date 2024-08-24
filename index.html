@@ -304,7 +304,7 @@
     app.notice_start(3000);
     app.set_fireworks_total(1);
     app.animate_fireworks();
-    console.log("random="+Math.random() * 9 << 0);
+    console.log("random="+Math.round(Math.random() * 9));
     
     setTimeout(() => {
         app.notice_tip($events_data.tip, 3000);
