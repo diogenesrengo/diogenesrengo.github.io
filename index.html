@@ -70,8 +70,9 @@
         console.log(names);
         if (!color) color = names[ Math.random() * 9 << 0 ];
         console.log( `rgba(${rgb[color]} ${alpha})` );
-        if (!alpha) alpha = 1;
-        return `rgba(${rgb[color]} ${alpha})`;
+        if (alpha) 
+            return `rgba(${rgb[color]} ${alpha})`;
+        return `rgb(${rgb[color]})`;
     }
 
     class Particle {
