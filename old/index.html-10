@@ -39,21 +39,48 @@
     </div>
 
     <script>
-    /* classes Particle and Firework with some modifications from
-       https://github.com/The-Best-Codes/the-best-codes.github.io */
 
     const canvas = document.getElementById("fireworksCanvas");
     const c = canvas.getContext("2d");
+    
+    function color_pick(color, alpha) {
+        let rgb = {
+            red:    "255,   0,   0,",
+            orange: "255, 135,   0,",
+            pink:   "255,   0, 144,",
+            gold:   "255, 211,   0,",
+            yellow: "255, 255,   0,",
+            green:  "161, 255,  10,",
+            cyan:   " 10, 239, 255,",
+            blue:   " 20, 125, 245,",
+            purple: "190,  10, 255,",
+            white:  "255, 255, 255,", //9
+            black:  "  0,   0,   0,",
+            //$user.colorGroup
+            o:      "255,   0,   0,", //red owner
+            m:      "255,   0,   0,", //    moderator
+            f:      "255,   0,   0,", //    fanclub member
+            l:      " 48,  25,  52,", //dark purple
+            p:      "177, 156, 217,", //light purple
+            tr:     "  0,   0, 139,", //dark blue
+            t:      "173, 216, 230,", //light blue
+            g:      "128, 128, 128,", //grey
+        };
+        let names = Object.keys(rgb);
+        if (!color) {
+            color = names[ Math.random() * 9 << 0 ];
+            return color;
+        }
+        if (alpha) 
+            return `rgba(${rgb[color]} ${alpha})`;
+        return `rgb(${rgb[color]})`;
+    }
 
     class Particle {
         constructor(x, y, color, velocity, radius) {
             this.x = x;
             this.y = y;
-            this.color = (color)? color : {
-                r: Math.floor(Math.random() * 255),
-                g: Math.floor(Math.random() * 255),
-                b: Math.floor(Math.random() * 255),
-            };
+            this.color = (color)? color : color_pick();
             //this.radius = Math.random() * 2 + 1;
             this.radius = Math.random() * 2 + ((radius)? radius : 0.75);
             this.velocity = velocity;
@@ -66,8 +93,7 @@
             c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             let alpha = this.alpha;
             if (this.shimmer) { alpha *= 0.5 + Math.random() * 0.5; }
-            c.fillStyle = 
-                `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
+            c.fillStyle = color_pick(this.color, alpha); 
             c.fill();
         }
         update() {
@@ -80,16 +106,12 @@
     }
 
     class Firework {
-        constructor(x, y, color, speed, parts, radius, multi) {
+        constructor(x, y, color, speed, parts, radius, multic) {
             this.x = x;
             this.y = canvas.height;
             this.targetX = x;
             this.targetY = y;
-            this.color = (color)? color : {
-                r: Math.floor(Math.random() * 255),
-                g: Math.floor(Math.random() * 255),
-                b: Math.floor(Math.random() * 255),
-            };
+            this.color = (color)? color : color_pick();
             const angle = (Math.random() * Math.PI) / 4 - Math.PI / 8;
             this.speed = (Math.random() * 3 + 5) * ((speed)? speed : 1); //default: 5-8
             this.velocity = { 
@@ -102,7 +124,7 @@
             this.explosionProgress = 0;
             this.hasShimmer = Math.random() < 0.5;
             this.parts = parts;
-            this.partsMulticolor = multi;
+            this.partsMulticolor = multic;
             this.radius = radius;
         }
         explode() {
@@ -153,8 +175,7 @@
             if (!this.exploded) {
                 c.beginPath();
                 c.arc(this.x, this.y, 2, 0, Math.PI * 2);
-                c.fillStyle = 
-                    `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+                c.fillStyle = color_pick(this.color);
                 c.fill();
             }
         }
@@ -162,53 +183,15 @@
 
     class App {
         constructor() {
-            this.settings = {
-                color:  undefined,
-                speed:  1,
-                parts:  1,
-                radius: 0.75,
-                fired:  1,
-                tperfw: 1,
-                max_fw: 25,
-                notice: true,
-                multi:  true,
-            };
+            this.settings = {};
             this.fireworks = {
                 data: [],
                 total: 0,
-            }
-        }
-        color2rgb(str) {
-            switch (str) {
-                // $settings.color
-                case "red":    return {r:255, g:  0, b:  0};
-                case "orange": return {r:255, g:135, b:  0};
-                case "pink":   return {r:255, g:  0, b:144};
-                case "gold":   return {r:255, g:211, b:  0};
-                case "yellow": return {r:255, g:255, b:  0};
-                case "green":  return {r:161, g:255, b: 10};
-                case "cyan":   return {r: 10, g:239, b:255};
-                case "blue":   return {r: 20, g:125, b:245};
-                case "purple": return {r:190, g: 10, b:255};
-                case "white":  return {r:255, g:255, b:255};
-                case "black":  return {r:  0, g:  0, b:  0};
-                // $user.colorGroup
-                case "o":      // owner
-                case "m":      // moderator
-                case "f":      // fanclub member
-                               return {r:255, g:  0, b:  0}; // red
-                case "l":      return {r: 48, g: 25, b: 52}; // dark purple
-                case "p":      return {r:177, g:156, b:217}; // light purple
-                case "tr":     return {r:  0, g:  0, b:139}; // dark blue
-                case "t":      return {r:173, g:216, b:230}; // light blue
-                case "g":      return {r:128, g:128, b:128}; // grey
-                //    
-                default: return undefined;
+                fired: 1,
             }
         }
         speed2num(str) {
             switch (str) {
-                // $settings.speed
                 case "slow":    return 0.5;
                 case "fast":    return 2;
                 default: return 1;
@@ -216,7 +199,6 @@
         }
         parts2num(str) {
             switch (str) {
-                // $settings.parts
                 case "few":     return 0.5;
                 case "much":    return 5;
                 case "huge":    return 10;
@@ -226,7 +208,6 @@
         }
         fired2num(str) {
             switch (str) {
-                // $settings.fired
                 case "separate": return 0.01;
                 case "together": return 1;
                 default: return 0.1;
@@ -234,27 +215,19 @@
         }
         radius2num(str) {
             switch (str) {
-                // $settings.radius
                 case "small":   return 0.5;
                 case "big":     return 1.1;
                 default: return 0.75;
             }
         }
         get_settings() {
-            this.settings = {
-                color:  this.color2rgb( $settings.color ),
-                speed:  this.speed2num( $settings.speed ),
-                parts:  this.parts2num( $settings.parts ),
-                radius: this.radius2num( $settings.radius ),
-                fired:  this.fired2num( $settings.fired ),
-                tperfw: $settings.tperfw,
-                max_fw: $settings.max_fw,
-                notice: $settings.notice,
-                multi:  $settings.multi,
-            };
+            this.settings = $settings;
+            this.fireworks.fired = this.fired2num( $settings.fired );
         }
         set_fireworks_total(tokens) {
             this.fireworks.total = Math.round(tokens / this.settings.tperfw);
+            if (this.fireworks.total >= this.settings.max_fw)
+                this.fireworks.total = this.settings.max_fw;
         }
         
         animate_fireworks() {
@@ -262,16 +235,16 @@
             this.fireworks.data.forEach(
                 (firework) => { firework.update(); firework.draw(); }
             );
-            if (this.fireworks.total > 0 && Math.random() < this.settings.fired) {
+            if (this.fireworks.total > 0 && Math.random() < this.fireworks.fired) {
                 this.fireworks.data.push( 
                     new Firework(
                         Math.random() * canvas.width,
                         (Math.random() * canvas.height) / 2,
                         this.settings.color,
-                        this.settings.speed,
-                        this.settings.parts,
-                        this.settings.radius,
-                        this.settings.multi,
+                        this.speed2num( this.settings.speed ),
+                        this.parts2num( this.settings.parts ),
+                        this.radius2num( this.settings.radius ),
+                        this.settings.multic,
                     )
                 );
                 this.fireworks.total--;
@@ -292,8 +265,7 @@
         }
         notice_tip(tip, delay) {
             let elem = document.getElementById("span1");
-            let c = this.color2rgb(tip.colorGroup);
-            elem.style.color = `rgb(${c.r}, ${c.g}, ${c.b})`;
+            elem.style.color = color_pick(tip.colorGroup);
             elem.innerHTML = tip.username;
             document.getElementById("span2").innerHTML = 
         " tipped " + tip.tokens + ((tip.tokens == 1)? " token" : " tokens");
@@ -317,27 +289,26 @@
          tperfw: 1,
          max_fw: 25,
          notice: true,
-         multi: true,
+         multic: false,
     };
             
     $events_data = {
         tip: {
             username: "rengo250",
-            tokens: 3,
-            colorGroup: "l",
+            tokens: 1,
+            colorGroup: "o",
         },
         start: true,
     };
 
     const app = new App();
     
+    app.get_settings();
+    
     app.notice_start(3000);
-    app.settings.tperfw = 1;
     app.set_fireworks_total(1);
     app.animate_fireworks();
 
-    app.get_settings();
-    app.settings.multi = false;
     setTimeout(() => {
         app.notice_tip($events_data.tip, 3000);
         app.set_fireworks_total( $events_data.tip.tokens );
