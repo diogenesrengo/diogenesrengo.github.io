@@ -278,11 +278,11 @@
 
 
     $settings = {
-         color:  "purple",
-         speed:  "normal",
-         parts:  "huge",
-         radius: "medium",
-         fired:  "together",
+         color:  "",
+         speed:  "",
+         parts:  "",
+         radius: "big",
+         fired:  "",
          tperfw: 1,
          max_fw: 25,
          notice: true,
@@ -306,7 +306,6 @@
     app.set_fireworks_total(1);
     app.animate_fireworks();
 
-    app.settings.multic = false;
     setTimeout(() => {
         app.notice_tip($events_data.tip, 3000);
         app.set_fireworks_total( $events_data.tip.tokens );
