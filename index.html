@@ -167,7 +167,7 @@
         }
     }
 
-    class App {
+    class FireworkApp {
         constructor() {
             this.settings = {};
             this.fireworks = {
@@ -277,11 +277,11 @@
     }
 
     $settings = {
-        color:  "gold",
-        speed:  "normal",
-        parts:  "much",
-        radius: "small",
-        fired:  "separate",
+        color:  "blue",
+        speed:  "slow",
+        parts:  "small",
+        radius: "big",
+        fired:  "",
         tperfw: 1,
         max_fw: 25,
         notice: true,
@@ -291,13 +291,13 @@
     $events_data = {
         tip: {
             username: "rengo250",
-            tokens: 2,
+            tokens: 3,
             colorGroup: "t",
         },
         start: true,
     };
 
-    const app = new App();
+    const app = new FireworkApp();
     
     app.get_settings();
     
