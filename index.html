@@ -67,7 +67,7 @@
             g:      "128, 128, 128,", //grey
         };
         let names = Object.keys(rgb);
-        console.log(keys);
+        console.log(names);
         if (!color) color = names[ Math.random() * 10 << 0 ];
         console.log( `rgba(${rgb[color]} ${alpha})` );
         return `rgba(${rgb[color]} ${alpha})`;
@@ -90,7 +90,7 @@
             c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             let alpha = this.alpha;
             if (this.shimmer) { alpha *= 0.5 + Math.random() * 0.5; }
-            c.fillStyle = pick_color(color, alpha); 
+            c.fillStyle = color_pick(color, alpha); 
             c.fill();
         }
         update() {
