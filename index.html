@@ -293,7 +293,7 @@
         tip: {
             username: "rengo250",
             tokens: 3,
-            colorGroup: "t",
+            colorGroup: "m",
         },
         start: true,
     };
@@ -305,7 +305,7 @@
     app.notice_start(3000);
     app.set_fireworks_total(1);
     app.animate_fireworks();
-    console.log("random="+Math.round(Math.random() * 9));
+    console.log("random="+Math.floor(Math.random() * 9));
     
     setTimeout(() => {
         app.notice_tip($events_data.tip, 3000);
