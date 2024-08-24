@@ -54,7 +54,7 @@
             cyan:   " 10, 239, 255,",
             blue:   " 20, 125, 245,",
             purple: "190,  10, 255,",
-            white:  "255, 255, 255,", //10
+            white:  "255, 255, 255,", //9
             black:  "  0,   0,   0,",
             //$user.colorGroup
             o:      "255,   0,   0,", //red owner
@@ -68,8 +68,9 @@
         };
         let names = Object.keys(rgb);
         console.log(names);
-        if (!color) color = names[ Math.random() * 10 << 0 ];
+        if (!color) color = names[ Math.random() * 9 << 0 ];
         console.log( `rgba(${rgb[color]} ${alpha})` );
+        if (!alpha) alpha = 1;
         return `rgba(${rgb[color]} ${alpha})`;
     }
 
@@ -172,7 +173,7 @@
             if (!this.exploded) {
                 c.beginPath();
                 c.arc(this.x, this.y, 2, 0, Math.PI * 2);
-                c.fillStyle = color_pick(color);
+                c.fillStyle = color_pick(this.color);
                 c.fill();
             }
         }
