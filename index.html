@@ -31,7 +31,7 @@
 <body>
     <div style="position: relative;">
         <div id="notice_box">
-            <div id="notice">
+            :<div id="notice">
                 <span id="span1"></span><span id="span2"></span>
             </div>
         </div>
@@ -43,44 +43,29 @@
     const canvas = document.getElementById("fireworksCanvas");
     const c = canvas.getContext("2d");
     
-    function color_pick(color, alpha) {
-        let rgb = {
-            red:    "255,   0,   0",
-            orange: "255, 135,   0",
-            pink:   "255,   0, 144",
-            gold:   "255, 211,   0",
-            yellow: "255, 255,   0",
-            green:  "161, 255,  10",
-            cyan:   " 10, 239, 255",
-            blue:   " 20, 125, 245",
-            purple: "190,  10, 255",
-            white:  "255, 255, 255", //9
-            black:  "  0,   0,   0",
-            //$user.colorGroup
-            o:      "255,   0,   0", //red owner
-            m:      "255,   0,   0", //    moderator
-            f:      "255,   0,   0", //    fanclub member
-            l:      " 48,  25,  52", //dark purple
-            p:      "177, 156, 217", //light purple
-            tr:     "  0,   0, 139", //dark blue
-            t:      "173, 216, 230", //light blue
-            g:      "128, 128, 128", //grey
-        };
-        let names = Object.keys(rgb);
-        if (!color) {
-            color = names[ Math.random() * 9 << 0 ];
-            return color;
-        }
-        if (alpha) 
-            return `rgba(${rgb[color]}, ${alpha})`;
-        return `rgb(${rgb[color]})`;
+    const rgbOfColor = {
+        red:    {r:255, g:  0, b:  0},
+        orange: {r:255, g:135, b:  0},
+        pink:   {r:255, g:  0, b:144},
+        gold:   {r:255, g:211, b:  0},
+        yellow: {r:255, g:255, b:  0},
+        green:  {r:161, g:255, b: 10},
+        cyan:   {r: 10, g:239, b:255},
+        blue:   {r: 20, g:125, b:245},
+        purple: {r:190, g: 10, b:255},
+        white:  {r:255, g:255, b:255}, //9
+        black:  {r:  0, g:  0, b:  0},
+    };
+
+    function color_random() {
+        return rgbOfColor[ Object.keys(rgbOfColor)[ Math.random() * 9 << 0 ] ];
     }
 
     class Particle {
         constructor(x, y, color, velocity, radius) {
             this.x = x;
             this.y = y;
-            this.color = (color)? color : color_pick();
+            this.color = (color)? color : color_random();
             //this.radius = Math.random() * 2 + 1;
             this.radius = Math.random() * 2 + ((radius)? radius : 0.75);
             this.velocity = velocity;
@@ -93,7 +78,8 @@
             c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             let alpha = this.alpha;
             if (this.shimmer) { alpha *= 0.5 + Math.random() * 0.5; }
-            c.fillStyle = color_pick(this.color, alpha); 
+            c.fillStyle = 
+                `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`;
             c.fill();
         }
         update() {
@@ -111,7 +97,7 @@
             this.y = canvas.height;
             this.targetX = x;
             this.targetY = y;
-            this.color = (color)? color : color_pick();
+            this.color = (color)? color : color_random();
             const angle = (Math.random() * Math.PI) / 4 - Math.PI / 8;
             this.speed = (Math.random() * 3 + 5) * ((speed)? speed : 1); //default: 5-8
             this.velocity = { 
@@ -175,7 +161,7 @@
             if (!this.exploded) {
                 c.beginPath();
                 c.arc(this.x, this.y, 2, 0, Math.PI * 2);
-                c.fillStyle = color_pick(this.color);
+                c.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
                 c.fill();
             }
         }
@@ -265,7 +251,7 @@
         }
         notice_tip(tip, delay) {
             let elem = document.getElementById("span1");
-            elem.style.color = color_pick(tip.colorGroup);
+            elem.style.color = $colorGroup[ tip.colorGroup ];
             elem.innerHTML = tip.username;
             document.getElementById("span2").innerHTML = 
         " tipped " + tip.tokens + ((tip.tokens == 1)? " token" : " tokens");
@@ -279,17 +265,27 @@
         }
     }
 
+    $colorGroup = { //$user.colorGroup
+        o:  "red",  //owner
+        m:  "red",  //moderator
+        f:  "red",  //fanclub member
+        l:  "dark purple",
+        p:  "light purple",
+        tr: "dark blue",
+        t:  "light blue",
+        g:  "grey",
+    }
 
     $settings = {
-         color:  "",
-         speed:  "",
-         parts:  "",
-         radius: "",
-         fired:  "",
-         tperfw: 1,
-         max_fw: 25,
-         notice: true,
-         multic: false,
+        color:  "",
+        speed:  "",
+        parts:  "",
+        radius: "",
+        fired:  "",
+        tperfw: 1,
+        max_fw: 25,
+        notice: true,
+        multic: false,
     };
             
     $events_data = {
