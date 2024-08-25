@@ -118,7 +118,7 @@
             return Object.values(this.color2rgb)[ i ];
         }
         explode() {
-            let n = 1 + Math.random() * ((this.parts)? this.parts : 50);
+            let n = Math.random() * ((this.parts)? this.parts : 25);
             for (let i = 0; i < n; i++) {
                 const angle = Math.random() * Math.PI * 2;
                 const speed = Math.random() * 3 + 1;
@@ -253,7 +253,7 @@
     $settings = {
         color:  "pink", //""
         power:  5,  //4 1-10
-        parts:  1,  //1 1-50
+        parts:  0,  //1 1-50
         radius: 5,  //3 1-10
         fired:  100, //10 1-100
         tperfw: 1,
