@@ -47,8 +47,7 @@
         constructor(x, y, color, velocity, radius) {
             this.x = x;
             this.y = y;
-            this.color = (color)? color : FireworkApp.color_random();
-            //this.radius = Math.random() * 2 + 1;
+            this.color = color;
             this.radius = Math.random() * 2 + ((radius)? radius : 0.75);
             this.velocity = velocity;
             this.life = 100;
@@ -79,7 +78,6 @@
             this.y = canvas.height;
             this.targetX = x;
             this.targetY = y;
-            this.color = (color)? color : this.color_random();
             const angle = (Math.random() * Math.PI) / 4 - Math.PI / 8;
             this.speed = (Math.random() * 3 + 5) * ((power)? power : 1); //default: 5-8
             this.velocity = { 
@@ -91,9 +89,28 @@
             this.exploded = false;
             this.explosionProgress = 0;
             this.hasShimmer = Math.random() < 0.5;
+            this.color2rgb = {
+                red:    {r:255, g:  0, b:  0},
+                orange: {r:255, g:135, b:  0},
+                pink:   {r:255, g:  0, b:144},
+                gold:   {r:255, g:211, b:  0},
+                yellow: {r:255, g:255, b:  0},
+                green:  {r:161, g:255, b: 10},
+                cyan:   {r: 10, g:239, b:255},
+                blue:   {r: 20, g:125, b:245},
+                purple: {r:190, g: 10, b:255},
+                white:  {r:255, g:255, b:255},
+                black:  {r:  0, g:  0, b:  0}, //10
+            };
+            this.colors = 10;
+            this.color = (color)? color2rgb[color] : this.random_color();
             this.parts = parts;
             this.partsMulticolor = multic;
             this.radius = radius;
+        }
+        random_color() {
+            let i = Math.floor(Math.random() * this.colors_len);
+            return Object.values(this.colors_rgb)[ i ];
         }
         explode() {
             let n = (15 + Math.random() * 50) * ((this.parts)? this.parts : 1);
@@ -106,7 +123,7 @@
                     new Particle(
                         this.x,
                         this.y, 
-                        (this.partsMulticolor)? 0 : this.color,
+                        (this.partsMulticolor)? this.random_color() : this.color,
                         velocity,
                         this.radius
                     )
@@ -156,25 +173,7 @@
                 data: [],
                 total: 0,
                 fired: 1,
-            }
-            this.color2rgb = {
-                red:    {r:255, g:  0, b:  0},
-                orange: {r:255, g:135, b:  0},
-                pink:   {r:255, g:  0, b:144},
-                gold:   {r:255, g:211, b:  0},
-                yellow: {r:255, g:255, b:  0},
-                green:  {r:161, g:255, b: 10},
-                cyan:   {r: 10, g:239, b:255},
-                blue:   {r: 20, g:125, b:245},
-                purple: {r:190, g: 10, b:255},
-                white:  {r:255, g:255, b:255},
-                black:  {r:  0, g:  0, b:  0}, //10
             };
-            this.colors = 10;
-        }
-        color_random() {
-            let i = Math.floor(Math.random() * this.colors);
-            return Object.values(this.color2rgb)[ i ];
         }
         power2num(str) {
             switch (str) {
@@ -229,7 +228,7 @@
                     new Firework(
                         Math.random() * canvas.width,
                         (Math.random() * canvas.height) / 2,
-                        this.color2rgb[ this.settings.color ],
+                        this.settings.color,
                         this.power2num( this.settings.power ),
                         this.parts2num( this.settings.parts ),
                         this.radius2num( this.settings.radius ),
@@ -280,7 +279,7 @@
     }
 
     $settings = {
-        color:  "",
+        color:  "pink",
         power:  "",
         parts:  "",
         radius: "",
@@ -294,7 +293,7 @@
     $events_data = {
         tip: {
             username: "rengo250",
-            tokens: 3,
+            tokens: 2,
             colorGroup: "t",
         },
         start: true,
