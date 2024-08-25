@@ -175,14 +175,7 @@
                 fired: 1,
             };
         }
-        power2num(str) {
-            switch (str) {
-                case "little":  return 0.5;
-                case "more":    return 0.75;
-                case "much":    return 1.5;
-                default: return 1;
-            }
-        }
+        power2num(str) { console.log(str * 0.25); return (str * 0.25); } //4 1
         parts2num(str) {
             switch (str) {
                 case "few":     return 0.5;
@@ -279,7 +272,7 @@
     }
 
     $settings = {
-        color:  "purple",
+        color:  "",
         power:  "",
         parts:  "",
         radius: "",
