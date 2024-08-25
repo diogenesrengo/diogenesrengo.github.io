@@ -118,7 +118,7 @@
             return Object.values(this.color2rgb)[ i ];
         }
         explode() {
-            let n = Math.random() * ((this.parts)? this.parts : 25);
+            let n = Math.random() * this.parts;
             for (let i = 0; i < n; i++) {
                 const angle = Math.random() * Math.PI * 2;
                 const speed = Math.random() * 3 + 1;
