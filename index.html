@@ -109,7 +109,7 @@
             this.radius = radius;
         }
         random_color() {
-            let i = Math.floor(Math.random() * this.colors_len);
+            let i = Math.floor(Math.random() * this.colors);
             return Object.values(this.color2rgb)[ i ];
         }
         explode() {
