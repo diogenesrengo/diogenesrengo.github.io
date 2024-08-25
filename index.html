@@ -175,7 +175,6 @@
                 fired: 1,
             };
         }
-        power2num(str) { console.log(str * 0.25); return (str * 0.25); } //4 1
         parts2num(str) {
             switch (str) {
                 case "few":     return 0.5;
@@ -222,7 +221,7 @@
                         Math.random() * canvas.width,
                         (Math.random() * canvas.height) / 2,
                         this.settings.color,
-                        this.power2num( this.settings.power ),
+                        this.settings.power * 0.25;             //4 1
                         this.parts2num( this.settings.parts ),
                         this.radius2num( this.settings.radius ),
                         this.settings.multic,
@@ -273,7 +272,7 @@
 
     $settings = {
         color:  "",
-        power:  "1",
+        power:  4,
         parts:  "",
         radius: "",
         fired:  "",
