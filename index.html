@@ -59,7 +59,7 @@
 
     function color_random() {
         let i = Math.floor(Math.random() * 10);
-        return color2rgb[ Object.keys(color2rgb)[i] ];
+        return Object.values(color2rgb)[ i ];
     }
 
     class Particle {
