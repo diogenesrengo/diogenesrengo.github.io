@@ -110,7 +110,7 @@
         }
         random_color() {
             let i = Math.floor(Math.random() * this.colors_len);
-            return Object.values(this.colors_rgb)[ i ];
+            return this.color2rgb.values[ i ];
         }
         explode() {
             let n = (15 + Math.random() * 50) * ((this.parts)? this.parts : 1);
