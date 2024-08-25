@@ -175,34 +175,9 @@
                 fired: 1,
             };
         }
-        parts2num(str) {
-            switch (str) {
-                case "few":     return 0.5;
-                case "much":    return 5;
-                case "huge":    return 10;
-                case "atomic":  return 50;
-                default: return 1;
-            }
-        }
-        fired2num(str) {
-            switch (str) {
-                case "separate": return 0.01;
-                case "together": return 1;
-                default: return 0.1;
-            }
-        }
-        radius2num(str) {
-            switch (str) {
-                case "small":   return 0.5;
-                case "big":     return 1.1;
-                case "huge":    return 1.5;
-                case "biggest": return 3;
-                default: return 0.75;
-            }
-        }
         get_settings() {
             this.settings = $settings;
-            this.fireworks.fired = this.fired2num( $settings.fired );
+            this.fireworks.fired = $settings.fired / 100;       //10 0.1
         }
         set_fireworks_total(tokens) {
             this.fireworks.total = Math.round(tokens / this.settings.tperfw);
@@ -221,9 +196,9 @@
                         Math.random() * canvas.width,
                         (Math.random() * canvas.height) / 2,
                         this.settings.color,
-                        this.settings.power * 0.25;             //4 1
-                        this.parts2num( this.settings.parts ),
-                        this.radius2num( this.settings.radius ),
+                        this.settings.power * 0.25,             //4 1
+                        this.settings.parts,                    //1 1
+                        this.settings.radius * 0.25,            //3 0.75
                         this.settings.multic,
                     )
                 );
@@ -271,11 +246,11 @@
     }
 
     $settings = {
-        color:  "",
-        power:  4,
-        parts:  "",
-        radius: "",
-        fired:  "",
+        color:  "", //""
+        power:  4,  //4 1-10
+        parts:  1,  //1 1-50
+        radius: 3,  //3 1-10
+        fired:  10, //10 1-100
         tperfw: 1,
         max_fw: 25,
         notice: true,
