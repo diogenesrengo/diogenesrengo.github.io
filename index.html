@@ -8,7 +8,7 @@
             border:2px solid black;
             background-color: black;
             */
-            background-image: back.jpg;
+            background-image: ./back.jpg;
         }
         #notice_box {
             position: absolute;
@@ -258,7 +258,7 @@
         tperfw: 1,
         max_fw: 25,
         notice: true,
-        multic: false,
+        multic: true,
     };
             
     $events_data = {
@@ -278,6 +278,7 @@
     app.set_fireworks_total(1);
     app.animate_fireworks();
     
+    app.settings.multic = false;
     setTimeout(() => {
         app.notice_tip($events_data.tip, 3000);
         app.set_fireworks_total( $events_data.tip.tokens );
