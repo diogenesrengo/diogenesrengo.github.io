@@ -30,7 +30,7 @@
             top: 3px;
             color: white;
             /*font: bold 11px Tahoma, serif;*/
-            font: bold 12px Arial, serif;
+            font: 12px Arial, serif;
         }
     </style>
 </head>
@@ -112,31 +112,32 @@
             this.color = (this.color2rgb[color])?
                 this.color2rgb[color] : this.random_color();
             this.parts = parts;
-            this.partsMulticolor = multic;
-            this.partsRadius = radius;
+            this.multic = multic;
+            this.radius = radius;
         }
         random_color() {
             let i = Math.floor(Math.random() * this.colors);
             return Object.values(this.color2rgb)[ i ];
         }
         explode() {
-            let n = (this.parts == 1)? 1 : this.parts + Math.random() * this.parts;
-            for (let i = 0; i < n; i++) {
+          if (this.parts == 1) {
+                this.particles.push( 
+                    new Particle(this.x, this.y, this.color, 0, this.radius)
+                );
+          } else {
+            let parts = this.parts + Math.random() * this.parts;
+            for (let i = 0; i < parts; i++) {
                 const angle = Math.random() * Math.PI * 2;
                 const speed = Math.random() * 3 + 1;
                 const velocity = 
                     { x: Math.cos(angle) * speed, y: Math.sin(angle) * speed, };
+                const color = (this.multic)? this.random_color() : this.color;
                 this.particles.push( 
-                    new Particle(
-                        this.x,
-                        this.y, 
-                        (this.partsMulticolor)? this.random_color() : this.color,
-                        velocity,
-                        this.partsRadius
-                    )
+                    new Particle(this.x, this.y, color, velocity, this.radius)
                 );
             }
-            this.exploded = true;
+          }
+          this.exploded = true;
         }
         update() {
             if (!this.exploded) {
@@ -144,7 +145,7 @@
                 this.y += this.velocity.y;
                 this.velocity.y += 0.05;
                 this.trail.push( 
-                    new Particle(this.x, this.y, this.color, {x:0, y:0}, this.partsRadius)
+                    new Particle(this.x, this.y, this.color, {x:0, y:0}, this.radius)
                 );
                 if (this.trail.length > 20) this.trail.shift();
                 if (this.velocity.y >= 0 || this.y <= this.targetY) this.explode();
@@ -274,7 +275,7 @@
     $events_data = {
         tip: {
             username: "rengo250",
-            tokens: 1,
+            tokens: 2,
             colorGroup: "l",
         },
         start: true,
