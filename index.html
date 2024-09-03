@@ -120,8 +120,7 @@
             return Object.values(this.color2rgb)[ i ];
         }
         explode() {
-          if (this.parts != 1) { 
-            let n = this.parts + Math.random() * this.parts;
+            let n = (this.parts == 1)? 1 : this.parts + Math.random() * this.parts;
             for (let i = 0; i < n; i++) {
                 const angle = Math.random() * Math.PI * 2;
                 const speed = Math.random() * 3 + 1;
@@ -137,8 +136,7 @@
                     )
                 );
             }
-          }
-          this.exploded = true;
+            this.exploded = true;
         }
         update() {
             if (!this.exploded) {
@@ -151,14 +149,12 @@
                 if (this.trail.length > 20) this.trail.shift();
                 if (this.velocity.y >= 0 || this.y <= this.targetY) this.explode();
             } else {
-                if (this.parts != 1) {
-                    this.explosionProgress += 0.02;
-                    this.particles.forEach( 
-                        (particle) => {particle.update(); particle.draw();}
-                    );
-                    this.particles = 
-                        this.particles.filter( (particle) => particle.life > 0);
-                }
+                this.explosionProgress += 0.02;
+                this.particles.forEach( 
+                    (particle) => {particle.update(); particle.draw();}
+                );
+                this.particles = 
+                    this.particles.filter( (particle) => particle.life > 0);
             }
             this.trail.forEach( (particle, index) => {
                 particle.alpha = 
