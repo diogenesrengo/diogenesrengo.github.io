@@ -151,12 +151,14 @@
                 if (this.trail.length > 20) this.trail.shift();
                 if (this.velocity.y >= 0 || this.y <= this.targetY) this.explode();
             } else {
-                this.explosionProgress += 0.02;
-                this.particles.forEach( 
-                    (particle) => {particle.update(); particle.draw();}
-                );
-                this.particles = 
-                    this.particles.filter( (particle) => particle.life > 0);
+                if (this.parts != 1) {
+                    this.explosionProgress += 0.02;
+                    this.particles.forEach( 
+                        (particle) => {particle.update(); particle.draw();}
+                    );
+                    this.particles = 
+                        this.particles.filter( (particle) => particle.life > 0);
+                }
             }
             this.trail.forEach( (particle, index) => {
                 particle.alpha = 
