@@ -122,7 +122,7 @@
         explode() {
           if (this.parts == 1) {
                 this.particles.push( 
-                    new Particle(this.x, this.y, this.color, 0, this.radius)
+                    new Particle(this.x, this.y, this.color, {x:0, y:0}, this.radius)
                 );
           } else {
             let parts = this.parts + Math.random() * this.parts;
