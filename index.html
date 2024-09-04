@@ -193,7 +193,18 @@
                 (firework) => { firework.update(); firework.draw(); }
             );
             if (this.fireworks.total > 0 && Math.random() < this.fireworks.fired) {
+              if (this.settings.meteor) {
                 this.fireworks.data.push( new Firework(
+                    Math.random() * canvas.width,
+                    -(Math.random() * canvas.height) / 2,
+                    this.settings.color,
+                    Math.round(this.settings.power / 100) * 0.25,   //4 1
+                    this.settings.parts,                            //1 1
+                    this.settings.radius * 0.25,                    //3 0.75
+                    this.settings.multic,
+                ));
+              } else {
+                 this.fireworks.data.push( new Firework(
                     (this.settings.width)? 
                         this.settings.width * Math.round(canvas.width / 100) :
                         Math.random() * canvas.width,
@@ -206,6 +217,7 @@
                     this.settings.radius * 0.25,                    //3 0.75
                     this.settings.multic,
                 ));
+              }
                 this.fireworks.total--;
             }
             this.fireworks.data = this.fireworks.data.filter( (firework) => 
@@ -265,6 +277,7 @@
         max_fw: 25,
         notice: true,
         multic: true,
+        meteor: true,
     };
             
     $events_data = {
