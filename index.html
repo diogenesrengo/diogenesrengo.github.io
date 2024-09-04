@@ -54,7 +54,7 @@
             this.x = x;
             this.y = y;
             this.color = color;
-            this.radius = Math.random() * 2 + ((radius)? radius * 0.25 : 0.75);
+            this.radius = Math.random() * 2 + ((radius)? radius : 0.75);
             this.velocity = velocity;
             this.life = 100;
             this.alpha = 1;
@@ -79,16 +79,16 @@
     }
 
     class Firework {
-        constructor(x, y, targetX, targetY, color, speed, parts, radius, multic) {
+        constructor(x, y, color, power, parts, radius, multic) {
             this.x = x;
             this.y = canvas.height;
             this.targetX = x;
             this.targetY = y;
             const angle = (Math.random() * Math.PI) / 4 - Math.PI / 8;
-            this.speed = (Math.random() * 3 + 5) * ((speed)? speed / 400 : 1); //default: 5-8
+            this.power = (Math.random() * 3 + 5) * ((power)? power : 1); //default: 5-8
             this.velocity = { 
-                x: Math.sin(angle) * this.speed,
-                y: -Math.cos(angle) * this.speed,
+                x: Math.sin(angle) * this.power,
+                y: -Math.cos(angle) * this.power,
             };
             this.particles = [];
             this.trail = [];
@@ -193,37 +193,22 @@
                 (firework) => { firework.update(); firework.draw(); }
             );
             if (this.fireworks.total > 0 && Math.random() < this.fireworks.fired) {
-                if (this.settings.meteor) {
-                    this.fireworks.data.push( new Firework(
-                        Math.random() * canvas.width,
-                        0,
-                        Math.random() * canvas.width,
-                        canvas.height / 2,
-                        this.settings.color,
-                        this.settings.speed,    //4 1
-                        this.settings.parts,    //1 1
-                        this.settings.radius,   //3 0.75
-                        this.settings.multic,
-                    ));
-                } else {
-                    const x = (this.settings.width)? 
-                        this.settings.width * Math.round(canvas.width / 100) :
-                        Math.random() * canvas.width;
-                    this.fireworks.data.push( new Firework(
-                        x,
-                        canvas.height,
-                        x,
-                        (this.settings.height)? canvas.height - 
-                            (this.settings.height * Math.round(canvas.height / 100)) :
+                this.fireworks.data.push( 
+                    new Firework(
+                        (this.settings.width)? 
+                            this.settings.width * Math.round(canvas.width / 100) :
+                            Math.random() * canvas.width,
+                        (this.settings.height)? 
+                            canvas.height - 
+                                (this.settings.height * Math.round(canvas.height / 100)) :
                             (Math.random() * canvas.height) / 2,
-                        canvas.height,
                         this.settings.color,
-                        this.settings.speed,
-                        this.settings.parts,
-                        this.settings.radius,
+                        Math.round(this.settings.power / 100) * 0.25,   //4 1
+                        this.settings.parts,                            //1 1
+                        this.settings.radius * 0.25,                    //3 0.75
                         this.settings.multic,
-                    ));
-                }
+                    )
+                );
                 this.fireworks.total--;
             }
             this.fireworks.data = this.fireworks.data.filter( (firework) => 
@@ -272,24 +257,23 @@
     }
 
     $settings = {
-        color:  "gold", //""
-        speed:  40, //40 1-100 %
+        color:  "", //""
+        power:  40, //4 1-100 %
         parts:  15, //15 1-50
-        radius:  3, //3  1-10
+        radius:  3, //3 1-10
         fired:  10, //10 1-100 %
-        width:   0, //0  1-100 %
-        height: 75, //75 1-100 %
+        width:   0, //1-100 %
+        height: 75, //1-100 %
         tperfw: 1,
         max_fw: 25,
         notice: true,
         multic: true,
-        meteor: false,
     };
             
     $events_data = {
         tip: {
             username: "rengo250",
-            tokens: 3,
+            tokens: 5,
             colorGroup: "l",
         },
         start: true,
