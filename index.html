@@ -193,15 +193,16 @@
                 (firework) => { firework.update(); firework.draw(); }
             );
             if (this.fireworks.total > 0 && Math.random() < this.fireworks.fired) {
+                const x = (this.settings.width)? 
+                    this.settings.width * Math.round(canvas.width / 100) :
+                    Math.random() * canvas.width;
+                const y = (this.settings.height)? 
+                    canvas.height - this.settings.height * Math.round(canvas.height / 100) :
+                    Math.random() * canvas.height / 2;
                 this.fireworks.data.push( 
                     new Firework(
-                        (this.settings.width)? 
-                            this.settings.width * Math.round(canvas.width / 100) :
-                            Math.random() * canvas.width,
-                        (this.settings.height)? 
-                            canvas.height - 
-                                (this.settings.height * Math.round(canvas.height / 100)) :
-                            (Math.random() * canvas.height) / 2,
+                        x,
+                        y,
                         this.settings.color,
                         this.settings.power,
                         this.settings.parts,
