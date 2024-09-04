@@ -4,27 +4,33 @@
     <style>
         canvas {
             display: block;
-            /*border:2px solid black;*/
+            /*
+            border:2px solid black;
+            */
             background-color: black;
+            /* 
+            background: url("images/cam.jpg");
+            */
         }
         #notice_box {
             position: absolute;
             width: 300px;
             height: 20px;
             border-radius: 4px;
-            left: 490px;
-            top: 570px;
+            left: 5px;
+            top: 456px;
             /* background-color: #ffff33; */
-            background-color: black;
+            /* background-color: black; */
             visibility: hidden;
-            opacity: 0.7;
+            opacity: 1;
         }
         #notice {
             position: absolute;
             left: 5px;
             top: 3px;
             color: white;
-            font: bold 11px Tahoma, serif;
+            /*font: bold 11px Tahoma, serif;*/
+            font: 12px Arial, serif;
         }
     </style>
 </head>
@@ -35,12 +41,10 @@
                 <span id="span1"></span><span id="span2"></span>
             </div>
         </div>
-        <canvas id="fireworksCanvas" width="800" height="600"></canvas>
+        <canvas id="fireworksCanvas" width="854" height="480"></canvas>
     </div>
 
     <script>
-    /* classes Particle and Firework with some modifications from
-       https://github.com/The-Best-Codes/the-best-codes.github.io */
 
     const canvas = document.getElementById("fireworksCanvas");
     const c = canvas.getContext("2d");
@@ -49,12 +53,7 @@
         constructor(x, y, color, velocity, radius) {
             this.x = x;
             this.y = y;
-            this.color = (color)? color : {
-                r: Math.floor(Math.random() * 255),
-                g: Math.floor(Math.random() * 255),
-                b: Math.floor(Math.random() * 255),
-            };
-            //this.radius = Math.random() * 2 + 1;
+            this.color = color;
             this.radius = Math.random() * 2 + ((radius)? radius : 0.75);
             this.velocity = velocity;
             this.life = 100;
@@ -80,46 +79,56 @@
     }
 
     class Firework {
-        constructor(x, y, color, speed, parts, radius, multi) {
+        constructor(x, y, color, power, parts, radius, multic) {
             this.x = x;
             this.y = canvas.height;
             this.targetX = x;
             this.targetY = y;
-            this.color = (color)? color : {
-                r: Math.floor(Math.random() * 255),
-                g: Math.floor(Math.random() * 255),
-                b: Math.floor(Math.random() * 255),
-            };
             const angle = (Math.random() * Math.PI) / 4 - Math.PI / 8;
-            this.speed = (Math.random() * 3 + 5) * ((speed)? speed : 1); //default: 5-8
+            this.power = (Math.random() * 3 + 5) * ((power)? power : 1); //default: 5-8
             this.velocity = { 
-                x: Math.sin(angle) * this.speed,
-                y: -Math.cos(angle) * this.speed,
+                x: Math.sin(angle) * this.power,
+                y: -Math.cos(angle) * this.power,
             };
             this.particles = [];
             this.trail = [];
             this.exploded = false;
             this.explosionProgress = 0;
             this.hasShimmer = Math.random() < 0.5;
+            this.color2rgb = {
+                red:    {r:255, g:  0, b:  0},
+                orange: {r:255, g:135, b:  0},
+                pink:   {r:255, g:  0, b:144},
+                gold:   {r:255, g:211, b:  0},
+                yellow: {r:255, g:255, b:  0},
+                green:  {r:161, g:255, b: 10},
+                cyan:   {r: 10, g:239, b:255},
+                blue:   {r: 20, g:125, b:245},
+                purple: {r:190, g: 10, b:255},
+                white:  {r:255, g:255, b:255},
+                black:  {r:  0, g:  0, b:  0}, //10
+            };
+            this.colors = 10;
+            this.color = (this.color2rgb[color])?
+                this.color2rgb[color] : this.random_color();
             this.parts = parts;
-            this.partsMulticolor = multi;
+            this.multic = multic;
             this.radius = radius;
         }
+        random_color() {
+            let i = Math.floor(Math.random() * this.colors);
+            return Object.values(this.color2rgb)[ i ];
+        }
         explode() {
-            let n = (15 + Math.random() * 50) * ((this.parts)? this.parts : 1);
-            for (let i = 0; i < n; i++) {
+            let parts = this.parts + Math.random() * this.parts;
+            for (let i = 0; i < parts; i++) {
                 const angle = Math.random() * Math.PI * 2;
                 const speed = Math.random() * 3 + 1;
                 const velocity = 
                     { x: Math.cos(angle) * speed, y: Math.sin(angle) * speed, };
+                const color = (this.multic)? this.random_color() : this.color;
                 this.particles.push( 
-                    new Particle(
-                        this.x,
-                        this.y, 
-                        (this.partsMulticolor)? 0 : this.color,
-                        velocity,
-                        this.radius
-                    )
+                    new Particle(this.x, this.y, color, velocity, this.radius)
                 );
             }
             this.exploded = true;
@@ -153,108 +162,29 @@
             if (!this.exploded) {
                 c.beginPath();
                 c.arc(this.x, this.y, 2, 0, Math.PI * 2);
-                c.fillStyle = 
-                    `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+                c.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
                 c.fill();
             }
         }
     }
 
-    class App {
+    class FireworkApp {
         constructor() {
-            this.settings = {
-                color:  undefined,
-                speed:  1,
-                parts:  1,
-                radius: 0.75,
-                fired:  1,
-                tperfw: 1,
-                max_fw: 25,
-                notice: true,
-                multi:  true,
-            };
+            this.settings = {};
             this.fireworks = {
                 data: [],
                 total: 0,
-            }
-        }
-        color2rgb(str) {
-            switch (str) {
-                // $settings.color
-                case "red":    return {r:255, g:  0, b:  0};
-                case "orange": return {r:255, g:135, b:  0};
-                case "pink":   return {r:255, g:  0, b:144};
-                case "gold":   return {r:255, g:211, b:  0};
-                case "yellow": return {r:255, g:255, b:  0};
-                case "green":  return {r:161, g:255, b: 10};
-                case "cyan":   return {r: 10, g:239, b:255};
-                case "blue":   return {r: 20, g:125, b:245};
-                case "purple": return {r:190, g: 10, b:255};
-                case "white":  return {r:255, g:255, b:255};
-                case "black":  return {r:  0, g:  0, b:  0};
-                // $user.colorGroup
-                case "o":      // owner
-                case "m":      // moderator
-                case "f":      // fanclub member
-                               return {r:255, g:  0, b:  0}; // red
-                case "l":      return {r: 48, g: 25, b: 52}; // dark purple
-                case "p":      return {r:177, g:156, b:217}; // light purple
-                case "tr":     return {r:  0, g:  0, b:139}; // dark blue
-                case "t":      return {r:173, g:216, b:230}; // light blue
-                case "g":      return {r:128, g:128, b:128}; // grey
-                //    
-                default: return undefined;
-            }
-        }
-        speed2num(str) {
-            switch (str) {
-                // $settings.speed
-                case "slow":    return 0.5;
-                case "fast":    return 2;
-                default: return 1;
-            }
-        }
-        parts2num(str) {
-            switch (str) {
-                // $settings.parts
-                case "few":     return 0.5;
-                case "much":    return 5;
-                case "huge":    return 10;
-                case "atomic":  return 50;
-                default: return 1;
-            }
-        }
-        fired2num(str) {
-            switch (str) {
-                // $settings.fired
-                case "separate": return 0.01;
-                case "together": return 1;
-                default: return 0.1;
-            }
-        }
-        radius2num(str) {
-            switch (str) {
-                // $settings.radius
-                case "small":   return 0.5;
-                case "big":     return 1.1;
-                default: return 0.75;
-            }
+                fired: 1,
+            };
         }
         get_settings() {
-            this.settings = {
-                color:  this.color2rgb( $settings.color ),
-                speed:  this.speed2num( $settings.speed ),
-                parts:  this.parts2num( $settings.parts ),
-                radius: this.radius2num( $settings.radius ),
-                fired:  this.fired2num( $settings.fired ),
-                tperfw: $settings.tperfw,
-                max_fw: $settings.max_fw,
-                notice: $settings.notice,
-                multi:  $settings.multi,
-            };
+            this.settings = $settings;
+            this.fireworks.fired = $settings.fired / 100;       //10 0.1
         }
         set_fireworks_total(tokens) {
             this.fireworks.total = Math.round(tokens / this.settings.tperfw);
+            if (this.fireworks.total >= this.settings.max_fw)
+                this.fireworks.total = this.settings.max_fw;
         }
         
         animate_fireworks() {
@@ -262,16 +192,21 @@
             this.fireworks.data.forEach(
                 (firework) => { firework.update(); firework.draw(); }
             );
-            if (this.fireworks.total > 0 && Math.random() < this.settings.fired) {
+            if (this.fireworks.total > 0 && Math.random() < this.fireworks.fired) {
                 this.fireworks.data.push( 
                     new Firework(
-                        Math.random() * canvas.width,
-                        (Math.random() * canvas.height) / 2,
+                        (this.settings.width)? 
+                            this.settings.width * Math.round(canvas.width / 100) :
+                            Math.random() * canvas.width,
+                        (this.settings.height)? 
+                            canvas.height - 
+                                (this.settings.height * Math.round(canvas.height / 100)) :
+                            (Math.random() * canvas.height) / 2,
                         this.settings.color,
-                        this.settings.speed,
-                        this.settings.parts,
-                        this.settings.radius,
-                        this.settings.multi,
+                        Math.round(this.settings.power / 100) * 0.25,   //4 1
+                        this.settings.parts,                            //1 1
+                        this.settings.radius * 0.25,                    //3 0.75
+                        this.settings.multic,
                     )
                 );
                 this.fireworks.total--;
@@ -279,8 +214,11 @@
             this.fireworks.data = this.fireworks.data.filter( (firework) => 
                 !firework.exploded || firework.particles.length > 0
             );
-            if (this.fireworks.total > 0 || this.fireworks.data.length)
+            if (this.fireworks.total > 0 || this.fireworks.data.length) {
                 requestAnimationFrame(() => this.animate_fireworks());
+            } else {
+                c.clearRect(0, 0, canvas.width, canvas.height);
+            }
         }
     
         show_notice(delay) {
@@ -292,8 +230,7 @@
         }
         notice_tip(tip, delay) {
             let elem = document.getElementById("span1");
-            let c = this.color2rgb(tip.colorGroup);
-            elem.style.color = `rgb(${c.r}, ${c.g}, ${c.b})`;
+            elem.style.color = $colorGroup[ tip.colorGroup ];
             elem.innerHTML = tip.username;
             document.getElementById("span2").innerHTML = 
         " tipped " + tip.tokens + ((tip.tokens == 1)? " token" : " tokens");
@@ -307,37 +244,48 @@
         }
     }
 
+    $colorGroup = { //$user.colorGroup
+        o:  "Red",  //owner
+        m:  "Red",  //moderator
+        f:  "Red",  //fanclub member
+        l:  "Purple",
+        p:  "MediumPurple",
+        tr: "DarkBlue",
+        t:  "LightBlue",
+        g:  "Grey",
+    }
 
     $settings = {
-         color:  "",
-         speed:  "",
-         parts:  "",
-         radius: "",
-         fired:  "",
-         tperfw: 1,
-         max_fw: 25,
-         notice: true,
-         multi: true,
+        color:  "", //""
+        power:  40, //4 1-100 %
+        parts:  15, //15 1-50
+        radius:  3, //3 1-10
+        fired:  10, //10 1-100 %
+        width:   0, //1-100 %
+        height: 75, //1-100 %
+        tperfw: 1,
+        max_fw: 25,
+        notice: true,
+        multic: true,
     };
             
     $events_data = {
         tip: {
             username: "rengo250",
-            tokens: 3,
+            tokens: 5,
             colorGroup: "l",
         },
         start: true,
     };
 
-    const app = new App();
+    const app = new FireworkApp();
+    
+    app.get_settings();
     
     app.notice_start(3000);
-    app.settings.tperfw = 1;
     app.set_fireworks_total(1);
     app.animate_fireworks();
-
-    app.get_settings();
-    app.settings.multi = false;
+    
     setTimeout(() => {
         app.notice_tip($events_data.tip, 3000);
         app.set_fireworks_total( $events_data.tip.tokens );

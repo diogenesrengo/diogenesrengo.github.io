@@ -54,7 +54,7 @@
             this.x = x;
             this.y = y;
             this.color = color;
-            this.radius = Math.random() * 2 + ((radius)? radius : 0.75);
+            this.radius = Math.random() * 2 + ((radius)? radius * 0.25 : 0.75);
             this.velocity = velocity;
             this.life = 100;
             this.alpha = 1;
@@ -205,7 +205,7 @@
                         this.settings.color,
                         Math.round(this.settings.power / 100) * 0.25,   //4 1
                         this.settings.parts,                            //1 1
-                        this.settings.radius * 0.25,                    //3 0.75
+                        this.settings.radius,
                         this.settings.multic,
                     )
                 );
@@ -217,7 +217,6 @@
             if (this.fireworks.total > 0 || this.fireworks.data.length) {
                 requestAnimationFrame(() => this.animate_fireworks());
             } else {
-                console.log("clearrect");
                 c.clearRect(0, 0, canvas.width, canvas.height);
             }
         }
