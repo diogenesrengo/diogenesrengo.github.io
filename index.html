@@ -200,7 +200,7 @@
                         Math.random() * canvas.width,
                         canvas.height / 2,
                         this.settings.color,
-                        Math.round(this.settings.power / 100) * 0.25,   //4 1
+                        (this.settings.power / 100) * 0.25,   //4 1
                         this.settings.parts,                            //1 1
                         this.settings.radius * 0.25,                    //3 0.75
                         this.settings.multic,
@@ -218,7 +218,7 @@
                             (Math.random() * canvas.height) / 2,
                         canvas.height,
                         this.settings.color,
-                        Math.round(this.settings.power / 10) * 0.25,   //4 1
+                        (this.settings.power / 10) * 0.25,   //4 1
                         this.settings.parts,                            //1 1
                         this.settings.radius * 0.25,                    //3 0.75
                         this.settings.multic,
@@ -273,7 +273,7 @@
 
     $settings = {
         color:  "", //""
-        power: 100, //4 1-100 %
+        power: 40, //4 1-100 %
         parts:  15, //15 1-50
         radius:  3, //3 1-10
         fired:  10, //10 1-100 %
