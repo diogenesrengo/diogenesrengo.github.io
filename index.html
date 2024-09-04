@@ -196,7 +196,7 @@
               if (this.settings.meteor) {
                 this.fireworks.data.push( new Firework(
                     Math.random() * canvas.width,
-                    -(Math.random() * canvas.height) / 2,
+                    canvas.height,
                     this.settings.color,
                     Math.round(this.settings.power / 100) * 0.25,   //4 1
                     this.settings.parts,                            //1 1
