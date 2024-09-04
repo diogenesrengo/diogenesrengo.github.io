@@ -215,7 +215,7 @@
                   this.fireworks.data.push( new Firework(
                         canvas.width / 2,
                         canvas.height / 2,
-                        canvas.width / 2,
+                        canvas.width * Math.random(),
                         canvas.height / 2,
                         this.settings.color,
                         this.settings.power,
@@ -271,7 +271,7 @@
     }
 
     $settings = {
-        color:  "gold", //""
+        color:  "", //""
         power:  40, //40 1-100 %
         parts:  30, //15 1-50
         radius:  3, //3  1-10 px
@@ -302,7 +302,6 @@
     app.set_fireworks_total(1);
     app.animate_fireworks();
     
-    app.settings.multic = false;
     setTimeout(() => {
         app.notice_tip($events_data.tip, 3000);
         app.set_fireworks_total( $events_data.tip.tokens );
